@@ -7,13 +7,13 @@ using ut_presentacion.Nucleo;
 namespace ut_presentacion.Repositorios
 {
     [TestClass]
-    public class PersonasPrueba
+    public class InstalacionesPrueba
     {
         private readonly IConexion? iConexion;
-        private List<Personas>? lista;
-        private Personas? entidad;
+        private List<Instalaciones>? lista;
+        private Instalaciones? entidad;
 
-        public PersonasPrueba()
+        public InstalacionesPrueba()
         {
             iConexion = new Conexion();
             iConexion.StringConexion = Configuracion.ObtenerValor("StringConexion");
@@ -30,34 +30,35 @@ namespace ut_presentacion.Repositorios
 
         public bool Listar()
         {
-            this.lista = this.iConexion!.Personas!.ToList();
+            this.lista = this.iConexion!.Instalaciones!.ToList();
             return lista.Count > 0;
         }
 
         public bool Guardar()
         {
-            this.entidad = EntidadesNucleo.Personas()!;
-            this.iConexion!.Personas!.Add(this.entidad);
+            this.entidad = EntidadesNucleo.Instalaciones()!;
+            this.iConexion!.Instalaciones!.Add(this.entidad);
             this.iConexion!.SaveChanges();
 
             return true;
         }
-        
+
         public bool Modificar()
         {
-            this.entidad!.Nombre = "Luis";
-            var entry = this.iConexion!.Entry<Personas>(this.entidad);
+            this.entidad!.Telefono = "123456";
+            var entry = this.iConexion!.Entry<Instalaciones>(this.entidad);
             entry.State = EntityState.Modified;
             this.iConexion!.SaveChanges();
 
             return true;
         }
-        
+
 
         public bool Borrar()
         {
-            this.iConexion!.Personas!.Remove(this.entidad!);
+            this.iConexion!.Instalaciones!.Remove(this.entidad!);
             this.iConexion!.SaveChanges();
+
             return true;
         }
     }

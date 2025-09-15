@@ -11,10 +11,10 @@ namespace lib_dominio.Entidades
     public class ClientesInstrumentos
     {
         [Key] public int Id { get; set; }
-        public int IdCliente { get; set; }
-        [ForeignKey("IdCliente")] public Clientes? _IdCliente { get; set; }
-        public int IdInstrumento { get; set; }
-        [ForeignKey("IdInstrumento")] public Instrumentos? _IdInstrumento { get; set; }
+        public int IdClientes { get; set; }
+        [ForeignKey("IdClientes")] public Clientes? _IdClientes { get; set; }
+        public int IdInstrumentos { get; set; }
+        [ForeignKey("IdInstrumentos")] public Instrumentos? _IdInstrumentos { get; set; }
 
     }
 }

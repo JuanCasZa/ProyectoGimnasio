@@ -11,9 +11,9 @@ namespace lib_dominio.Entidades
     public class InstalacionesEmpleados
     {
         [Key] public int Id { get; set; }
-        public int IdInstalacion { get; set; }
-        [ForeignKey("IdInstalaciones")] public Instalaciones? _IdInstalacion { get; set; }
-        public int IdEmpleado { get; set; }
-        [ForeignKey("IdEmpleado")] public Empleados? _IdEmpleado { get; set; }
+        public int IdInstalaciones { get; set; }
+        [ForeignKey("IdInstalaciones")] public Instalaciones? _IdInstalaciones { get; set; }
+        public int IdEmpleados { get; set; }
+        [ForeignKey("IdEmpleados")] public Empleados? _IdEmpleados { get; set; }
     }
 }

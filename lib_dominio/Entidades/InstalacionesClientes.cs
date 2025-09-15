@@ -12,9 +12,9 @@ namespace lib_dominio.Entidades
     {
         [Key] public int Id { get; set; }
         public int RegistroIngresoClientes { get; set; }
-        public int IdInstalacion { get; set; }
-        [ForeignKey("IdInstalacion")] public Instalaciones? _IdInstalacion { get; set; }
-        public int IdCliente { get; set; }
-        [ForeignKey("IdCliente")] public Clientes? _IdCliente { get; set; }
+        public int IdInstalaciones { get; set; }
+        [ForeignKey("IdInstalaciones")] public Instalaciones? _IdInstalaciones { get; set; }
+        public int IdClientes { get; set; }
+        [ForeignKey("IdClientes")] public Clientes? _IdClientes { get; set; }
     }
 }

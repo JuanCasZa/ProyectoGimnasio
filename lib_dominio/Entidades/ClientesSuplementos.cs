@@ -13,10 +13,10 @@ namespace lib_dominio.Entidades
         [Key] public int Id { get; set; }
         public int CantidadCompraSuplementos { get; set; }
         public decimal ValorTotalCompra { get; set; }
-        public int IdCliente { get; set; }
-        [ForeignKey("IdCliente")] public Clientes? _IdCliente { get; set; }
-        public int IdSuplemento { get; set; }
-        [ForeignKey("IdSuplemento")] public Suplementos? _IdSuplemento { get; set; }
+        public int IdClientes { get; set; }
+        [ForeignKey("IdClientes")] public Clientes? _IdClientes { get; set; }
+        public int IdSuplementos { get; set; }
+        [ForeignKey("IdSuplementos")] public Suplementos? _IdSuplementos { get; set; }
 
     }
 }

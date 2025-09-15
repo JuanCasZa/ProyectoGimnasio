@@ -13,9 +13,9 @@ namespace lib_dominio.Entidades
         [Key] public int Id { get; set; }
         public DateTime? FechaInicio { get; set; }
         public DateTime? FechaFin { get; set; }
-        public int IdCliente { get; set; }
-        [ForeignKey("IdCliente")] public Clientes? _IdCliente { get; set; }
-        public int IdMembresia { get; set; }
-        [ForeignKey("IdMembresia")] public Membresias? _IdMembresia { get; set; }
+        public int IdClientes { get; set; }
+        [ForeignKey("IdClientes")] public Clientes? _IdClientes { get; set; }
+        public int IdMembresias { get; set; }
+        [ForeignKey("IdMembresias")] public Membresias? _IdMembresias { get; set; }
     }
 }
