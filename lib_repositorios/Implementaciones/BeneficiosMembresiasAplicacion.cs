@@ -1,0 +1,66 @@
+﻿using lib_dominio.Entidades;
+using lib_repositorios.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
+namespace lib_repositorios.Implementaciones
+{
+    public class BeneficiosMembresiasAplicacion : IBeneficiosMembresiasAplicacion
+    {
+        private IConexion? IConexion = null;
+
+        public BeneficiosMembresiasAplicacion(IConexion iConexion)
+        {
+            this.IConexion = iConexion;
+        }
+
+        public void Configurar(string StringConexion)
+        {
+            this.IConexion!.StringConexion = StringConexion;
+        }
+
+        public BeneficiosMembresias? Borrar(BeneficiosMembresias? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformación");
+
+            if (entidad!.Id == 0)
+                throw new Exception("lbNoSeGuardó");
+
+            this.IConexion!.BeneficiosMembresias!.Remove(entidad);
+            this.IConexion.SaveChanges();
+            return entidad;
+        }
+
+        public BeneficiosMembresias? Guardar(BeneficiosMembresias? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformacion");
+
+            if (entidad.Id != 0)
+                throw new Exception("lbYaSeGuardo");
+
+            this.IConexion!.BeneficiosMembresias!.Add(entidad);
+            this.IConexion.SaveChanges();
+            return entidad;
+        }
+
+        public List<BeneficiosMembresias> Listar()
+        {
+            return this.IConexion!.BeneficiosMembresias!.Take(20).ToList();
+        }
+
+        public BeneficiosMembresias? Modificar(BeneficiosMembresias? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformación");
+
+            if (entidad!.Id == 0)
+                throw new Exception("lbNoSeGuardó");
+
+            var entry = this.IConexion!.Entry<BeneficiosMembresias>(entidad);
+            entry.State = EntityState.Modified;
+            this.IConexion.SaveChanges();
+            return entidad;
+        }
+    }
+}

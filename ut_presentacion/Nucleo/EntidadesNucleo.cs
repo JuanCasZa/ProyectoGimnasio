@@ -166,7 +166,11 @@ namespace ut_presentacion.Nucleo
         {
             var entidad = new BeneficiosMembresias();
             entidad.Beneficios = "Acceso ilimitado";
-            entidad.IdMembresias = 1; 
+            entidad.IdMembresias = 1;
+            var entidadM = new Membresias();
+            entidadM.Valor = 100000m;
+            entidadM.TipoMembresia = "Completa";
+            entidad._IdMembresias = entidadM;
 
             return entidad;
         }
