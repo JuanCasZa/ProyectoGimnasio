@@ -45,15 +45,7 @@ namespace ut_presentacion.Repositorios
         }
         public bool Modificar()
         {
-            var entidadCli = new Clientes();
-            entidadCli.Nombre = "ClientePrueba CliIns2";
-            entidadCli.Identificacion = "IdPrueba CliIns2";
-            entidadCli.Edad = 25;
-            entidadCli.CorreoElectronico = "pruebaCliIns2@gmail.com";
-            entidadCli.Telefono = "102359645";
-            entidadCli.Estatura = 1.73m;
-            entidadCli.Peso = 80.5m;
-            this.entidad!._IdClientes = entidadCli;
+            this.entidad!.IdClientes = 2;
             var entry = this.iConexion!.Entry<ClientesInstrumentos>(this.entidad);
             entry.State = EntityState.Modified;
             this.iConexion!.SaveChanges();
