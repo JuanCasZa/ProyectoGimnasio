@@ -6,58 +6,61 @@ namespace lib_repositorios.Implementaciones
 {
     public class InstalacionesClientesAplicacion : IInstalacionesClientesAplicacion
     {
-        private IConexion? IConexion;
+        private IConexion? IConexion = null;
 
-        public InstalacionesClientesAplicacion(IConexion conexion)
+        public InstalacionesClientesAplicacion(IConexion iConexion)
         {
-            IConexion = conexion;
+            this.IConexion = iConexion;
         }
 
         public void Configurar(string StringConexion)
         {
-            if (IConexion != null) IConexion.StringConexion = StringConexion;
-        }
-
-        public List<InstalacionesClientes> Listar()
-        {
-            return IConexion!.InstalacionesClientes!
-                .Include(ic => ic._IdClientes)
-                .Include(ic => ic._IdInstalaciones)
-                .ToList();
-        }
-
-        public InstalacionesClientes? Guardar(InstalacionesClientes? entidad)
-        {
-            if (entidad == null) throw new Exception("lbFaltaInformacion");
-            if (entidad.Id != 0) throw new Exception("lbYaSeGuardo");
-
-            IConexion!.InstalacionesClientes!.Add(entidad);
-            IConexion.SaveChanges();
-            return entidad;
-        }
-
-        public InstalacionesClientes? Modificar(InstalacionesClientes? entidad)
-        {
-            if (entidad == null) throw new Exception("lbFaltaInformacion");
-
-            var existente = IConexion!.InstalacionesClientes!.Find(entidad.Id);
-            if (existente == null) throw new Exception("lbNoExiste");
-
-            IConexion.Entry(existente).CurrentValues.SetValues(entidad);
-            IConexion.SaveChanges();
-            return entidad;
+            this.IConexion!.StringConexion = StringConexion;
         }
 
         public InstalacionesClientes? Borrar(InstalacionesClientes? entidad)
         {
-            if (entidad == null) throw new Exception("lbFaltaInformacion");
+            if (entidad == null)
+                throw new Exception("lbFaltaInformación");
 
-            var existente = IConexion!.InstalacionesClientes!.Find(entidad.Id);
-            if (existente == null) throw new Exception("lbNoExiste");
+            if (entidad!.Id == 0)
+                throw new Exception("lbNoSeGuardó");
 
-            IConexion.InstalacionesClientes!.Remove(existente);
-            IConexion.SaveChanges();
-            return existente;
+            this.IConexion!.InstalacionesClientes!.Remove(entidad);
+            this.IConexion.SaveChanges();
+            return entidad;
+        }
+
+        public InstalacionesClientes? Guardar(InstalacionesClientes? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformacion");
+
+            if (entidad.Id != 0)
+                throw new Exception("lbYaSeGuardo");
+
+            this.IConexion!.InstalacionesClientes!.Add(entidad);
+            this.IConexion.SaveChanges();
+            return entidad;
+        }
+
+        public List<InstalacionesClientes> Listar()
+        {
+            return this.IConexion!.InstalacionesClientes!.Take(20).ToList();
+        }
+
+        public InstalacionesClientes? Modificar(InstalacionesClientes? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformación");
+
+            if (entidad!.Id == 0)
+                throw new Exception("lbNoSeGuardó");
+
+            var entry = this.IConexion!.Entry<InstalacionesClientes>(entidad);
+            entry.State = EntityState.Modified;
+            this.IConexion.SaveChanges();
+            return entidad;
         }
     }
 }

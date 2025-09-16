@@ -1,37 +1,65 @@
 ﻿using lib_dominio.Entidades;
 using lib_repositorios.Implementaciones;
 using lib_repositorios.Interfaces;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.EntityFrameworkCore;
 using ut_presentacion.Nucleo;
 
-namespace ut_presentacion.Pruebas
+namespace ut_presentacion.Repositorios
 {
     [TestClass]
     public class InstalacionesClientesPrueba
     {
-        private IInstalacionesClientesAplicacion? app;
+        private readonly IConexion? iConexion;
+        private List<InstalacionesClientes>? lista;
+        private InstalacionesClientes? entidad;
 
-        [TestInitialize]
-        public void Init()
+        public InstalacionesClientesPrueba()
         {
-            var conexion = new Conexion();
-            app = new InstalacionesClientesAplicacion(conexion);
-            app.Configurar(Configuracion.ObtenerValor("StringConexion"));
+            iConexion = new Conexion();
+            iConexion.StringConexion = Configuracion.ObtenerValor("StringConexion");
         }
 
         [TestMethod]
-        public void GuardarInstalacionesClientes()
+        public void Ejecutar()
         {
-            var entidad = EntidadesNucleo.InstalacionesClientes();
-            var resultado = app!.Guardar(entidad);
-            Assert.IsNotNull(resultado);
+            Assert.AreEqual(true, Guardar());
+            Assert.AreEqual(true, Modificar());
+            Assert.AreEqual(true, Listar());
+            Assert.AreEqual(true, Borrar());
         }
 
-        [TestMethod]
-        public void ListarInstalacionesClientes()
+        public bool Listar()
         {
-            var lista = app!.Listar();
-            Assert.IsNotNull(lista);
+            this.lista = this.iConexion!.InstalacionesClientes!.ToList();
+            return lista.Count > 0;
+        }
+
+        public bool Guardar()
+        {
+            this.entidad = EntidadesNucleo.InstalacionesClientes()!;
+            this.iConexion!.InstalacionesClientes!.Add(this.entidad);
+            this.iConexion!.SaveChanges();
+
+            return true;
+        }
+
+        public bool Modificar()
+        {
+            this.entidad! .IdClientes = 2;
+            var entry = this.iConexion!.Entry<InstalacionesClientes>(this.entidad);
+            entry.State = EntityState.Modified;
+            this.iConexion!.SaveChanges();
+
+            return true;
+        }
+
+
+        public bool Borrar()
+        {
+            this.iConexion!.InstalacionesClientes!.Remove(this.entidad!);
+            this.iConexion!.SaveChanges();
+
+            return true;
         }
     }
 }

@@ -6,58 +6,61 @@ namespace lib_repositorios.Implementaciones
 {
     public class InstalacionesEmpleadosAplicacion : IInstalacionesEmpleadosAplicacion
     {
-        private IConexion? IConexion;
+        private IConexion? IConexion = null;
 
-        public InstalacionesEmpleadosAplicacion(IConexion conexion)
+        public InstalacionesEmpleadosAplicacion(IConexion iConexion)
         {
-            IConexion = conexion;
+            this.IConexion = iConexion;
         }
 
         public void Configurar(string StringConexion)
         {
-            if (IConexion != null) IConexion.StringConexion = StringConexion;
-        }
-
-        public List<InstalacionesEmpleados> Listar()
-        {
-            return IConexion!.InstalacionesEmpleados!
-                .Include(ie => ie._IdEmpleados)
-                .Include(ie => ie._IdInstalaciones)
-                .ToList();
-        }
-
-        public InstalacionesEmpleados? Guardar(InstalacionesEmpleados? entidad)
-        {
-            if (entidad == null) throw new Exception("lbFaltaInformacion");
-            if (entidad.Id != 0) throw new Exception("lbYaSeGuardo");
-
-            IConexion!.InstalacionesEmpleados!.Add(entidad);
-            IConexion.SaveChanges();
-            return entidad;
-        }
-
-        public InstalacionesEmpleados? Modificar(InstalacionesEmpleados? entidad)
-        {
-            if (entidad == null) throw new Exception("lbFaltaInformacion");
-
-            var existente = IConexion!.InstalacionesEmpleados!.Find(entidad.Id);
-            if (existente == null) throw new Exception("lbNoExiste");
-
-            IConexion.Entry(existente).CurrentValues.SetValues(entidad);
-            IConexion.SaveChanges();
-            return entidad;
+            this.IConexion!.StringConexion = StringConexion;
         }
 
         public InstalacionesEmpleados? Borrar(InstalacionesEmpleados? entidad)
         {
-            if (entidad == null) throw new Exception("lbFaltaInformacion");
+            if (entidad == null)
+                throw new Exception("lbFaltaInformación");
 
-            var existente = IConexion!.InstalacionesEmpleados!.Find(entidad.Id);
-            if (existente == null) throw new Exception("lbNoExiste");
+            if (entidad!.Id == 0)
+                throw new Exception("lbNoSeGuardó");
 
-            IConexion.InstalacionesEmpleados!.Remove(existente);
-            IConexion.SaveChanges();
-            return existente;
+            this.IConexion!.InstalacionesEmpleados!.Remove(entidad);
+            this.IConexion.SaveChanges();
+            return entidad;
+        }
+
+        public InstalacionesEmpleados? Guardar(InstalacionesEmpleados? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformacion");
+
+            if (entidad.Id != 0)
+                throw new Exception("lbYaSeGuardo");
+
+            this.IConexion!.InstalacionesEmpleados!.Add(entidad);
+            this.IConexion.SaveChanges();
+            return entidad;
+        }
+
+        public List<InstalacionesEmpleados> Listar()
+        {
+            return this.IConexion!.InstalacionesEmpleados!.Take(20).ToList();
+        }
+
+        public InstalacionesEmpleados? Modificar(InstalacionesEmpleados? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformación");
+
+            if (entidad!.Id == 0)
+                throw new Exception("lbNoSeGuardó");
+
+            var entry = this.IConexion!.Entry<InstalacionesEmpleados>(entidad);
+            entry.State = EntityState.Modified;
+            this.IConexion.SaveChanges();
+            return entidad;
         }
     }
 }
