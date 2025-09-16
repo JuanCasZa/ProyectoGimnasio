@@ -104,53 +104,65 @@ namespace ut_presentacion.Nucleo
 
         public static InstalacionesClientes? InstalacionesClientes()
         {
-            var entidad = new InstalacionesClientes();
-            entidad.IdInstalaciones = 1; 
-            entidad.IdClientes = 1; 
-            entidad.RegistroIngresoClientes = 5;
+            return new InstalacionesClientes
+            {
+                IdClientes = 1,
+                _IdClientes = new Clientes { Id = 1 }, 
 
-            return entidad;
+                IdInstalaciones = 1,
+                _IdInstalaciones = new Instalaciones { Id = 1 } 
+            };
         }
 
         public static InstalacionesEmpleados? InstalacionesEmpleados()
         {
-            var entidad = new InstalacionesEmpleados();
-            entidad.IdInstalaciones = 1; 
-            entidad.IdEmpleados = 1; 
+            return new InstalacionesEmpleados
+            {
+                IdEmpleados = 1,
+                _IdEmpleados = new Empleados { Id = 1 },
 
-            return entidad;
+                IdInstalaciones = 1,
+                _IdInstalaciones = new Instalaciones { Id = 1 }
+            };
         }
+
+
 
         public static ClientesMembresias? ClientesMembresias()
-        {
-            var entidad = new ClientesMembresias();
-            entidad.IdClientes = 1; 
-            entidad.IdMembresias = 1; 
-            entidad.FechaInicio = DateTime.Now;
-            entidad.FechaFin = DateTime.Now.AddMonths(1);
+            {
+                return new ClientesMembresias
+                {
+                    IdClientes = 1,
+                    _IdClientes = new Clientes { Id = 1 },   // relación FK
+                    IdMembresias = 1,
+                    _IdMembresias = new Membresias { Id = 1 } // relación FK
+                };
+            }
 
-            return entidad;
-        }
+
 
         public static ClientesSuplementos? ClientesSuplementos()
         {
-            var entidad = new ClientesSuplementos();
-            entidad.IdClientes = 1; 
-            entidad.IdSuplementos = 1; 
-            entidad.CantidadCompraSuplementos = 2;
-            entidad.ValorTotalCompra = 160000m;
+            return new ClientesSuplementos
+            {
+                IdClientes = 1,
+                _IdClientes = new Clientes { Id = 1 },
 
-            return entidad;
+                IdSuplementos = 1,
+                _IdSuplementos = new Suplementos { Id = 1 }
+            };
         }
 
         public static ClientesClasesGrupales? ClientesClasesGrupales()
         {
-            var entidad = new ClientesClasesGrupales();
-            entidad.IdClientes = 1; 
-            entidad.IdClasesGrupales = 1; 
-            entidad.Asistencias = 8;
+            return new ClientesClasesGrupales
+            {
+                IdClientes = 1,
+                _IdClientes = new Clientes { Id = 1 },
 
-            return entidad;
+                IdClasesGrupales = 1,
+                _IdClasesGrupales = new ClasesGrupales { Id = 1 }
+            };
         }
 
         public static ClientesInstrumentos? ClientesInstrumentos()
