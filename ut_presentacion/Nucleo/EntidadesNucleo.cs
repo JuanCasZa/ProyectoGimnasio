@@ -66,6 +66,12 @@ namespace ut_presentacion.Nucleo
             entidad.DescripcionGeneral = "Mancuerna de 10kg";
             entidad.Estado = true;
             entidad.Proveedor = 1; // ID de proveedor por defecto
+            var entidadP = new Proveedores();
+            entidadP.NombreEntidad = "ProveedorPrueba SOAS";
+            entidadP.ValorTotalVenta = 105000m;
+            entidadP.Direccion = "Calle 39";
+            entidadP.Telefono = "12333434";
+            entidad._Proveedor = entidadP;
 
             return entidad;
         }
@@ -87,6 +93,12 @@ namespace ut_presentacion.Nucleo
             entidad.Valor = 80000m;
             entidad.Cantidad = 50;
             entidad.Proveedor = 1;
+            var entidadP = new Proveedores();
+            entidadP.NombreEntidad = "ProveedorPrueba SASO";
+            entidadP.ValorTotalVenta = 9000000m;
+            entidadP.Direccion = "Calle 45";
+            entidadP.Telefono = "12354689";
+            entidad._Proveedor = entidadP;
 
             return entidad;
         }
@@ -158,6 +170,30 @@ namespace ut_presentacion.Nucleo
             var entidad = new ClientesInstrumentos();
             entidad.IdClientes = 1; 
             entidad.IdInstrumentos = 1; 
+            var entidadC= new Clientes();
+            entidadC.Nombre = "ClientePrueba CliIns";
+            entidadC.Identificacion = "IdPrueba CliIns";
+            entidadC.Edad = 25;
+            entidadC.CorreoElectronico = "pruebaCliIns@gmail.com";
+            entidadC.Telefono = "3334454545";
+            entidadC.Estatura = 1.83m;
+            entidadC.Peso = 78.5m;
+            var entidadI = new Instrumentos();
+            entidadI.NombreInstrumento = "Barra";
+            entidadI.CantidadEquip = 30;
+            entidadI.Piezas = 2;
+            entidadI.Marca = "Force";
+            entidadI.DescripcionGeneral = "Pesa de 20kg";
+            entidadI.Estado = true;
+            entidadI.Proveedor = 1;
+            var entidadP = new Proveedores();
+            entidadP.NombreEntidad = "ProveedorPrueba S.O";
+            entidadP.ValorTotalVenta = 1050m;
+            entidadP.Direccion = "Calle 49";
+            entidadP.Telefono = "3433434";
+            entidadI._Proveedor = entidadP;
+            entidad._IdClientes = entidadC;
+            entidad._IdInstrumentos = entidadI;
 
             return entidad;
         }
@@ -166,7 +202,11 @@ namespace ut_presentacion.Nucleo
         {
             var entidad = new BeneficiosMembresias();
             entidad.Beneficios = "Acceso ilimitado";
-            entidad.IdMembresias = 1; 
+            entidad.IdMembresias = 1;
+            var entidadM = new Membresias();
+            entidadM.Valor = 100000m;
+            entidadM.TipoMembresia = "Completa";
+            entidad._IdMembresias = entidadM;
 
             return entidad;
         }

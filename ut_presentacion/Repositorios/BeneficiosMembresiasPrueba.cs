@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using lib_dominio.Entidades;
+﻿using lib_dominio.Entidades;
 using lib_repositorios.Implementaciones;
 using lib_repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -12,16 +7,18 @@ using ut_presentacion.Nucleo;
 namespace ut_presentacion.Repositorios
 {
     [TestClass]
-    public class InstrumentosPrueba
+    public class BeneficiosMembresiasPrueba
     {
         private readonly IConexion? iConexion;
-        private List<Instrumentos>? lista;
-        private Instrumentos? entidad;
-        public InstrumentosPrueba()
+        private List<BeneficiosMembresias>? lista;
+        private BeneficiosMembresias? entidad;
+
+        public BeneficiosMembresiasPrueba()
         {
             iConexion = new Conexion();
             iConexion.StringConexion = Configuracion.ObtenerValor("StringConexion");
         }
+
         [TestMethod]
         public void Ejecutar()
         {
@@ -30,31 +27,36 @@ namespace ut_presentacion.Repositorios
             Assert.AreEqual(true, Listar());
             Assert.AreEqual(true, Borrar());
         }
+
         public bool Listar()
         {
-            this.lista = this.iConexion!.Instrumentos!.ToList();
+            this.lista = this.iConexion!.BeneficiosMembresias!.ToList();
             return lista.Count > 0;
         }
+
         public bool Guardar()
         {
-            this.entidad = EntidadesNucleo.Instrumentos()!;
-            this.iConexion!.Instrumentos!.Add(this.entidad);
+            this.entidad = EntidadesNucleo.BeneficiosMembresias()!;
+            this.iConexion!.BeneficiosMembresias!.Add(this.entidad);
             this.iConexion!.SaveChanges();
 
             return true;
         }
+
         public bool Modificar()
         {
-            this.entidad!.NombreInstrumento = "Disco";
-            var entry = this.iConexion!.Entry<Instrumentos>(this.entidad);
+            this.entidad!.Beneficios = "Gatorade gratis";
+            var entry = this.iConexion!.Entry<BeneficiosMembresias>(this.entidad);
             entry.State = EntityState.Modified;
             this.iConexion!.SaveChanges();
 
             return true;
         }
+
+
         public bool Borrar()
         {
-            this.iConexion!.Instrumentos!.Remove(this.entidad!);
+            this.iConexion!.BeneficiosMembresias!.Remove(this.entidad!);
             this.iConexion!.SaveChanges();
 
             return true;

@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace lib_repositorios.Implementaciones
 {
-    public class InstrumentosAplicacion : IInstrumentosAplicacion
+    public class SuplementosAplicacion: ISuplementosAplicacion
     {
         private IConexion? IConexion = null;
 
-        public InstrumentosAplicacion(IConexion iConexion)
+        public SuplementosAplicacion(IConexion iConexion)
         {
             this.IConexion = iConexion;
         }
@@ -22,8 +22,7 @@ namespace lib_repositorios.Implementaciones
         {
             this.IConexion!.StringConexion = StringConexion;
         }
-
-        public Instrumentos? Borrar(Instrumentos? entidad)
+        public Suplementos? Borrar(Suplementos? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
@@ -31,12 +30,11 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
-            this.IConexion!.Instrumentos!.Remove(entidad);
+            this.IConexion!.Suplementos!.Remove(entidad);
             this.IConexion.SaveChanges();
             return entidad;
         }
-
-        public Instrumentos? Guardar(Instrumentos? entidad)
+        public Suplementos? Guardar(Suplementos? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
@@ -44,17 +42,16 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
-            this.IConexion!.Instrumentos!.Add(entidad);
+            this.IConexion!.Suplementos!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
         }
-
-        public List<Instrumentos> Listar()
+        public List<Suplementos> Listar()
         {
-            return this.IConexion!.Instrumentos!.Take(20).ToList();
+            return this.IConexion!.Suplementos!.Take(20).ToList();
         }
 
-        public Instrumentos? Modificar(Instrumentos? entidad)
+        public Suplementos? Modificar(Suplementos? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
@@ -62,7 +59,7 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
-            var entry = this.IConexion!.Entry<Instrumentos>(entidad);
+            var entry = this.IConexion!.Entry<Suplementos>(entidad);
             entry.State = EntityState.Modified;
             this.IConexion.SaveChanges();
             return entidad;

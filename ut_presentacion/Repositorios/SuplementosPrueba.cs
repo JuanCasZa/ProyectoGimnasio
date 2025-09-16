@@ -15,8 +15,8 @@ namespace ut_presentacion.Repositorios
     public class SuplementosPrueba
     {
         private readonly IConexion? iConexion;
+        private List<Suplementos>? lista;
         private Suplementos? entidad;
-        private Proveedores? proveedor;
 
         public SuplementosPrueba()
         {
@@ -35,21 +35,15 @@ namespace ut_presentacion.Repositorios
 
         public bool Listar()
         {
-            var lista = iConexion!.Suplementos!.Include(f => f._Proveedor).ToList();
+            var lista = iConexion!.Suplementos!.ToList();
             return lista.Count > 0;
         }
 
         public bool Guardar()
         {
-            this.proveedor = EntidadesNucleo.Proveedores();
-            iConexion!.Proveedores!.Add(proveedor);
-            iConexion.SaveChanges();
-
             this.entidad = EntidadesNucleo.Suplementos();
-            this.entidad.Proveedor = proveedor.Id;
-
-            iConexion.Suplementos!.Add(entidad);
-            iConexion.SaveChanges();
+            this.iConexion!.Suplementos!.Add(this.entidad);
+            this.iConexion!.SaveChanges();
 
             return true;
         }

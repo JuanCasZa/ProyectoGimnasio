@@ -9,21 +9,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace lib_repositorios.Implementaciones
 {
-    public class InstrumentosAplicacion : IInstrumentosAplicacion
+    public class ClientesInstrumentosAplicacion : IClientesInstrumentosAplicacion
     {
         private IConexion? IConexion = null;
 
-        public InstrumentosAplicacion(IConexion iConexion)
+        public ClientesInstrumentosAplicacion(IConexion iConexion)
         {
             this.IConexion = iConexion;
         }
-
         public void Configurar(string StringConexion)
         {
             this.IConexion!.StringConexion = StringConexion;
         }
-
-        public Instrumentos? Borrar(Instrumentos? entidad)
+        public ClientesInstrumentos? Borrar(ClientesInstrumentos? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
@@ -31,12 +29,11 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
-            this.IConexion!.Instrumentos!.Remove(entidad);
+            this.IConexion!.ClientesInstrumentos!.Remove(entidad);
             this.IConexion.SaveChanges();
             return entidad;
         }
-
-        public Instrumentos? Guardar(Instrumentos? entidad)
+        public ClientesInstrumentos? Guardar(ClientesInstrumentos? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
@@ -44,17 +41,15 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
-            this.IConexion!.Instrumentos!.Add(entidad);
+            this.IConexion!.ClientesInstrumentos!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
         }
-
-        public List<Instrumentos> Listar()
+        public List<ClientesInstrumentos> Listar()
         {
-            return this.IConexion!.Instrumentos!.Take(20).ToList();
+            return this.IConexion!.ClientesInstrumentos!.Take(20).ToList();
         }
-
-        public Instrumentos? Modificar(Instrumentos? entidad)
+        public ClientesInstrumentos? Modificar(ClientesInstrumentos? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
@@ -62,7 +57,7 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
-            var entry = this.IConexion!.Entry<Instrumentos>(entidad);
+            var entry = this.IConexion!.Entry<ClientesInstrumentos>(entidad);
             entry.State = EntityState.Modified;
             this.IConexion.SaveChanges();
             return entidad;
