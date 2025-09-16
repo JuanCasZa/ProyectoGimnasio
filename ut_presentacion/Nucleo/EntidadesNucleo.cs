@@ -178,22 +178,8 @@ namespace ut_presentacion.Nucleo
             entidadC.Telefono = "3334454545";
             entidadC.Estatura = 1.83m;
             entidadC.Peso = 78.5m;
-            var entidadI = new Instrumentos();
-            entidadI.NombreInstrumento = "Barra";
-            entidadI.CantidadEquip = 30;
-            entidadI.Piezas = 2;
-            entidadI.Marca = "Force";
-            entidadI.DescripcionGeneral = "Pesa de 20kg";
-            entidadI.Estado = true;
-            entidadI.Proveedor = 1;
-            var entidadP = new Proveedores();
-            entidadP.NombreEntidad = "ProveedorPrueba S.O";
-            entidadP.ValorTotalVenta = 1050m;
-            entidadP.Direccion = "Calle 49";
-            entidadP.Telefono = "3433434";
-            entidadI._Proveedor = entidadP;
-            entidad._IdClientes = entidadC;
-            entidad._IdInstrumentos = entidadI;
+            entidad._IdClientes = 1;
+            entidad._IdInstrumentos = 1;
 
             return entidad;
         }
