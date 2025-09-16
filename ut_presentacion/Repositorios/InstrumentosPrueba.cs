@@ -1,4 +1,9 @@
-﻿using lib_dominio.Entidades;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using lib_dominio.Entidades;
 using lib_repositorios.Implementaciones;
 using lib_repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -7,18 +12,16 @@ using ut_presentacion.Nucleo;
 namespace ut_presentacion.Repositorios
 {
     [TestClass]
-    public class ClientesPrueba
+    public class InstrumentosPrueba
     {
         private readonly IConexion? iConexion;
-        private List<Clientes>? lista;
-        private Clientes? entidad;
-
-        public ClientesPrueba()
+        private List<Instrumentos>? lista;
+        private Instrumentos? entidad;
+        public InstrumentosPrueba()
         {
             iConexion = new Conexion();
             iConexion.StringConexion = Configuracion.ObtenerValor("StringConexion");
         }
-
         [TestMethod]
         public void Ejecutar()
         {
@@ -27,37 +30,31 @@ namespace ut_presentacion.Repositorios
             Assert.AreEqual(true, Listar());
             Assert.AreEqual(true, Borrar());
         }
-
         public bool Listar()
         {
-            this.lista = this.iConexion!.Clientes!.ToList();
+            this.lista = this.iConexion!.Instrumentos!.ToList();
             return lista.Count > 0;
         }
-
-
         public bool Guardar()
         {
-            this.entidad = EntidadesNucleo.Clientes()!;
-            this.iConexion!.Clientes!.Add(this.entidad);
+            this.entidad = EntidadesNucleo.Instrumentos()!;
+            this.iConexion!.Instrumentos!.Add(this.entidad);
             this.iConexion!.SaveChanges();
 
             return true;
         }
-
         public bool Modificar()
         {
-            this.entidad!.Telefono = "123456";
-            var entry = this.iConexion!.Entry<Clientes>(this.entidad);
+            this.entidad!.NombreInstrumento = "Disco";
+            var entry = this.iConexion!.Entry<Instrumentos>(this.entidad);
             entry.State = EntityState.Modified;
             this.iConexion!.SaveChanges();
 
             return true;
         }
-
-
         public bool Borrar()
         {
-            this.iConexion!.Clientes!.Remove(this.entidad!);
+            this.iConexion!.Instrumentos!.Remove(this.entidad!);
             this.iConexion!.SaveChanges();
 
             return true;

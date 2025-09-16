@@ -1,3 +1,8 @@
 {
+<<<<<<< HEAD
 	'StringConexion':'server=(localdb)\\MSSQLLocalDB;database=dbGimnasio;Integrated Security=True;TrustServerCertificate=true;'
 }
+=======
+	'StringConexion':'server=DESKTOP-N1P9U1C;database=dbGimnasio;Integrated Security=True;TrustServerCertificate=true;'
+}
+>>>>>>> 5f3fa76f4ee07f49c1d552875a7fbbfc244ad8e6
