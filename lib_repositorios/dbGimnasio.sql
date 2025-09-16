@@ -116,6 +116,8 @@ values ('Carrera 45 #20-15, Medellín', '6047654321');
 insert into [Empleados] (Nombre, Identificacion, Telefono, AnhosExperiencia, Salario, Estado, Especialidad, Cargo, HorarioDisponible)
 values ('Ana Gómez', 'CC987654', '3019876543', 5, 2500000, 1, 'Entrenamiento Funcional', 'Instructor', 'Lunes a Viernes 6-10am');
 
+insert into [Empleados] (Nombre, Identificacion, Telefono, AnhosExperiencia, Salario, Estado, Especialidad, Cargo, HorarioDisponible)
+values ('Julian Arias', 'CC123456', '3000000000', 6, 1600000, 1, 'Entrenamiento', 'Instructor', 'Lunes a Viernes 6-10am');
 
 	/*Tablas de relaciones muchos a muchos con Clientes*/
 

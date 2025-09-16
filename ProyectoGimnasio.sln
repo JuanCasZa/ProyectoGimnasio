@@ -22,8 +22,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 		configJson.txt = configJson.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asp_servicios", "asp_servicios\asp_servicios.csproj", "{E3DC5139-C04C-425D-9390-F5DB2A0CFB45}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,10 +40,6 @@ Global
 		{23A4DD49-8196-435D-B380-BB237FC06A94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23A4DD49-8196-435D-B380-BB237FC06A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23A4DD49-8196-435D-B380-BB237FC06A94}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E3DC5139-C04C-425D-9390-F5DB2A0CFB45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3DC5139-C04C-425D-9390-F5DB2A0CFB45}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3DC5139-C04C-425D-9390-F5DB2A0CFB45}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3DC5139-C04C-425D-9390-F5DB2A0CFB45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,7 +48,6 @@ Global
 		{8EDFDAB7-4039-445C-BE8F-F30BBB50E724} = {41CFE505-8340-44F4-A78C-C2C58542C948}
 		{FE12F5A9-382D-47DE-BB10-23AB1D1BE01E} = {32456E63-7A36-4418-85D7-D838FFD7990C}
 		{23A4DD49-8196-435D-B380-BB237FC06A94} = {8A8506C3-F2F0-4D11-879C-275850249183}
-		{E3DC5139-C04C-425D-9390-F5DB2A0CFB45} = {32456E63-7A36-4418-85D7-D838FFD7990C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CCA8CDE1-C16E-4759-80A6-41A22EB1DBFB}
