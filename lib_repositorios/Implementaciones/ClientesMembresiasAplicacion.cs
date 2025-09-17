@@ -39,7 +39,21 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
-            this.IConexion!.ClientesMembresias!.Add(entidad);
+            // Validar membresía
+            if (!this.IConexion!.Membresias!.Any(m => m.Id == entidad.IdMembresias))
+                throw new Exception("Membresía no válida");
+
+            // Regla de negocio: evitar solapamiento de membresías activas
+            var ahora = DateTime.Now;
+            var tieneActiva = this.IConexion.ClientesMembresias!.Any(cm => cm.IdClientes == entidad.IdClientes
+                           && (cm.FechaFin == null || cm.FechaFin >= ahora));
+            if (tieneActiva)
+                throw new Exception("El cliente ya tiene una membresía activa o vigente");
+
+            // Si pasa validaciones, asignamos FechaInicio si no viene y añadimos la entidad
+            if (entidad.FechaInicio == null) entidad.FechaInicio = DateTime.Now;
+
+            this.IConexion.ClientesMembresias!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
         }

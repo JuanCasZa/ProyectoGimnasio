@@ -26,6 +26,10 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
+            //Operaciones
+            entidad._IdInstalaciones = null;
+            entidad._IdEmpleados = null;
+
             this.IConexion!.InstalacionesEmpleados!.Remove(entidad);
             this.IConexion.SaveChanges();
             return entidad;
@@ -38,6 +42,10 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
+
+            //Operaciones
+            entidad._IdInstalaciones = null;
+            entidad._IdEmpleados = null;
 
             this.IConexion!.InstalacionesEmpleados!.Add(entidad);
             this.IConexion.SaveChanges();
@@ -56,6 +64,10 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            //Operaciones
+            entidad._IdInstalaciones = null;
+            entidad._IdEmpleados = null;
 
             var entry = this.IConexion!.Entry<InstalacionesEmpleados>(entidad);
             entry.State = EntityState.Modified;

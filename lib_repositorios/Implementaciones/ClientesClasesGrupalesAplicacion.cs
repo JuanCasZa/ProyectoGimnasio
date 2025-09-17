@@ -39,6 +39,27 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
+            // Validar cliente
+            if (!this.IConexion!.Clientes!.Any(c => c.Id == entidad.IdClientes))
+                throw new Exception("Cliente no válido");
+
+            // Validar clase grupal
+            var clase = this.IConexion.ClasesGrupales!.FirstOrDefault(cg => cg.Id == entidad.IdClasesGrupales);
+            if (clase == null)
+                throw new Exception("Clase grupal no válida");
+
+            // Evitar duplicados: el cliente ya inscrito en la misma clase
+            if (this.IConexion.ClientesClasesGrupales!.Any(cc => cc.IdClientes == entidad.IdClientes && cc.IdClasesGrupales == entidad.IdClasesGrupales))
+                throw new Exception("El cliente ya está inscrito en esta clase");
+
+            // Validar capacidad
+            var inscritos = this.IConexion.ClientesClasesGrupales!.Count(cc => cc.IdClasesGrupales == entidad.IdClasesGrupales);
+            if (clase.CapacidadMax <= inscritos)
+                throw new Exception("La clase ya alcanzó su capacidad máxima");
+
+            // Inicializar asistencias si es null
+            if (entidad.Asistencias == null) entidad.Asistencias = 0;
+
             this.IConexion!.ClientesClasesGrupales!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;

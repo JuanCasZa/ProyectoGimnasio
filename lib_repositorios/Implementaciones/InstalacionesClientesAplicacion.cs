@@ -39,6 +39,18 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
+            // Validación: cliente e instalación existen
+            if (!this.IConexion!.Clientes!.Any(c => c.Id == entidad.IdClientes))
+                throw new Exception("Cliente no válido");
+
+            if (!this.IConexion!.Instalaciones!.Any(i => i.Id == entidad.IdInstalaciones))
+                throw new Exception("Instalación no válida");
+
+            /* Registro de ingreso: si el campo RegistroIngresoClientes se usa como conteo,
+               si viene vacío lo inicializamos en 1 */
+            if (entidad.RegistroIngresoClientes == 0)
+                entidad.RegistroIngresoClientes = 1;
+
             this.IConexion!.InstalacionesClientes!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
