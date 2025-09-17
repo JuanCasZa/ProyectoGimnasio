@@ -34,7 +34,6 @@ namespace ut_presentacion.Repositorios
             return lista.Count > 0;
         }
 
-
         public bool Guardar()
         {
             this.entidad = EntidadesNucleo.Clientes()!;

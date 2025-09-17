@@ -30,6 +30,8 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
+            entidad._Proveedor = null;
+
             this.IConexion!.Suplementos!.Remove(entidad);
             this.IConexion.SaveChanges();
             return entidad;
@@ -41,6 +43,12 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
+
+            //Para evitar que la cantidad de suplementos sea negativa
+            if (entidad.Cantidad < 0)
+                throw new Exception("lbStockNegativo");
+
+            entidad._Proveedor = null;
 
             this.IConexion!.Suplementos!.Add(entidad);
             this.IConexion.SaveChanges();
@@ -58,6 +66,8 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            entidad._Proveedor = null;
 
             var entry = this.IConexion!.Entry<Suplementos>(entidad);
             entry.State = EntityState.Modified;
