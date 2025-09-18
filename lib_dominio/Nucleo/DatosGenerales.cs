@@ -2,7 +2,7 @@
 {
     public class DatosGenerales
     {
-        public static string ruta_jason = @"C:\Users\stefa\OneDrive\Escritorio\ProyectoGimnasio\configJson.txt";
+        public static string ruta_jason = @"C:\Users\USUARIO\Desktop\ProyectoGimnasio\configJson.txt";
         //C:\Users\USUARIO\Desktop\ProyectoGimnasio\configJson.txt, Ruta Castro 
         //C:\Users\user\OneDrive\Desktop\ProyectoGimnasio\configJson.txt Ruta Julian
         public static bool usa_azure = false;

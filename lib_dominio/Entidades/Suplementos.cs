@@ -10,7 +10,7 @@ namespace lib_dominio.Entidades
 {
     public class Suplementos
     {
-        [Key] public int Id { get; set; }
+        public int Id { get; set; }
         public string NombreSuplemento { get; set; }
         public string TipoSuplemento { get; set; }
         public decimal Valor { get; set; }

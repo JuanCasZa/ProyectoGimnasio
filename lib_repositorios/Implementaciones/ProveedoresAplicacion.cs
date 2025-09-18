@@ -36,6 +36,9 @@ namespace lib_repositorios.Implementaciones
                 throw new Exception("lbFaltaInformacion");
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardó");
+
+
+
             this.IConexion!.Proveedores!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
