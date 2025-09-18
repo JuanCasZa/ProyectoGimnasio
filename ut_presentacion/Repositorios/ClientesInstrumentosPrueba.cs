@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using lib_dominio.Entidades;
+﻿using lib_dominio.Entidades;
 using lib_repositorios.Implementaciones;
 using lib_repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;

@@ -26,6 +26,9 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
+            if (entidad.Estado == true)
+                throw new Exception("Primero cambiar el estado a negativo");
+
             this.IConexion!.Empleados!.Remove(entidad);
             this.IConexion.SaveChanges();
             return entidad;
@@ -38,6 +41,17 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
+
+            if(entidad.Especialidad.Equals("Ninguna"))
+            {
+                if (entidad.Salario > 1600000)
+                    throw new Exception("Salario mal ingresado");
+            }
+
+            if (entidad.Estado != true)
+                throw new Exception("El estado ha de ser inicializado como verdadero");
+            
+
 
             this.IConexion!.Empleados!.Add(entidad);
             this.IConexion.SaveChanges();
@@ -56,6 +70,15 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            if (entidad.Telefono?.Length > 10)
+            {
+                throw new Exception("Telefeono demasido largo");
+            }
+            else if (entidad.Telefono?.Length < 7)
+            {
+                throw new Exception("Telefono demasiado corto");
+            }
 
             var entry = this.IConexion!.Entry<Empleados>(entidad);
             entry.State = EntityState.Modified;

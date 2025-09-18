@@ -1,6 +1,7 @@
 ﻿using lib_dominio.Entidades;
 using lib_repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace lib_repositorios.Implementaciones
 {
@@ -39,6 +40,9 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
+            if (entidad.Direccion == null)
+                throw new Exception("Direccion no ingresada");
+
             this.IConexion!.Instalaciones!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
@@ -57,7 +61,20 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
-            var entry = this.IConexion!.Entry<Instalaciones>(entidad);
+            if (entidad.Direccion?.Length > 150)
+                throw new Exception("Direccion demasiado larga, utilice abreviaturas");
+
+            if (entidad.Telefono.Length > 10)
+            {
+                throw new Exception("Número de telefono invalido, demasiado largo");
+            }
+            else if(entidad.Telefono.Length < 7)
+            {
+                throw new Exception("Número invalido, demasiado corto");
+            }
+
+
+                var entry = this.IConexion!.Entry<Instalaciones>(entidad);
             entry.State = EntityState.Modified;
             this.IConexion.SaveChanges();
             return entidad;

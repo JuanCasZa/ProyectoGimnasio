@@ -39,6 +39,9 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
+            if (entidad.Beneficios?.Length > 20)
+                throw new Exception("Descripcion demasiado larga");
+
             this.IConexion!.BeneficiosMembresias!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
@@ -56,6 +59,9 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            if (entidad.Beneficios?.Length > 20)
+                throw new Exception("Descripcion demasiado larga");
 
             var entry = this.IConexion!.Entry<BeneficiosMembresias>(entidad);
             entry.State = EntityState.Modified;

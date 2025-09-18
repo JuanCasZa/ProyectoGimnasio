@@ -1,6 +1,7 @@
 ﻿using lib_dominio.Entidades;
 using lib_repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 
 namespace lib_repositorios.Implementaciones
 {
@@ -39,6 +40,9 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
+            if (entidad.Edad < 16)
+                throw new Exception("No se puede registrar, cliente demasiado joven");
+
             this.IConexion!.Clientes!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
@@ -57,7 +61,28 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
-            var entry = this.IConexion!.Entry<Clientes>(entidad);
+            if (entidad.CorreoElectronico.Length > 100)
+            {
+                throw new Exception("Correo electronico invalido, demasiado largo");
+            }
+            else
+            {
+                string[] correo = entidad.CorreoElectronico.Split("@");
+                if (!correo[1].Equals("gmail") || !correo[1].Equals("hotmail") || !correo[1].Equals("outlook"))
+                    throw new Exception("Extención de correo invalida");
+            }
+            if (entidad.Telefono?.Length > 10)
+            {
+                throw new Exception("Telefeono demasido largo");
+            }
+            else if (entidad.Telefono?.Length < 7)
+            {
+                throw new Exception("Telefono demasiado corto");
+            }
+
+           
+
+                var entry = this.IConexion!.Entry<Clientes>(entidad);
             entry.State = EntityState.Modified;
             this.IConexion.SaveChanges();
             return entidad;
