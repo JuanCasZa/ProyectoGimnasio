@@ -53,9 +53,6 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
-            //Disponible por defecto
-            entidad.Estado = true;
-
             entidad._Proveedor= null;
 
             this.IConexion!.Instrumentos!.Add(entidad);
