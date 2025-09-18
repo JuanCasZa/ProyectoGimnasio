@@ -40,6 +40,10 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
+            // Valida que el cupo maximo sea mayor a cero
+            if (entidad.CapacidadMax <= 0)
+                throw new Exception("La capacidad maxima debe ser mayor a cero");
+
             this.IConexion!.ClasesGrupales!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;

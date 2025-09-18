@@ -29,6 +29,9 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
+            entidad._IdClientes = null;
+            entidad._IdInstrumentos = null;
+
             this.IConexion!.ClientesInstrumentos!.Remove(entidad);
             this.IConexion.SaveChanges();
             return entidad;
@@ -40,6 +43,19 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
+
+            //Validar que el instrumento este disponible
+            var instrumento = this.IConexion!.Instrumentos!
+                .FirstOrDefault(i => i.Id == entidad.IdInstrumentos);
+
+            if (instrumento == null)
+                throw new Exception("El instrumento no existe");
+
+            if (instrumento.Estado == false)
+                throw new Exception("El instrumento no está disponible");
+
+            entidad._IdClientes = null;
+            entidad._IdInstrumentos = null;
 
             this.IConexion!.ClientesInstrumentos!.Add(entidad);
             this.IConexion.SaveChanges();
@@ -56,6 +72,9 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            entidad._IdClientes = null;
+            entidad._IdInstrumentos = null;
 
             var entry = this.IConexion!.Entry<ClientesInstrumentos>(entidad);
             entry.State = EntityState.Modified;

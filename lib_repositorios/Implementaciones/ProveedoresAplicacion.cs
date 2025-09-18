@@ -26,6 +26,21 @@ namespace lib_repositorios.Implementaciones
                 throw new Exception("lbFaltaInformacion");
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            //Para evitar borrar proveedor de la base si hay suplementos o instrumentos asociados
+
+            bool tieneSuplementos = this.IConexion!.Suplementos!
+                .Any(s => s.Proveedor == entidad.Id);
+
+            if (tieneSuplementos)
+                throw new Exception("lbProveedorConSuplementos");
+
+            bool tieneInstrumentos = this.IConexion!.Instrumentos!
+               .Any(i => i.Proveedor == entidad.Id);
+
+            if (tieneInstrumentos)
+                throw new Exception("lbProveedorConInstrumentos");
+
             this.IConexion!.Proveedores!.Remove(entidad);
             this.IConexion.SaveChanges();
             return entidad;
@@ -36,8 +51,6 @@ namespace lib_repositorios.Implementaciones
                 throw new Exception("lbFaltaInformacion");
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardó");
-
-
 
             this.IConexion!.Proveedores!.Add(entidad);
             this.IConexion.SaveChanges();
