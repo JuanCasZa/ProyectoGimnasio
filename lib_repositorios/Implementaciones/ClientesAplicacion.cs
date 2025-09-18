@@ -68,7 +68,7 @@ namespace lib_repositorios.Implementaciones
             else
             {
                 string[] correo = entidad.CorreoElectronico.Split("@");
-                if (!correo[1].Equals("gmail") || !correo[1].Equals("hotmail") || !correo[1].Equals("outlook"))
+                if (!correo[1].Equals("gmail.com") && !correo[1].Equals("hotmail.com") && !correo[1].Equals("outlook.com"))
                     throw new Exception("Extención de correo invalida");
             }
             if (entidad.Telefono?.Length > 10)
