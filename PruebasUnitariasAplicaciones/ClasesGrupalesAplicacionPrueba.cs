@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using lib_dominio.Entidades;
-using lib_repositorios.Implementaciones;
 using lib_repositorios.Interfaces;
+using lib_repositorios.Implementaciones;
+using lib_dominio.Entidades;
 using Microsoft.EntityFrameworkCore;
 using ut_presentacion.Nucleo;
 
 namespace PruebasUnitariasAplicaciones
 {
     [TestClass]
-    public class InstrumentosAplicacionPrueba
+    public class ClasesGrupalesAplicacionPrueba
     {
         private readonly IConexion? iConexion;
-        private InstrumentosAplicacion? aplicacion;
-        private List<Instrumentos>? lista;
-        private Instrumentos? entidad;
-        public InstrumentosAplicacionPrueba()
+        private ClasesGrupalesAplicacion? app;
+        private List<ClasesGrupales>? lista;
+        private ClasesGrupales? entidad;
+
+        public ClasesGrupalesAplicacionPrueba()
         {
             iConexion = new Conexion();
             iConexion.StringConexion = Configuracion.ObtenerValor("StringConexion");
-            aplicacion = new InstrumentosAplicacion(iConexion);
+            app = new ClasesGrupalesAplicacion(iConexion);
         }
 
         [TestMethod]
@@ -34,29 +35,31 @@ namespace PruebasUnitariasAplicaciones
             Assert.AreEqual(true, Borrar());
         }
 
-        public bool Listar()
-        {
-            this.lista = this.aplicacion!.Listar();
-            return lista.Count > 0;
-        }
-
         public bool Guardar()
         {
-            this.entidad = EntidadesNucleo.Instrumentos()!;
-            this.aplicacion!.Guardar(this.entidad);
-            return true;
+            this.entidad = EntidadesNucleo.ClasesGrupales()!;
+            this.app!.Guardar(this.entidad);
+
+            return this.entidad.Id > 0;
         }
 
         public bool Modificar()
         {
-            this.entidad!.NombreInstrumento = "Disco2";
-            this.aplicacion!.Modificar(this.entidad);
+            this.entidad!.Nivel = "Alto";
+            this.app!.Modificar(this.entidad);
+
             return true;
+        }
+
+        public bool Listar()
+        {
+            this.lista = this.app!.Listar();
+            return lista.Count > 0;
         }
 
         public bool Borrar()
         {
-            this.aplicacion!.Borrar(this.entidad!);
+            this.app!.Borrar(this.entidad!);
             return true;
         }
     }

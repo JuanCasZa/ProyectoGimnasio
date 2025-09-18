@@ -12,19 +12,18 @@ using ut_presentacion.Nucleo;
 namespace PruebasUnitariasAplicaciones
 {
     [TestClass]
-    public class InstrumentosAplicacionPrueba
+    public class SuplementosAplicacionPrueba
     {
         private readonly IConexion? iConexion;
-        private InstrumentosAplicacion? aplicacion;
-        private List<Instrumentos>? lista;
-        private Instrumentos? entidad;
-        public InstrumentosAplicacionPrueba()
+        private SuplementosAplicacion? app;
+        private List<Suplementos>? lista;
+        private Suplementos? entidad;
+        public SuplementosAplicacionPrueba()
         {
             iConexion = new Conexion();
             iConexion.StringConexion = Configuracion.ObtenerValor("StringConexion");
-            aplicacion = new InstrumentosAplicacion(iConexion);
+            app = new SuplementosAplicacion(iConexion);
         }
-
         [TestMethod]
         public void Ejecutar()
         {
@@ -33,30 +32,28 @@ namespace PruebasUnitariasAplicaciones
             Assert.AreEqual(true, Listar());
             Assert.AreEqual(true, Borrar());
         }
-
-        public bool Listar()
-        {
-            this.lista = this.aplicacion!.Listar();
-            return lista.Count > 0;
-        }
-
         public bool Guardar()
         {
-            this.entidad = EntidadesNucleo.Instrumentos()!;
-            this.aplicacion!.Guardar(this.entidad);
-            return true;
-        }
+            this.entidad = EntidadesNucleo.Suplementos();
+            this.app!.Guardar(this.entidad);
 
+            return this.entidad!.Id > 0;
+        }
         public bool Modificar()
         {
-            this.entidad!.NombreInstrumento = "Disco2";
-            this.aplicacion!.Modificar(this.entidad);
+            this.entidad!.Valor = 155000m;
+            this.app!.Modificar(this.entidad);
+
             return true;
         }
-
+        public bool Listar()
+        {
+            this.lista = this.app!.Listar();
+            return lista.Count > 0;
+        }
         public bool Borrar()
         {
-            this.aplicacion!.Borrar(this.entidad!);
+            this.app!.Borrar(this.entidad!);
             return true;
         }
     }
