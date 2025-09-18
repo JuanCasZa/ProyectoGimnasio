@@ -1,7 +1,3 @@
 {
-<<<<<<< HEAD
-	'StringConexion':'server=(localdb)\\MSSQLLocalDB;database=dbGimnasio;Integrated Security=True;TrustServerCertificate=true;'
-=======
-	'StringConexion':'server=DESKTOP-PGQLEH1\\SQLEXPRESS;database=dbGimnasio;Integrated Security=True;TrustServerCertificate=true;'
->>>>>>> d6fd6e42a1b1f28ef3d66cc27c271ad5cf6efb6a
+	'StringConexion':'server=DESKTOP-N1P9U1C;database=dbGimnasio;Integrated Security=True;TrustServerCertificate=true;'
 }

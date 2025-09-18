@@ -44,6 +44,10 @@ namespace lib_repositorios.Implementaciones
             if (entidad.CapacidadMax <= 0)
                 throw new Exception("La capacidad maxima debe ser mayor a cero");
 
+            //Valida que la duracion de la clase no sea negativa y no exceda de un limite razonable
+            if (entidad.Duracion <= 0 || entidad.Duracion > 2)
+                throw new Exception("La duración debe ser mayor a 0 y no puede superar las 2 horas");
+
             this.IConexion!.ClasesGrupales!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
@@ -60,7 +64,15 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
-            var entry = this.IConexion!.Entry<ClasesGrupales>(entidad);
+            // Valida que el cupo maximo sea mayor a cero
+            if (entidad.CapacidadMax <= 0)
+                throw new Exception("La capacidad maxima debe ser mayor a cero");
+
+            //Validar que la duracion de la clase no sea negativa y no exceda de un limite razonable
+            if (entidad.Duracion <= 0 || entidad.Duracion > 2)
+                throw new Exception("La duración debe ser mayor a 0 y no puede superar las 2 horas");
+
+            var entry = this.IConexion!.Entry<ClasesGrupales>(entidad); 
             entry.State = EntityState.Modified;
             this.IConexion.SaveChanges();
             return entidad;

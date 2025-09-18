@@ -37,11 +37,12 @@ namespace PruebasUnitariasAplicaciones
         {
             entidad = new ClientesInstrumentos
             {
-                IdClientes = 1,
+                IdClientes = 2,
                 IdInstrumentos = 1 
             };
             var resultado = aplicacion.Guardar(entidad);
             return resultado != null && resultado.Id > 0;
+
         }
 
         public bool Modificar()

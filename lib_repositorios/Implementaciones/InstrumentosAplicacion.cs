@@ -53,6 +53,21 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
+            //Para evitar que la cantidad de equipos y de piezas sea negativa
+            if (entidad.CantidadEquip < 0)
+                throw new Exception("La cantidad de equipos no puede ser negativa");
+            if (entidad.Piezas < 0)
+                throw new Exception("La cantidad de piezas no puede ser negativa");
+
+            //Para evitar que hayan dos instrumentos con el mismo nombre y marca repetidos
+            bool existeDuplicado = this.IConexion!.Instrumentos!
+                .Any(i => i.NombreInstrumento == entidad.NombreInstrumento
+                && i.Marca == entidad.Marca
+                && i.Id != entidad.Id);
+
+            if (existeDuplicado)
+                throw new Exception("Ya existe un instrumento con el mismo nombre y marca");
+
             entidad._Proveedor= null;
 
             this.IConexion!.Instrumentos!.Add(entidad);
@@ -72,6 +87,21 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            //Para evitar que la cantidad de equipos y de piezas sea negativa
+            if (entidad.CantidadEquip < 0)
+                throw new Exception("La cantidad de equipos no puede ser negativa");
+            if (entidad.Piezas < 0)
+                throw new Exception("La cantidad de piezas no puede ser negativa");
+
+            //Para evitar que hayan dos instrumentos con el mismo nombre y marca repetidos
+            bool existeDuplicado = this.IConexion!.Instrumentos!
+                .Any(i => i.NombreInstrumento == entidad.NombreInstrumento
+                && i.Marca == entidad.Marca
+                && i.Id != entidad.Id);
+
+            if (existeDuplicado)
+                throw new Exception("Ya existe un instrumento con el mismo nombre y marca");
 
             entidad._Proveedor = null;
 

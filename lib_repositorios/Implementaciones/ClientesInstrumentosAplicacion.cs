@@ -54,6 +54,20 @@ namespace lib_repositorios.Implementaciones
             if (instrumento.Estado == false)
                 throw new Exception("El instrumento no está disponible");
 
+            //Valida que no se reserven mas instrumentos de los que hay
+            int cantidadReservada = this.IConexion!.ClientesInstrumentos!
+                .Count(ci => ci.IdInstrumentos == entidad.IdInstrumentos);
+
+            if (cantidadReservada >= instrumento.CantidadEquip)
+                throw new Exception("No hay más unidades disponibles de este instrumento");
+
+            //Valida que un cliente no reserve el mismo instrumento dos veces
+            bool yaReservado = this.IConexion!.ClientesInstrumentos!
+                .Any(ci => ci.IdClientes == entidad.IdClientes && ci.IdInstrumentos == entidad.IdInstrumentos);
+
+            if (yaReservado)
+                throw new Exception("El cliente ya reservó este instrumento");
+
             entidad._IdClientes = null;
             entidad._IdInstrumentos = null;
 

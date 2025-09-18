@@ -48,6 +48,19 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Cantidad < 0)
                 throw new Exception("lbStockNegativo");
 
+            //Para evitar que el valor de suplementos sea negativo
+            if (entidad.Valor < 0)
+                throw new Exception("El valor del suplemento no puede ser negativo");
+
+            //Para evitar que el idProveedor del suplemento no sea invalido
+            if (entidad.Proveedor <= 0)
+                throw new Exception("Debe asignar un proveedor válido al suplemento");
+
+            //Para validar que el id del proveedor exista
+            bool proveedorExiste = this.IConexion!.Proveedores!.Any(p => p.Id == entidad.Proveedor);
+            if (!proveedorExiste)
+                throw new Exception("El proveedor especificado no existe");
+
             entidad._Proveedor = null;
 
             this.IConexion!.Suplementos!.Add(entidad);
@@ -66,6 +79,23 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            //Para evitar que la cantidad de suplementos sea negativa
+            if (entidad.Cantidad < 0)
+                throw new Exception("lbStockNegativo");
+
+            //Para evitar que el valor de suplementos sea negativo
+            if (entidad.Valor < 0)
+                throw new Exception("El valor del suplemento no puede ser negativo");
+
+            //Para evitar que el idProveedor del suplemento no sea invalido
+            if (entidad.Proveedor <= 0)
+                throw new Exception("Debe asignar un proveedor válido al suplemento");
+
+            //Para validar que el id del proveedor exista
+            bool proveedorExiste = this.IConexion!.Proveedores!.Any(p => p.Id == entidad.Proveedor);
+            if (!proveedorExiste)
+                throw new Exception("El proveedor especificado no existe");
 
             entidad._Proveedor = null;
 

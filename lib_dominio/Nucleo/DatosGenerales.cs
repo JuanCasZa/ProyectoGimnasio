@@ -2,11 +2,7 @@
 {
     public class DatosGenerales
     {
-<<<<<<< HEAD
-        public static string ruta_jason = @"C:\Users\stefa\OneDrive\Escritorio\ProyectoGimnasio\configJson.txt";
-=======
-        public static string ruta_jason = @"C:\Users\USUARIO\Desktop\ProyectoGimnasio\configJson.txt";
->>>>>>> d6fd6e42a1b1f28ef3d66cc27c271ad5cf6efb6a
+        public static string ruta_jason = @"C:\Users\user\OneDrive\Desktop\ProyectoGimnasio\configJson.txt";
         //C:\Users\USUARIO\Desktop\ProyectoGimnasio\configJson.txt, Ruta Castro 
         //C:\Users\user\OneDrive\Desktop\ProyectoGimnasio\configJson.txt Ruta Julian
         //C:\Users\stefa\OneDrive\Escritorio\ProyectoGimnasio\configJson.txt; Ruta Stefa

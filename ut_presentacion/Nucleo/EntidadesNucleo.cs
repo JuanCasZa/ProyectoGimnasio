@@ -61,7 +61,7 @@ namespace ut_presentacion.Nucleo
             var entidad = new Instrumentos();
             entidad.NombreInstrumento = "Mancuerna";
             entidad.CantidadEquip = 20;
-            entidad.Piezas = 1;
+            entidad.Piezas = 1; 
             entidad.Marca = "PowerFit";
             entidad.DescripcionGeneral = "Mancuerna de 10kg";
             entidad.Estado = true;

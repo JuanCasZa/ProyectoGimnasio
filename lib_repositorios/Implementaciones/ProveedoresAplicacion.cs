@@ -52,6 +52,28 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardó");
 
+            //Para evitar proveedores sin nombre o direccion
+            if (string.IsNullOrWhiteSpace(entidad.NombreEntidad))
+                throw new Exception("El proveedor debe tener un nombre");
+            if (string.IsNullOrWhiteSpace(entidad.Direccion))
+                throw new Exception("El proveedor debe tener una dirección");
+
+            //Para evitar valores negativos en el valor total de venta del proveedor
+            if (entidad.ValorTotalVenta < 0)
+                throw new Exception("El valor total de venta no puede ser negativo");
+            
+            //Valida que el telefono del proveedor sea valido
+            if (string.IsNullOrWhiteSpace(entidad.Telefono) || entidad.Telefono.Length < 7 || !entidad.Telefono.All(char.IsDigit))
+                throw new Exception("El teléfono no es válido");
+
+            //Valida que el telefono del proveedor sea unico
+            bool telefonoDuplicado = this.IConexion!.Proveedores!
+                .Any(p => p.Telefono == entidad.Telefono && p.Id != entidad.Id);
+
+            if (telefonoDuplicado)
+                throw new Exception("El teléfono ya está registrado por otro proveedor");
+
+
             this.IConexion!.Proveedores!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
@@ -66,6 +88,28 @@ namespace lib_repositorios.Implementaciones
                 throw new Exception("lbFaltaInformacion");
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            //Para evitar proveedores sin nombre o direccion
+            if (string.IsNullOrWhiteSpace(entidad.NombreEntidad))
+                throw new Exception("El proveedor debe tener un nombre");
+            if (string.IsNullOrWhiteSpace(entidad.Direccion))
+                throw new Exception("El proveedor debe tener una dirección");
+
+            //Para evitar valores negativos en el valor total de venta del proveedor
+            if (entidad.ValorTotalVenta < 0)
+                throw new Exception("El valor total de venta no puede ser negativo");
+
+            //Valida que el telefono del proveedor sea valido
+            if (string.IsNullOrWhiteSpace(entidad.Telefono) || entidad.Telefono.Length < 7 || !entidad.Telefono.All(char.IsDigit))
+                throw new Exception("El teléfono no es válido");
+
+            //Valida que el telefono del proveedor sea unico
+            bool telefonoDuplicado = this.IConexion!.Proveedores!
+                .Any(p => p.Telefono == entidad.Telefono && p.Id != entidad.Id);
+
+            if (telefonoDuplicado)
+                throw new Exception("El teléfono ya está registrado por otro proveedor");
+
             var entry = this.IConexion!.Entry<Proveedores>(entidad);
             entry.State = EntityState.Modified;
             this.IConexion.SaveChanges();
