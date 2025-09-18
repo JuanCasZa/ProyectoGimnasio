@@ -1,22 +1,29 @@
-﻿using lib_dominio.Entidades;
-using lib_repositorios.Implementaciones;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using lib_repositorios.Interfaces;
+using lib_repositorios.Implementaciones;
+using lib_dominio.Entidades;
 using Microsoft.EntityFrameworkCore;
 using ut_presentacion.Nucleo;
 
-namespace ut_presentacion.Repositorios
+namespace PruebasUnitariasAplicaciones
 {
     [TestClass]
-    public class ClientesPrueba
+    public class ProveedoresAplicacionPrueba
     {
         private readonly IConexion? iConexion;
-        private List<Clientes>? lista;
-        private Clientes? entidad;
+        private ProveedoresAplicacion? aplicacion;
+        private List<Proveedores>? lista;
+        private Proveedores? entidad;
 
-        public ClientesPrueba()
+        public ProveedoresAplicacionPrueba()
         {
             iConexion = new Conexion();
             iConexion.StringConexion = Configuracion.ObtenerValor("StringConexion");
+            aplicacion = new ProveedoresAplicacion(iConexion);
         }
 
         [TestMethod]
@@ -30,35 +37,27 @@ namespace ut_presentacion.Repositorios
 
         public bool Listar()
         {
-            this.lista = this.iConexion!.Clientes!.ToList();
+            this.lista = this.aplicacion!.Listar();
             return lista.Count > 0;
         }
 
         public bool Guardar()
         {
-            this.entidad = EntidadesNucleo.Clientes()!;
-            this.iConexion!.Clientes!.Add(this.entidad);
-            this.iConexion!.SaveChanges();
-
+            this.entidad = EntidadesNucleo.Proveedores()!;
+            this.aplicacion!.Guardar(this.entidad);
             return true;
         }
 
         public bool Modificar()
         {
-            this.entidad!.Telefono = "123456";
-            var entry = this.iConexion!.Entry<Clientes>(this.entidad);
-            entry.State = EntityState.Modified;
-            this.iConexion!.SaveChanges();
-
+            this.entidad!.ValorTotalVenta = 14999m;
+            this.aplicacion!.Modificar(this.entidad);
             return true;
         }
 
-
         public bool Borrar()
         {
-            this.iConexion!.Clientes!.Remove(this.entidad!);
-            this.iConexion!.SaveChanges();
-
+            this.aplicacion!.Borrar(this.entidad!);
             return true;
         }
     }

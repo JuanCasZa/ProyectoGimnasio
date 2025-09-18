@@ -47,8 +47,6 @@ namespace lib_repositorios.Implementaciones
             var ahora = DateTime.Now;
             var tieneActiva = this.IConexion.ClientesMembresias!.Any(cm => cm.IdClientes == entidad.IdClientes
                            && (cm.FechaFin == null || cm.FechaFin >= ahora));
-            if (tieneActiva)
-                throw new Exception("El cliente ya tiene una membresía activa o vigente");
 
             // Si pasa validaciones, asignamos FechaInicio si no viene y añadimos la entidad
             if (entidad.FechaInicio == null) entidad.FechaInicio = DateTime.Now;

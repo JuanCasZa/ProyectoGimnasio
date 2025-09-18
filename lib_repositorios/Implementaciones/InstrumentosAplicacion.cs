@@ -31,6 +31,15 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
+            //Si el instrumento esta asignado a un cliente, que no se pueda borrar
+            bool asignado = this.IConexion!.ClientesInstrumentos!
+              .Any(ci => ci.IdInstrumentos == entidad.Id);
+
+            if (asignado)
+                throw new Exception("No se puede borrar: el instrumento está asignado a un cliente");
+
+            entidad._Proveedor = null;
+
             this.IConexion!.Instrumentos!.Remove(entidad);
             this.IConexion.SaveChanges();
             return entidad;
@@ -43,6 +52,8 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
+
+            entidad._Proveedor= null;
 
             this.IConexion!.Instrumentos!.Add(entidad);
             this.IConexion.SaveChanges();
@@ -61,6 +72,8 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            entidad._Proveedor = null;
 
             var entry = this.IConexion!.Entry<Instrumentos>(entidad);
             entry.State = EntityState.Modified;

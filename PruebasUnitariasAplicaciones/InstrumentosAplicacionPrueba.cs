@@ -1,22 +1,28 @@
-﻿using lib_dominio.Entidades;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using lib_dominio.Entidades;
 using lib_repositorios.Implementaciones;
 using lib_repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using ut_presentacion.Nucleo;
 
-namespace ut_presentacion.Repositorios
+namespace PruebasUnitariasAplicaciones
 {
     [TestClass]
-    public class ClientesPrueba
+    public class InstrumentosAplicacionPrueba
     {
         private readonly IConexion? iConexion;
-        private List<Clientes>? lista;
-        private Clientes? entidad;
-
-        public ClientesPrueba()
+        private InstrumentosAplicacion? aplicacion;
+        private List<Instrumentos>? lista;
+        private Instrumentos? entidad;
+        public InstrumentosAplicacionPrueba()
         {
             iConexion = new Conexion();
             iConexion.StringConexion = Configuracion.ObtenerValor("StringConexion");
+            aplicacion = new InstrumentosAplicacion(iConexion);
         }
 
         [TestMethod]
@@ -30,35 +36,27 @@ namespace ut_presentacion.Repositorios
 
         public bool Listar()
         {
-            this.lista = this.iConexion!.Clientes!.ToList();
+            this.lista = this.aplicacion!.Listar();
             return lista.Count > 0;
         }
 
         public bool Guardar()
         {
-            this.entidad = EntidadesNucleo.Clientes()!;
-            this.iConexion!.Clientes!.Add(this.entidad);
-            this.iConexion!.SaveChanges();
-
+            this.entidad = EntidadesNucleo.Instrumentos()!;
+            this.aplicacion!.Guardar(this.entidad);
             return true;
         }
 
         public bool Modificar()
         {
-            this.entidad!.Telefono = "123456";
-            var entry = this.iConexion!.Entry<Clientes>(this.entidad);
-            entry.State = EntityState.Modified;
-            this.iConexion!.SaveChanges();
-
+            this.entidad!.NombreInstrumento = "Disco2";
+            this.aplicacion!.Modificar(this.entidad);
             return true;
         }
 
-
         public bool Borrar()
         {
-            this.iConexion!.Clientes!.Remove(this.entidad!);
-            this.iConexion!.SaveChanges();
-
+            this.aplicacion!.Borrar(this.entidad!);
             return true;
         }
     }

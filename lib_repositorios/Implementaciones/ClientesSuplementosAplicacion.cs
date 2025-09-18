@@ -26,13 +26,6 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
-            // Reintegrar inventario en la eliminación de la compra
-            var suplemento = this.IConexion!.Suplementos!.FirstOrDefault(s => s.Id == entidad.IdSuplementos);
-            if (suplemento != null)
-            {
-                suplemento.Cantidad += entidad.CantidadCompraSuplementos;
-                this.IConexion.Entry(suplemento).State = EntityState.Modified;
-            }
 
             // Borrado físico (si tu política es borrar). Si prefieres borrado lógico, adapta aquí.
             var entry = this.IConexion.Entry<ClientesSuplementos>(entidad);

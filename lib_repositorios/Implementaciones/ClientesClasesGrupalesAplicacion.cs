@@ -48,10 +48,6 @@ namespace lib_repositorios.Implementaciones
             if (clase == null)
                 throw new Exception("Clase grupal no válida");
 
-            // Evitar duplicados: el cliente ya inscrito en la misma clase
-            if (this.IConexion.ClientesClasesGrupales!.Any(cc => cc.IdClientes == entidad.IdClientes && cc.IdClasesGrupales == entidad.IdClasesGrupales))
-                throw new Exception("El cliente ya está inscrito en esta clase");
-
             // Validar capacidad
             var inscritos = this.IConexion.ClientesClasesGrupales!.Count(cc => cc.IdClasesGrupales == entidad.IdClasesGrupales);
             if (clase.CapacidadMax <= inscritos)
