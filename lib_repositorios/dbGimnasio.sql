@@ -253,6 +253,6 @@ INSERT INTO ClientesInstrumentos (IdClientes, IdInstrumentos) VALUES
 INSERT INTO BeneficiosMembresias (Beneficios, IdMembresias) VALUES
 ('Spa', 5),
 ('Entrenador Personal', 5),
-('Descuento Suplementos', 4),
+('Descuento Suplemento', 4),
 ('Clases Ilimitadas', 4),
 ('Locker Privado', 3);
