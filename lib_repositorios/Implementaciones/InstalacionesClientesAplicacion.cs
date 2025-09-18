@@ -26,6 +26,8 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
+
+
             this.IConexion!.InstalacionesClientes!.Remove(entidad);
             this.IConexion.SaveChanges();
             return entidad;

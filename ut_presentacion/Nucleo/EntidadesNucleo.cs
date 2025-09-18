@@ -126,6 +126,8 @@ namespace ut_presentacion.Nucleo
         {
 
             var entidad = new ClientesMembresias();
+            entidad.FechaInicio = DateTime.Now;
+            entidad.FechaFin = DateTime.Now;
             entidad.IdClientes = 1;
             entidad.IdMembresias = 1;
 

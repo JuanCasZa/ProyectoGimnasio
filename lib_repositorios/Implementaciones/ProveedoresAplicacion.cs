@@ -52,6 +52,11 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardó");
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 241b2d62a2458fafd66a849e0182d8e52988d9d6
             this.IConexion!.Proveedores!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;

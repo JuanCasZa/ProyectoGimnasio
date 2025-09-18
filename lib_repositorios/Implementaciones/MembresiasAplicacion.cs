@@ -39,6 +39,9 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
+            if (!entidad.TipoMembresia.Equals("Premium") || !entidad.TipoMembresia.Equals("Básica"))
+                throw new Exception("tipo de membresia no valido");
+
             this.IConexion!.Membresias!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
