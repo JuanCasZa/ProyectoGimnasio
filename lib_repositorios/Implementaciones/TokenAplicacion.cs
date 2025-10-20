@@ -6,7 +6,8 @@ namespace lib_repositorios.Implementaciones
     public class TokenAplicacion
     {
         private IConexion? IConexion = null;
-        private string Llave()
+        private string llave = TokenAplicacion.GenerarLlave();
+        private static string GenerarLlave()
         {
             string llave = "";
             string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";

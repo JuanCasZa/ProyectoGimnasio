@@ -41,7 +41,7 @@ namespace asp_servicios
             services.AddScoped<IMembresiasAplicacion, MembresiasAplicacion>();
             services.AddScoped<IProveedoresAplicacion, ProveedoresAplicacion>();
             services.AddScoped<ISuplementosAplicacion, SuplementosAplicacion>();
-       
+
             services.AddScoped<TokenAplicacion, TokenAplicacion>();
             // Controladores
             services.AddScoped<TokenController, TokenController>();

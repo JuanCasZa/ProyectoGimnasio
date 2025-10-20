@@ -7,7 +7,6 @@ namespace lib_repositorios.Interfaces
     public interface IConexion
     {
         string? StringConexion { get; set; }
-        //DbSet<Personas>? Personas { get; set; }
         DbSet<Instalaciones>? Instalaciones { get; set; }
         DbSet<Clientes>? Clientes { get; set; }
         DbSet<Empleados>? Empleados { get; set; }
@@ -23,6 +22,10 @@ namespace lib_repositorios.Interfaces
         DbSet<ClientesClasesGrupales>? ClientesClasesGrupales { get; set; }
         DbSet<ClientesInstrumentos>? ClientesInstrumentos { get; set; }
         DbSet<BeneficiosMembresias>? BeneficiosMembresias { get; set; }
+        DbSet<Auditorias>? Auditorias { get; set; }
+        DbSet<Roles>? Roles { get; set; }
+        DbSet<Permisos>? Permisos { get; set; }
+        DbSet<Usuarios>? Usuarios { get; set; }
         EntityEntry<T> Entry<T>(T entity) where T : class;
         int SaveChanges();
 
