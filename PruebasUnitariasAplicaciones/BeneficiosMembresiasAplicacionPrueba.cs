@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using lib_repositorios.Interfaces;
+﻿using lib_repositorios.Interfaces;
 using lib_repositorios.Implementaciones;
 using lib_dominio.Entidades;
-using Microsoft.EntityFrameworkCore;
 using ut_presentacion.Nucleo;
 
 namespace PruebasUnitariasAplicaciones
