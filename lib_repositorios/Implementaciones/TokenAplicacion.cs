@@ -39,7 +39,7 @@ namespace lib_repositorios.Implementaciones
         {
             var usuario = this.IConexion!.Usuarios!
                 .FirstOrDefault(x => x.Nombre == entidad!.Nombre &&
-                                x.Contraseña == entidad.Contraseña);
+                                x.Contrasenha == entidad.Contrasenha);
             if (usuario == null)
                 return string.Empty;
             return llave;

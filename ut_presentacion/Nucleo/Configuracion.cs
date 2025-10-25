@@ -17,10 +17,10 @@ namespace ut_presentacion.Nucleo
 
         public static void Cargar()
         {
-            if (!File.Exists(DatosGenerales.ruta_jason))
+            if (!File.Exists(DatosGenerales.ruta_json))
                 return;
             datos = new Dictionary<string, string>();
-            StreamReader jsonStream = File.OpenText(DatosGenerales.ruta_jason);
+            StreamReader jsonStream = File.OpenText(DatosGenerales.ruta_json);
             var json = jsonStream.ReadToEnd();
             datos = JsonConversor.ConvertirAObjeto<Dictionary<string, string>>(json)!;
         }

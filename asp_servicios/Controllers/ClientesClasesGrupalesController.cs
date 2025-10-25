@@ -56,7 +56,7 @@ namespace asp_servicios.Controllers
         }
 
         [HttpPost]
-        public string PorAsistencias()
+        public string PorCliente()
         {
             var respuesta = new Dictionary<string, object>();
             try
@@ -71,7 +71,36 @@ namespace asp_servicios.Controllers
                 JsonConversor.ConvertirAString(datos["Entidad"]));
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
 
-                respuesta["Entidades"] = this.iAplicacion!.PorAsistencias(entidad);
+                respuesta["Entidades"] = this.iAplicacion!.PorCliente(entidad);
+                respuesta["Respuesta"] = "OK";
+                respuesta["Fecha"] = DateTime.Now.ToString();
+                return JsonConversor.ConvertirAString(respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta["Error"] = ex.Message.ToString();
+                respuesta["Respuesta"] = "Error";
+                return JsonConversor.ConvertirAString(respuesta);
+            }
+        }
+
+        [HttpPost]
+        public string PorClaseGrupal()
+        {
+            var respuesta = new Dictionary<string, object>();
+            try
+            {
+                var datos = ObtenerDatos();
+                /*if (!tokenController!.Validate(datos))
+                {
+                    respuesta["Error"] = "lbNoAutenticacion";
+                    return JsonConversor.ConvertirAString(respuesta);
+                }*/
+                var entidad = JsonConversor.ConvertirAObjeto<ClientesClasesGrupales>(
+                JsonConversor.ConvertirAString(datos["Entidad"]));
+                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+
+                respuesta["Entidades"] = this.iAplicacion!.PorClaseGrupal(entidad);
                 respuesta["Respuesta"] = "OK";
                 respuesta["Fecha"] = DateTime.Now.ToString();
                 return JsonConversor.ConvertirAString(respuesta);

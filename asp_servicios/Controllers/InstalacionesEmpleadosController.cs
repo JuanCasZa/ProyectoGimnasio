@@ -85,6 +85,35 @@ namespace asp_servicios.Controllers
         }
 
         [HttpPost]
+        public string PorIdEmpleados()
+        {
+            var respuesta = new Dictionary<string, object>();
+            try
+            {
+                var datos = ObtenerDatos();
+                /*if (!tokenController!.Validate(datos))
+                {
+                    respuesta["Error"] = "lbNoAutenticacion";
+                    return JsonConversor.ConvertirAString(respuesta);
+                }*/
+                var entidad = JsonConversor.ConvertirAObjeto<InstalacionesEmpleados>(
+                JsonConversor.ConvertirAString(datos["Entidad"]));
+                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+
+                respuesta["Entidades"] = this.iAplicacion!.PorIdEmpleados(entidad);
+                respuesta["Respuesta"] = "OK";
+                respuesta["Fecha"] = DateTime.Now.ToString();
+                return JsonConversor.ConvertirAString(respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta["Error"] = ex.Message.ToString();
+                respuesta["Respuesta"] = "Error";
+                return JsonConversor.ConvertirAString(respuesta);
+            }
+        }
+
+        [HttpPost]
         public string Guardar()
         {
             var respuesta = new Dictionary<string, object>();

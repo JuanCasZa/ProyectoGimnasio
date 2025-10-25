@@ -66,6 +66,26 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.ClientesClasesGrupales!.Take(20).ToList();
         }
 
+        public List<ClientesClasesGrupales> PorCliente(ClientesClasesGrupales? entidad)
+        {
+            if (entidad == null)
+            {
+                return new List<ClientesClasesGrupales>();
+            }
+
+            return this.IConexion!.ClientesClasesGrupales!.Where(x => x.IdClientes! == entidad!.IdClientes).ToList();
+        }
+
+        public List<ClientesClasesGrupales> PorClaseGrupal(ClientesClasesGrupales? entidad)
+        {
+            if (entidad == null)
+            {
+                return new List<ClientesClasesGrupales>();
+            }
+
+            return this.IConexion!.ClientesClasesGrupales!.Where(x => x.IdClasesGrupales! == entidad!.IdClasesGrupales).ToList();
+        }
+
         public ClientesClasesGrupales? Modificar(ClientesClasesGrupales? entidad)
         {
             if (entidad == null)

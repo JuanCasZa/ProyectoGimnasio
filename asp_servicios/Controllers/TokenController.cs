@@ -67,7 +67,7 @@ namespace asp_servicios.Controllers
                     }), 
                     Expires = DateTime.UtcNow.AddHours(1), 
                     SigningCredentials = new SigningCredentials(
-                        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(DatosGener - ales.clave)), SecurityAlgorithms.HmacSha256Signature) 
+                        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(DatosGenerales.clave)), SecurityAlgorithms.HmacSha256Signature) 
                 }; 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 respuesta["Token"] = tokenHandler.WriteToken(token); 

@@ -5,14 +5,14 @@ namespace lib_dominio.Nucleo
 {
     public class JsonConversor
     {
-        public static Dictionary<string, object> ConvertitAObjeto(string data)
+        public static Dictionary<string, object> ConvertirAObjeto(string data)
         {
             var values = JsonConvert.DeserializeObject<Dictionary<string, object>>(data);
             var values2 = new Dictionary<string, object>();
             foreach (KeyValuePair<string, object> item in values!)
             {
                 if (item.Value is JObject)
-                    values2.Add(item.Key, ConvertitAObjeto(item.Value.ToString()!));
+                    values2.Add(item.Key, ConvertirAObjeto(item.Value.ToString()!));
                 else
                     values2.Add(item.Key, item.Value);
             }
