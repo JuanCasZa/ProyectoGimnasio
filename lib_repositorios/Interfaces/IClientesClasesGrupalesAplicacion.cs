@@ -6,6 +6,8 @@ namespace lib_repositorios.Interfaces
     {
         void Configurar(string StringConexion);
         List<ClientesClasesGrupales> Listar();
+        List<ClientesClasesGrupales> PorCliente(ClientesClasesGrupales? entidad);
+        List<ClientesClasesGrupales> PorClaseGrupal(ClientesClasesGrupales? entidad);
         ClientesClasesGrupales? Guardar(ClientesClasesGrupales? entidad);
         ClientesClasesGrupales? Modificar(ClientesClasesGrupales? entidad);
         ClientesClasesGrupales? Borrar(ClientesClasesGrupales? entidad);

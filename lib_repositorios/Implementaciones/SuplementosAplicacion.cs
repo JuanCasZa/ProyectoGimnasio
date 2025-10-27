@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using lib_dominio.Entidades;
+﻿using lib_dominio.Entidades;
 using lib_repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -70,6 +65,21 @@ namespace lib_repositorios.Implementaciones
         public List<Suplementos> Listar()
         {
             return this.IConexion!.Suplementos!.Take(20).ToList();
+        }
+
+        public List<Suplementos> PorProveedor(Suplementos? entidad)
+        {
+            if (entidad == null)
+            {
+                return new List<Suplementos>();
+            }
+
+            return this.IConexion!.Suplementos!.Where(x => x.Proveedor! == entidad!.Proveedor).ToList();
+        }
+
+        public List<Suplementos> PorTipoSuplemento(Suplementos? entidad)
+        {
+            return this.IConexion!.Suplementos!.Where(x => x.TipoSuplemento!.Contains(entidad!.TipoSuplemento!)).ToList();
         }
 
         public Suplementos? Modificar(Suplementos? entidad)

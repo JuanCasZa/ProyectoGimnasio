@@ -52,6 +52,15 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.BeneficiosMembresias!.Take(20).ToList();
         }
 
+        public List<BeneficiosMembresias> PorMembresia(BeneficiosMembresias? entidad)
+        {
+            if (entidad == null)
+            {
+                return new List<BeneficiosMembresias>();
+            }
+
+            return this.IConexion!.BeneficiosMembresias!.Where(x => x.IdMembresias! == entidad!.IdMembresias).ToList();
+        }
         public BeneficiosMembresias? Modificar(BeneficiosMembresias? entidad)
         {
             if (entidad == null)

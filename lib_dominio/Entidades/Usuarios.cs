@@ -8,7 +8,9 @@ namespace lib_dominio.Entidades
         public string? Nombre { get; set; }
         public string? Contrasenha { get; set; }
         public int IdEmpleado { get; set; }
+        public int IdRol { get; set; }
         [ForeignKey("IdEmpleado")] public Empleados? _IdEmpleado { get; set; }
+        [ForeignKey("IdRol")]public Roles? _IdRol { get; set; }
 
     }
 }

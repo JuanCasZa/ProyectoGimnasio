@@ -259,20 +259,21 @@ INSERT INTO BeneficiosMembresias (Beneficios, IdMembresias) VALUES
 
 /*Creación nuevas tablas e incersiones de datos*/
 
+create table [Roles]
+(
+	[Id] int primary key identity,
+	[Tipo] nvarchar(20) not null,
+);
+
 create table [Usuarios]
 (
 	[Id] int primary key identity,
 	[Nombre] nvarchar(50) not null,
 	[Contrasenha] nvarchar(100) not null,
-	[IdEmpleado] int references [Empleados]([Id])
+	[IdEmpleado] int references [Empleados]([Id]),
+	[IdRol] int references [Roles]([Id])
 );
 
-create table [Roles]
-(
-	[Id] int primary key identity,
-	[Tipo] nvarchar(20) not null,
-	[IdUsuario] int references [Usuarios]([Id])
-);
 
 create table [Permisos]
 (
@@ -292,18 +293,22 @@ create table [Auditorias]
 	[IdUsuario] int references [Usuarios]([Id])
 );
 
+/*Drops tablas*/
+drop table Roles;
+drop table Permisos;
+drop table Auditorias;
+drop table Usuarios;
+
 /*Inserciones Ejecutadas*/
 INSERT INTO Usuarios (Nombre, Contrasenha, IdEmpleado) VALUES ('JuanPerez', '1234Segura!', 1);
 INSERT INTO Usuarios (Nombre, Contrasenha, IdEmpleado) VALUES ('MariaGomez', 'Passw0rd$', 2);
 INSERT INTO Usuarios (Nombre, Contrasenha, IdEmpleado) VALUES ('CarlosDiaz', 'Clave#2025', 3);
 INSERT INTO Usuarios (Nombre, Contrasenha, IdEmpleado) VALUES ('LauraMendez', 'Admin@123', 4);
-INSERT INTO Usuarios (Nombre, Contrasenha, IdEmpleado) VALUES ('PedroSanchez', 'Secure_456', 5);
 
-INSERT INTO Roles (Tipo, IdUsuario) VALUES ('Administrador', 1);
-INSERT INTO Roles (Tipo, IdUsuario) VALUES ('Entrenador', 2);
-INSERT INTO Roles (Tipo, IdUsuario) VALUES ('Recepcionista', 3);
-INSERT INTO Roles (Tipo, IdUsuario) VALUES ('Soporte', 4);
-INSERT INTO Roles (Tipo, IdUsuario) VALUES ('Contador', 5);
+INSERT INTO Roles (Tipo) VALUES ('Administrador');
+INSERT INTO Roles (Tipo) VALUES ('Entrenador');
+INSERT INTO Roles (Tipo) VALUES ('Recepcionista');
+INSERT INTO Roles (Tipo) VALUES ('Ventas');
 
 INSERT INTO Permisos (TipoPermiso, Permitido, IdRol) VALUES ('Leer', 1, 1);
 INSERT INTO Permisos (TipoPermiso, Permitido, IdRol) VALUES ('Escribir', 1, 1);

@@ -56,6 +56,12 @@ namespace lib_repositorios.Implementaciones
         {
             return this.IConexion!.ClasesGrupales!.Take(20).ToList();
         }
+
+        public List<ClasesGrupales> PorTipoClase(ClasesGrupales? entidad)
+        {
+            return this.IConexion!.ClasesGrupales!.Where(x => x.TipoClase!.Contains(entidad!.TipoClase!)).ToList();
+        }
+
         public ClasesGrupales? Modificar(ClasesGrupales? entidad)
         {
             if (entidad == null)

@@ -6,6 +6,8 @@ namespace lib_repositorios.Interfaces
     {
         void Configurar(string StringConexion);
         List<InstalacionesClientes> Listar();
+        List<InstalacionesClientes> PorIdClientes(InstalacionesClientes? entidad);
+        List<InstalacionesClientes> PorIdInstalaciones(InstalacionesClientes? entidad);
         InstalacionesClientes? Guardar(InstalacionesClientes? entidad);
         InstalacionesClientes? Modificar(InstalacionesClientes? entidad);
         InstalacionesClientes? Borrar(InstalacionesClientes? entidad);

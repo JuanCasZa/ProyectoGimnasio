@@ -63,6 +63,26 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.InstalacionesClientes!.Take(20).ToList();
         }
 
+        public List<InstalacionesClientes> PorIdClientes(InstalacionesClientes? entidad)
+        {
+            if (entidad == null)
+            {
+                return new List<InstalacionesClientes>();
+            }
+
+            return this.IConexion!.InstalacionesClientes!.Where(x => x.IdClientes! == entidad!.IdClientes).ToList();
+        }
+
+        public List<InstalacionesClientes> PorIdInstalaciones(InstalacionesClientes? entidad)
+        {
+            if (entidad == null)
+            {
+                return new List<InstalacionesClientes>();
+            }
+
+            return this.IConexion!.InstalacionesClientes!.Where(x => x.IdInstalaciones! == entidad!.IdInstalaciones).ToList();
+        }
+
         public InstalacionesClientes? Modificar(InstalacionesClientes? entidad)
         {
             if (entidad == null)

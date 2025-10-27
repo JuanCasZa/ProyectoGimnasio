@@ -63,6 +63,26 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.Empleados!.Take(20).ToList();
         }
 
+        public List<Empleados> PorCargo(Empleados? entidad)
+        {
+            if (entidad == null)
+            {
+                return new List<Empleados>();
+            }
+
+            return this.IConexion!.Empleados!.Where(x => x.Cargo!.Contains(entidad!.Cargo!)).ToList();
+        }
+
+        public List<Empleados> PorEspecialidad(Empleados? entidad)
+        {
+            if (entidad == null)
+            {
+                return new List<Empleados>();
+            }
+
+            return this.IConexion!.Empleados!.Where(x => x.Especialidad!.Contains(entidad!.Especialidad!)).ToList();
+        }
+
         public Empleados? Modificar(Empleados? entidad)
         {
             if (entidad == null)

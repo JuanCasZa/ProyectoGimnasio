@@ -1,5 +1,6 @@
 ﻿using lib_dominio.Entidades;
 using lib_repositorios.Interfaces;
+using System.Reflection.Metadata.Ecma335;
 
 namespace lib_repositorios.Implementaciones
 {
@@ -7,6 +8,7 @@ namespace lib_repositorios.Implementaciones
     {
         private IConexion? IConexion = null;
         private string llave = TokenAplicacion.GenerarLlave();
+        private Usuarios? usuario = null;
         private static string GenerarLlave()
         {
             string llave = "";
@@ -39,7 +41,8 @@ namespace lib_repositorios.Implementaciones
         {
             var usuario = this.IConexion!.Usuarios!
                 .FirstOrDefault(x => x.Nombre == entidad!.Nombre &&
-                                x.Contraseña == entidad.Contraseña);
+                                x.Contrasenha == entidad.Contrasenha);
+            this.usuario = usuario;
             if (usuario == null)
                 return string.Empty;
             return llave;
@@ -50,6 +53,15 @@ namespace lib_repositorios.Implementaciones
             if (!datos.ContainsKey("Llave"))
                 return false;
             return this.llave == datos["Llave"].ToString();
+        }
+
+        public string ValidarRol()
+        {
+            string rol = "";
+
+            rol = this.usuario!._IdRol!.Tipo!;
+
+            return rol;
         }
     }
 }

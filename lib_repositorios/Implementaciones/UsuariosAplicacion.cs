@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace lib_repositorios.Implementaciones
 {
-    public class MembresiasAplicacion : IMembresiasAplicacion
+    public class UsuariosAplicacion : IUsuariosAplicacion
     {
         private IConexion? IConexion = null;
 
-        public MembresiasAplicacion(IConexion iConexion)
+        public UsuariosAplicacion(IConexion iConexion)
         {
             this.IConexion = iConexion;
         }
@@ -17,8 +17,7 @@ namespace lib_repositorios.Implementaciones
         {
             this.IConexion!.StringConexion = StringConexion;
         }
-
-        public Membresias? Borrar(Membresias? entidad)
+        public Usuarios? Borrar(Usuarios? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
@@ -26,12 +25,11 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
-            this.IConexion!.Membresias!.Remove(entidad);
+            this.IConexion!.Usuarios!.Remove(entidad);
             this.IConexion.SaveChanges();
             return entidad;
         }
-
-        public Membresias? Guardar(Membresias? entidad)
+        public Usuarios? Guardar(Usuarios? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
@@ -39,24 +37,18 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
-            if (!entidad.TipoMembresia.Equals("Premium") && !entidad.TipoMembresia.Equals("Básica"))
-                throw new Exception("tipo de membresia no valido");
+            
 
-            this.IConexion!.Membresias!.Add(entidad);
+            this.IConexion!.Usuarios!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
         }
-
-        public List<Membresias> Listar()
+        public List<Usuarios> Listar()
         {
-            return this.IConexion!.Membresias!.Take(20).ToList();
+            return this.IConexion!.Usuarios!.Take(20).ToList();
         }
 
-        public List<Membresias> PorTipoMembresia(Membresias? entidad)
-        {
-            return this.IConexion!.Membresias!.Where(x => x.TipoMembresia!.Contains(entidad!.TipoMembresia!)).ToList();
-        }
-        public Membresias? Modificar(Membresias? entidad)
+        public Usuarios? Modificar(Usuarios? entidad)
         {
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
@@ -64,7 +56,7 @@ namespace lib_repositorios.Implementaciones
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
-            var entry = this.IConexion!.Entry<Membresias>(entidad);
+            var entry = this.IConexion!.Entry<Usuarios>(entidad);
             entry.State = EntityState.Modified;
             this.IConexion.SaveChanges();
             return entidad;

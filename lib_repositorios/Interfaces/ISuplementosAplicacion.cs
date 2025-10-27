@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using lib_dominio.Entidades;
+﻿using lib_dominio.Entidades;
 
 namespace lib_repositorios.Interfaces
 {
@@ -11,6 +6,8 @@ namespace lib_repositorios.Interfaces
     {
         void Configurar(string StringConexion);
         List<Suplementos> Listar();
+        List<Suplementos> PorTipoSuplemento(Suplementos? entidad);
+        List<Suplementos> PorProveedor(Suplementos? entidad);
         Suplementos? Guardar(Suplementos? entidad);
         Suplementos? Modificar(Suplementos? entidad);
         Suplementos? Borrar(Suplementos? entidad);

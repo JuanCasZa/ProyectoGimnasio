@@ -6,7 +6,5 @@ namespace lib_dominio.Entidades
     {
         public int Id { get; set; }
         public string? Tipo { get; set; }
-        public int IdUsuario { get; set; }
-        [ForeignKey("IdUsuario")] public Usuarios? _IdUsuario { get; set; }
     }
 }

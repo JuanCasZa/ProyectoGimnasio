@@ -1,6 +1,6 @@
 ﻿using lib_dominio.Nucleo;
 
-namespace ut_presentacion.Nucleo
+namespace asp_servicios.Nucleo
 {
     public class Configuracion
     {
@@ -19,7 +19,6 @@ namespace ut_presentacion.Nucleo
         {
             if (!File.Exists(DatosGenerales.ruta_json))
                 return;
-            datos = new Dictionary<string, string>();
             StreamReader jsonStream = File.OpenText(DatosGenerales.ruta_json);
             var json = jsonStream.ReadToEnd();
             datos = JsonConversor.ConvertirAObjeto<Dictionary<string, string>>(json)!;
