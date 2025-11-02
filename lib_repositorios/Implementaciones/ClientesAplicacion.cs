@@ -21,11 +21,26 @@ namespace lib_repositorios.Implementaciones
 
         public Clientes? Borrar(Clientes? entidad)
         {
+            Clientes? entidadvieja = this.IConexion!.Clientes!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            if (this.IConexion!.ClientesClasesGrupales!.Any(s => s.IdClientes == entidad.Id))
+                throw new Exception("lbCliente ligado a otras tablas");
+            if (this.IConexion!.ClientesInstrumentos!.Any(s => s.IdClientes == entidad.Id))
+                throw new Exception("lbCliente ligado a otras tablas");
+            if (this.IConexion!.ClientesSuplementos!.Any(s => s.IdClientes == entidad.Id))
+                throw new Exception("lbCliente ligado a otras tablas");
+            if (this.IConexion!.ClientesMembresias!.Any(s => s.IdClientes == entidad.Id))
+                throw new Exception("lbCliente ligado a otras tablas");
+            if (this.IConexion!.InstalacionesClientes!.Any(s => s.IdClientes == entidad.Id))
+                throw new Exception("lbCliente ligado a otras tablas");
 
             this.IConexion!.Clientes!.Remove(entidad);
             this.IConexion.SaveChanges();
@@ -55,13 +70,16 @@ namespace lib_repositorios.Implementaciones
 
         public Clientes? Modificar(Clientes? entidad)
         {
+            Clientes? entidadvieja = this.IConexion!.Clientes!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
-            if (entidad.CorreoElectronico.Length > 100)
+            if (entidad.CorreoElectronico!.Length > 100)
             {
                 throw new Exception("Correo electronico invalido, demasiado largo");
             }

@@ -21,11 +21,19 @@ namespace lib_repositorios.Implementaciones
 
         public Instalaciones? Borrar(Instalaciones? entidad)
         {
+            Instalaciones? entidadvieja = this.IConexion!.Instalaciones!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            if (this.IConexion!.InstalacionesEmpleados!.Any(s => s.IdInstalaciones == entidad.Id))
+                throw new Exception("lbInstalacion ligada a otras tablas");
+            if (this.IConexion!.InstalacionesClientes!.Any(s => s.IdInstalaciones == entidad.Id))
+                throw new Exception("lbInstalacion ligada a otras tablas");
 
             this.IConexion!.Instalaciones!.Remove(entidad);
             this.IConexion.SaveChanges();
@@ -55,6 +63,9 @@ namespace lib_repositorios.Implementaciones
 
         public Instalaciones? Modificar(Instalaciones? entidad)
         {
+            Instalaciones? entidadvieja = this.IConexion!.Instalaciones!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 

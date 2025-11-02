@@ -23,6 +23,9 @@ namespace lib_repositorios.Implementaciones
         }
         public ClientesInstrumentos? Borrar(ClientesInstrumentos? entidad)
         {
+            ClientesInstrumentos? entidadvieja = this.IConexion!.ClientesInstrumentos!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
@@ -53,6 +56,13 @@ namespace lib_repositorios.Implementaciones
 
             if (instrumento.Estado == false)
                 throw new Exception("El instrumento no está disponible");
+
+            //Validar que el cliente exista
+            var cliente = this.IConexion!.Clientes!
+                .FirstOrDefault(i => i.Id == entidad.IdClientes);
+
+            if (cliente == null)
+                throw new Exception("El cliente no existe");
 
             //Valida que no se reserven mas instrumentos de los que hay
             int cantidadReservada = this.IConexion!.ClientesInstrumentos!
@@ -102,11 +112,26 @@ namespace lib_repositorios.Implementaciones
 
         public ClientesInstrumentos? Modificar(ClientesInstrumentos? entidad)
         {
+            ClientesInstrumentos? entidadvieja = this.IConexion!.ClientesInstrumentos!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            var instrumento = this.IConexion!.Instrumentos!
+               .FirstOrDefault(i => i.Id == entidad.IdInstrumentos);
+
+            if (instrumento == null)
+                throw new Exception("El instrumento no existe");
+
+            var cliente = this.IConexion!.Clientes!
+               .FirstOrDefault(i => i.Id == entidad.IdClientes);
+
+            if (cliente == null)
+                throw new Exception("El cliente no existe");
 
             entidad._IdClientes = null;
             entidad._IdInstrumentos = null;

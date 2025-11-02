@@ -20,6 +20,9 @@ namespace lib_repositorios.Implementaciones
 
         public BeneficiosMembresias? Borrar(BeneficiosMembresias? entidad)
         {
+            BeneficiosMembresias? entidadvieja = this.IConexion!.BeneficiosMembresias!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
@@ -42,6 +45,11 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Beneficios?.Length > 20)
                 throw new Exception("Descripcion demasiado larga");
 
+            if (!(this.IConexion!.Membresias!.Any(x => x.Id! == entidad!.IdMembresias)))
+            {
+                throw new Exception($"La entidad con id {entidad.IdMembresias} no existe");
+            }
+
             this.IConexion!.BeneficiosMembresias!.Add(entidad);
             this.IConexion.SaveChanges();
             return entidad;
@@ -63,6 +71,9 @@ namespace lib_repositorios.Implementaciones
         }
         public BeneficiosMembresias? Modificar(BeneficiosMembresias? entidad)
         {
+            BeneficiosMembresias? entidadvieja = this.IConexion!.BeneficiosMembresias!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
@@ -71,6 +82,8 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad.Beneficios?.Length > 20)
                 throw new Exception("Descripcion demasiado larga");
+
+            if (entidadvieja.IdMembresias != entidad.IdMembresias) throw new Exception("El id de la membresia debe de ser el mismo");
 
             var entry = this.IConexion!.Entry<BeneficiosMembresias>(entidad);
             entry.State = EntityState.Modified;

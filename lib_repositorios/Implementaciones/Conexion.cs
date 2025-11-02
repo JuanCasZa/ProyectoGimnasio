@@ -15,8 +15,6 @@ namespace lib_repositorios.Implementaciones
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }
 
-        //public DbSet<Personas>? Personas { get; set; }
-
         public DbSet<Instalaciones>? Instalaciones { get; set; }
         public DbSet<Clientes>? Clientes { get; set; }
         public DbSet<Empleados>? Empleados { get; set; }

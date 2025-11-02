@@ -294,21 +294,23 @@ create table [Auditorias]
 );
 
 /*Drops tablas*/
+/*
 drop table Roles;
 drop table Permisos;
 drop table Auditorias;
 drop table Usuarios;
+*/
 
 /*Inserciones Ejecutadas*/
-INSERT INTO Usuarios (Nombre, Contrasenha, IdEmpleado) VALUES ('JuanPerez', '1234Segura!', 1);
-INSERT INTO Usuarios (Nombre, Contrasenha, IdEmpleado) VALUES ('MariaGomez', 'Passw0rd$', 2);
-INSERT INTO Usuarios (Nombre, Contrasenha, IdEmpleado) VALUES ('CarlosDiaz', 'Clave#2025', 3);
-INSERT INTO Usuarios (Nombre, Contrasenha, IdEmpleado) VALUES ('LauraMendez', 'Admin@123', 4);
-
 INSERT INTO Roles (Tipo) VALUES ('Administrador');
 INSERT INTO Roles (Tipo) VALUES ('Entrenador');
 INSERT INTO Roles (Tipo) VALUES ('Recepcionista');
 INSERT INTO Roles (Tipo) VALUES ('Ventas');
+
+INSERT INTO Usuarios (Nombre, Contrasenha, IdEmpleado, IdRol) VALUES ('JuanPerez', '1234Segura!', 1, 1);
+INSERT INTO Usuarios (Nombre, Contrasenha, IdEmpleado, IdRol) VALUES ('MariaGomez', 'Passw0rd$', 2, 2);
+INSERT INTO Usuarios (Nombre, Contrasenha, IdEmpleado, IdRol) VALUES ('CarlosDiaz', 'Clave#2025', 3, 3);
+INSERT INTO Usuarios (Nombre, Contrasenha, IdEmpleado, IdRol) VALUES ('LauraMendez', 'Admin@123', 4, 4);
 
 INSERT INTO Permisos (TipoPermiso, Permitido, IdRol) VALUES ('Leer', 1, 1);
 INSERT INTO Permisos (TipoPermiso, Permitido, IdRol) VALUES ('Escribir', 1, 1);

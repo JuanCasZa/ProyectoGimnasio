@@ -20,6 +20,9 @@ namespace lib_repositorios.Implementaciones
 
         public ClientesMembresias? Borrar(ClientesMembresias? entidad)
         {
+            ClientesMembresias? entidadvieja = this.IConexion!.ClientesMembresias!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
@@ -42,6 +45,18 @@ namespace lib_repositorios.Implementaciones
             // Validar membresía
             if (!this.IConexion!.Membresias!.Any(m => m.Id == entidad.IdMembresias))
                 throw new Exception("Membresía no válida");
+
+            var membresia = this.IConexion!.Membresias!
+               .FirstOrDefault(i => i.Id == entidad.IdMembresias);
+
+            if (membresia == null)
+                throw new Exception("La membresia no existe");
+
+            var cliente = this.IConexion!.Clientes!
+               .FirstOrDefault(i => i.Id == entidad.IdClientes);
+
+            if (cliente == null)
+                throw new Exception("El cliente no existe");
 
             // Regla de negocio: evitar solapamiento de membresías activas
             var ahora = DateTime.Now;
@@ -83,11 +98,26 @@ namespace lib_repositorios.Implementaciones
 
         public ClientesMembresias? Modificar(ClientesMembresias? entidad)
         {
+            ClientesMembresias? entidadvieja = this.IConexion!.ClientesMembresias!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            var membresia = this.IConexion!.Membresias!
+               .FirstOrDefault(i => i.Id == entidad.IdMembresias);
+
+            if (membresia == null)
+                throw new Exception("La membresia no existe");
+
+            var cliente = this.IConexion!.Clientes!
+               .FirstOrDefault(i => i.Id == entidad.IdClientes);
+
+            if (cliente == null)
+                throw new Exception("El cliente no existe");
 
             var entry = this.IConexion!.Entry<ClientesMembresias>(entidad);
             entry.State = EntityState.Modified;
