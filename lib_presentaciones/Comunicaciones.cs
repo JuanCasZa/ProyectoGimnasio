@@ -4,19 +4,21 @@ namespace lib_presentaciones
 {
     public class Comunicaciones
     {
-        private string? URL = string.Empty,
-            llave = null;
+        private string? URL = string.Empty, llave = null;
 
+        //Se establece la URL del servicio web
         public Comunicaciones(string url = "http://localhost:5080/")
         {
             URL = url;
         }
 
+        //Se construye la URL del método a invocar
         public Dictionary<string, object> ConstruirUrl(Dictionary<string, object> data, string Metodo)
         {
-            data["Url"] = URL + Metodo;
-            data["UrlLlave"] = URL + "Token/Llave";
+            data["Url"] = URL + Metodo;                 //URL completa del método a invocar
+            data["UrlLlave"] = URL + "Token/Llave";     //URL para obtener la llave de autenticación
             return data;
+            //Acá se prepararon los datos necesarios para la invocación del servicio web
         }
 
         public async Task<Dictionary<string, object>> Ejecutar(Dictionary<string, object> datos)
@@ -69,17 +71,20 @@ namespace lib_presentaciones
             try
             {
                 var url = datos["UrlLlave"].ToString();
+
                 var temp = new Dictionary<string, object>();
                 temp["Entidad"] = new Dictionary<string, object>()
                 {
                     { "Nombre", "Pepito@email.com" },
                     { "Contraseña", "JHGjkhtu6387456yssdf" }
                 };
+
                 var stringData = JsonConversor.ConvertirAString(temp);
 
                 var httpClient = new HttpClient();
                 httpClient.Timeout = new TimeSpan(0, 1, 0);
-                var mensaje = await httpClient.PostAsync(url, new StringContent(stringData));
+
+                var mensaje = await httpClient.PostAsync(url!, new StringContent(stringData));
                 if (!mensaje.IsSuccessStatusCode)
                 {
                     respuesta.Add("Error", "lbErrorComunicacion");
@@ -87,7 +92,8 @@ namespace lib_presentaciones
                 }
 
                 var resp = await mensaje.Content.ReadAsStringAsync();
-                httpClient.Dispose(); httpClient = null;
+                httpClient.Dispose(); //Liberar recursos
+                httpClient = null;
                 if (string.IsNullOrEmpty(resp))
                 {
                     respuesta.Add("Error", "lbErrorComunicacion");

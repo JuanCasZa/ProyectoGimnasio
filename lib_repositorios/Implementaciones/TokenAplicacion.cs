@@ -1,6 +1,5 @@
 ﻿using lib_dominio.Entidades;
 using lib_repositorios.Interfaces;
-using System.Reflection.Metadata.Ecma335;
 
 namespace lib_repositorios.Implementaciones
 {
@@ -37,6 +36,11 @@ namespace lib_repositorios.Implementaciones
             this.IConexion!.StringConexion = StringConexion;
         }
 
+        public Usuarios? GetUsuario()
+        {
+            return this.usuario;
+        }
+
         public string Llave(Usuarios? entidad)
         {
             var usuario = this.IConexion!.Usuarios!
@@ -59,7 +63,9 @@ namespace lib_repositorios.Implementaciones
         {
             string rol = "";
 
-            rol = this.usuario!._IdRol!.Tipo!;
+            rol = this.IConexion!.Usuarios!
+                .FirstOrDefault(x => x.Nombre == this.usuario!.Nombre &&
+                                x.Contrasenha == this.usuario!.Contrasenha)!._IdRol!.Tipo!;
 
             return rol;
         }

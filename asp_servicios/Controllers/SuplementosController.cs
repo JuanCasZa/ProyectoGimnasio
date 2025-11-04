@@ -4,6 +4,7 @@ using lib_dominio.Entidades;
 using lib_dominio.Nucleo;
 using Microsoft.AspNetCore.Mvc;
 using lib_repositorios.Implementaciones;
+using System.Runtime.CompilerServices;
 
 namespace asp_servicios.Controllers
 {
@@ -13,11 +14,14 @@ namespace asp_servicios.Controllers
     {
         private ISuplementosAplicacion? iAplicacion = null;
         private TokenAplicacion? iAplicacionToken = null;
+        private AuditoriasAplicacion? iAplicacionAuditoria = null;
+        private Auditorias? auditoria = new Auditorias();
 
-        public SuplementosController(ISuplementosAplicacion? iAplicacion, TokenAplicacion iAplicacionToken)
+        public SuplementosController(ISuplementosAplicacion? iAplicacion, TokenAplicacion iAplicacionToken, AuditoriasAplicacion iAuditoriasAplicacion)
         {
             this.iAplicacion = iAplicacion;
             this.iAplicacionToken = iAplicacionToken;
+            this.iAplicacionAuditoria = iAuditoriasAplicacion;
         }
 
         private Dictionary<string, object> ObtenerDatos()
@@ -26,7 +30,13 @@ namespace asp_servicios.Controllers
             if (string.IsNullOrEmpty(datos))
                 datos = "{}";
             var respuesta = JsonConversor.ConvertirAObjeto(datos);
+            ConfigurarAuditoria();
             return respuesta;
+        }
+
+        public void ConfigurarAuditoria()
+        {
+            this.iAplicacionAuditoria!.Configurar(Configuracion.ObtenerValor("StringConexion"));
         }
 
         [HttpPost]
@@ -123,6 +133,7 @@ namespace asp_servicios.Controllers
             var respuesta = new Dictionary<string, object>();
             try
             {
+                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(), 1);
                 var datos = ObtenerDatos();
                 if (!iAplicacionToken!.Validar(datos) || !iAplicacionToken.ValidarRol().Equals("Administrador")
                     || !iAplicacionToken.ValidarRol().Equals("Ventas"))
@@ -154,6 +165,7 @@ namespace asp_servicios.Controllers
             var respuesta = new Dictionary<string, object>();
             try
             {
+                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(), 2);
                 var datos = ObtenerDatos();
                 if (!iAplicacionToken!.Validar(datos) || !iAplicacionToken.ValidarRol().Equals("Administrador") 
                     || !iAplicacionToken.ValidarRol().Equals("Ventas"))
@@ -185,6 +197,7 @@ namespace asp_servicios.Controllers
             var respuesta = new Dictionary<string, object>();
             try
             {
+                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(), 3);
                 var datos = ObtenerDatos();
                 if (!iAplicacionToken!.Validar(datos) ||
                     !iAplicacionToken.ValidarRol().Equals("Administrador") || !iAplicacionToken.ValidarRol().Equals("Ventas"))
