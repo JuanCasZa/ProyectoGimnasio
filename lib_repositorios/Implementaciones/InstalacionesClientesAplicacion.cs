@@ -20,13 +20,14 @@ namespace lib_repositorios.Implementaciones
 
         public InstalacionesClientes? Borrar(InstalacionesClientes? entidad)
         {
+            InstalacionesClientes? entidadvieja = this.IConexion!.InstalacionesClientes!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
-
-
 
             this.IConexion!.InstalacionesClientes!.Remove(entidad);
             this.IConexion.SaveChanges();
@@ -85,11 +86,18 @@ namespace lib_repositorios.Implementaciones
 
         public InstalacionesClientes? Modificar(InstalacionesClientes? entidad)
         {
+            InstalacionesClientes? entidadvieja = this.IConexion!.InstalacionesClientes!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            if (entidadvieja.IdInstalaciones != entidad.IdInstalaciones) throw new Exception("El id de la instalacion debe de ser el mismo");
+
+            if (entidadvieja.IdClientes != entidad.IdClientes) throw new Exception("El id del cliente debe de ser el mismo");
 
             var entry = this.IConexion!.Entry<InstalacionesClientes>(entidad);
             entry.State = EntityState.Modified;

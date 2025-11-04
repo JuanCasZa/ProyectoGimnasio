@@ -22,6 +22,9 @@ namespace lib_repositorios.Implementaciones
         }
         public Proveedores? Borrar(Proveedores? entidad)
         {
+            Proveedores? entidadvieja = this.IConexion!.Proveedores!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
             if (entidad!.Id == 0)
@@ -84,6 +87,9 @@ namespace lib_repositorios.Implementaciones
         }
         public Proveedores? Modificar(Proveedores? entidad)
         {
+            Proveedores? entidadvieja = this.IConexion!.Proveedores!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformacion");
             if (entidad!.Id == 0)

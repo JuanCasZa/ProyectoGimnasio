@@ -22,11 +22,20 @@ namespace lib_repositorios.Implementaciones
         }
         public ClasesGrupales? Borrar(ClasesGrupales? entidad)
         {
+            ClasesGrupales? entidadvieja = this.IConexion!.ClasesGrupales!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            bool heredaciones = this.IConexion!.ClientesClasesGrupales!
+                .Any(s => s.IdClasesGrupales == entidad.Id);
+
+            if (heredaciones)
+                throw new Exception("lbClaseGrupal ligada a otras tablas");
 
             this.IConexion!.ClasesGrupales!.Remove(entidad);
             this.IConexion.SaveChanges();
@@ -64,6 +73,9 @@ namespace lib_repositorios.Implementaciones
 
         public ClasesGrupales? Modificar(ClasesGrupales? entidad)
         {
+            ClasesGrupales? entidadvieja = this.IConexion!.ClasesGrupales!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 

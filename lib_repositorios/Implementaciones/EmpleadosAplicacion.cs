@@ -20,6 +20,9 @@ namespace lib_repositorios.Implementaciones
 
         public Empleados? Borrar(Empleados? entidad)
         {
+            Empleados? entidadvieja = this.IConexion!.Empleados!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
@@ -28,6 +31,9 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad.Estado == true)
                 throw new Exception("Primero cambiar el estado a negativo");
+
+            if (this.IConexion!.InstalacionesEmpleados!.Any(s => s.IdEmpleados == entidad.Id))
+                throw new Exception("lbEmpleado ligado a otras tablas");
 
             this.IConexion!.Empleados!.Remove(entidad);
             this.IConexion.SaveChanges();
@@ -85,6 +91,9 @@ namespace lib_repositorios.Implementaciones
 
         public Empleados? Modificar(Empleados? entidad)
         {
+            Empleados? entidadvieja = this.IConexion!.Empleados!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 

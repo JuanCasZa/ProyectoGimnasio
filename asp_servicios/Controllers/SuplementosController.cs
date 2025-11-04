@@ -46,13 +46,14 @@ namespace asp_servicios.Controllers
             try
             {
                 var datos = ObtenerDatos();
-                if (!iAplicacionToken!.Validar(datos) || !iAplicacionToken.ValidarRol().Equals("Administrador")
-                    || !iAplicacionToken.ValidarRol().Equals("Ventas"))
+                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
+                    || iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Ventas"))))
                 {
                     respuesta["Error"] = "lbNoAutenticacion";
                     return JsonConversor.ConvertirAString(respuesta);
                 }
-                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
 
                 respuesta["Entidades"] = this.iAplicacion!.Listar();
                 respuesta["Respuesta"] = "OK";
@@ -74,15 +75,16 @@ namespace asp_servicios.Controllers
             try
             {
                 var datos = ObtenerDatos();
-                if (!iAplicacionToken!.Validar(datos) || !iAplicacionToken.ValidarRol().Equals("Administrador")
-                    || !iAplicacionToken.ValidarRol().Equals("Ventas"))
+                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
+                    || iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Ventas"))))
                 {
                     respuesta["Error"] = "lbNoAutenticacion";
                     return JsonConversor.ConvertirAString(respuesta);
                 }
                 var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(
                 JsonConversor.ConvertirAString(datos["Entidad"]));
-                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
 
                 respuesta["Entidades"] = this.iAplicacion!.PorTipoSuplemento(entidad);
                 respuesta["Respuesta"] = "OK";
@@ -104,15 +106,16 @@ namespace asp_servicios.Controllers
             try
             {
                 var datos = ObtenerDatos();
-                if (!iAplicacionToken!.Validar(datos) || !iAplicacionToken.ValidarRol().Equals("Administrador")
-                    || !iAplicacionToken.ValidarRol().Equals("Ventas"))
+                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
+                    || iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Ventas"))))
                 {
                     respuesta["Error"] = "lbNoAutenticacion";
                     return JsonConversor.ConvertirAString(respuesta);
                 }
                 var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(
                 JsonConversor.ConvertirAString(datos["Entidad"]));
-                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
 
                 respuesta["Entidades"] = this.iAplicacion!.PorProveedor(entidad);
                 respuesta["Respuesta"] = "OK";
@@ -135,15 +138,15 @@ namespace asp_servicios.Controllers
             {
                 iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(), 1);
                 var datos = ObtenerDatos();
-                if (!iAplicacionToken!.Validar(datos) || !iAplicacionToken.ValidarRol().Equals("Administrador")
-                    || !iAplicacionToken.ValidarRol().Equals("Ventas"))
+                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
+                    || iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Ventas"))))
                 {
                     respuesta["Error"] = "lbNoAutenticacion";
                     return JsonConversor.ConvertirAString(respuesta);
                 }
-                var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(
-                    JsonConversor.ConvertirAString(datos["Entidad"]));
-                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(JsonConversor.ConvertirAString(datos["Entidad"]));
 
                 entidad = this.iAplicacion!.Guardar(entidad);
                 respuesta["Entidad"] = entidad!;
@@ -167,15 +170,16 @@ namespace asp_servicios.Controllers
             {
                 iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(), 2);
                 var datos = ObtenerDatos();
-                if (!iAplicacionToken!.Validar(datos) || !iAplicacionToken.ValidarRol().Equals("Administrador") 
-                    || !iAplicacionToken.ValidarRol().Equals("Ventas"))
+                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
+                    || iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Ventas"))))
                 {
                     respuesta["Error"] = "lbNoAutenticacion";
                     return JsonConversor.ConvertirAString(respuesta);
                 }
                 var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
-                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
 
                 entidad = this.iAplicacion!.Modificar(entidad);
                 respuesta["Entidad"] = entidad!;
@@ -199,16 +203,16 @@ namespace asp_servicios.Controllers
             {
                 iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(), 3);
                 var datos = ObtenerDatos();
-                if (!iAplicacionToken!.Validar(datos) ||
-                    !iAplicacionToken.ValidarRol().Equals("Administrador") || !iAplicacionToken.ValidarRol().Equals("Ventas"))
+                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
+                    || iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Ventas"))))
                 {
                     respuesta["Error"] = "lbNoAutenticacion";
                     return JsonConversor.ConvertirAString(respuesta);
                 }
                 var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
-                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
-
 
                 entidad = this.iAplicacion!.Borrar(entidad);
                 respuesta["Entidad"] = entidad!;

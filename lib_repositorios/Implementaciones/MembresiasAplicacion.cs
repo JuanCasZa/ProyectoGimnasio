@@ -20,11 +20,19 @@ namespace lib_repositorios.Implementaciones
 
         public Membresias? Borrar(Membresias? entidad)
         {
+            Membresias? entidadvieja = this.IConexion!.Membresias!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            if (this.IConexion!.BeneficiosMembresias!.Any(s => s.IdMembresias == entidad.Id))
+                throw new Exception("lbMembresia ligada a otras tablas");
+            if (this.IConexion!.ClientesMembresias!.Any(s => s.IdMembresias == entidad.Id))
+                throw new Exception("lbMembresia ligada a otras tablas");
 
             this.IConexion!.Membresias!.Remove(entidad);
             this.IConexion.SaveChanges();
@@ -58,6 +66,9 @@ namespace lib_repositorios.Implementaciones
         }
         public Membresias? Modificar(Membresias? entidad)
         {
+            Membresias? entidadvieja = this.IConexion!.Membresias!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 

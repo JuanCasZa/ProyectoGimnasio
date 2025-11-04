@@ -20,6 +20,10 @@ namespace lib_repositorios.Implementaciones
 
         public InstalacionesEmpleados? Borrar(InstalacionesEmpleados? entidad)
         {
+            InstalacionesEmpleados? entidadvieja = this.IConexion!.InstalacionesEmpleados!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
@@ -42,6 +46,16 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
+
+            if (!(this.IConexion!.Instalaciones!.Any(x => x.Id! == entidad!.IdInstalaciones)))
+            {
+                throw new Exception($"La instalacion con id {entidad.IdInstalaciones} no existe");
+            }
+
+            if (!(this.IConexion!.Empleados!.Any(x => x.Id! == entidad!.IdEmpleados)))
+            {
+                throw new Exception($"El empleado con id {entidad.IdEmpleados} no existe");
+            }
 
             //Operaciones
             entidad._IdInstalaciones = null;
@@ -78,11 +92,24 @@ namespace lib_repositorios.Implementaciones
         }
         public InstalacionesEmpleados? Modificar(InstalacionesEmpleados? entidad)
         {
+            InstalacionesEmpleados? entidadvieja = this.IConexion!.InstalacionesEmpleados!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            if (!(this.IConexion!.Instalaciones!.Any(x => x.Id! == entidad!.IdInstalaciones)))
+            {
+                throw new Exception($"La instalacion con id {entidad.IdInstalaciones} no existe");
+            }
+
+            if (!(this.IConexion!.Empleados!.Any(x => x.Id! == entidad!.IdEmpleados)))
+            {
+                throw new Exception($"El empleado con id {entidad.IdEmpleados} no existe");
+            }
 
             //Operaciones
             entidad._IdInstalaciones = null;

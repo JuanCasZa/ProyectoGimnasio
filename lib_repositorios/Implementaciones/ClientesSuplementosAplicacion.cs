@@ -20,15 +20,16 @@ namespace lib_repositorios.Implementaciones
 
         public ClientesSuplementos? Borrar(ClientesSuplementos? entidad)
         {
+            ClientesSuplementos? entidadvieja = this.IConexion!.ClientesSuplementos!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
 
-
-            // Borrado físico (si tu política es borrar). Si prefieres borrado lógico, adapta aquí.
-            var entry = this.IConexion.Entry<ClientesSuplementos>(entidad);
+            var entry = this.IConexion!.Entry<ClientesSuplementos>(entidad);
             entry.State = EntityState.Deleted;
             this.IConexion.SaveChanges();
             return entidad;
@@ -97,11 +98,18 @@ namespace lib_repositorios.Implementaciones
 
         public ClientesSuplementos? Modificar(ClientesSuplementos? entidad)
         {
+            ClientesSuplementos? entidadvieja = this.IConexion!.ClientesSuplementos!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            if (entidadvieja.IdClientes != entidad.IdClientes) throw new Exception("El id del cliente debe de ser el mismo");
+
+            if (entidadvieja.IdSuplementos != entidad.IdSuplementos) throw new Exception("El id del suplemento debe de ser el mismo");
 
             var entry = this.IConexion!.Entry<ClientesSuplementos>(entidad);
             entry.State = EntityState.Modified;

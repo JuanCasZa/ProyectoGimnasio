@@ -19,11 +19,17 @@ namespace lib_repositorios.Implementaciones
         }
         public Suplementos? Borrar(Suplementos? entidad)
         {
+            Suplementos? entidadvieja = this.IConexion!.Suplementos!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            if (this.IConexion!.ClientesSuplementos!.Any(s => s.IdSuplementos == entidad.Id))
+                throw new Exception("lbSuplementos ligada a otras tablas");
 
             entidad._Proveedor = null;
 
@@ -84,6 +90,9 @@ namespace lib_repositorios.Implementaciones
 
         public Suplementos? Modificar(Suplementos? entidad)
         {
+            Suplementos? entidadvieja = this.IConexion!.Suplementos!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
@@ -102,10 +111,7 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Proveedor <= 0)
                 throw new Exception("Debe asignar un proveedor válido al suplemento");
 
-            //Para validar que el id del proveedor exista
-            bool proveedorExiste = this.IConexion!.Proveedores!.Any(p => p.Id == entidad.Proveedor);
-            if (!proveedorExiste)
-                throw new Exception("El proveedor especificado no existe");
+            if (entidadvieja.Proveedor != entidad.Proveedor) throw new Exception("El id del proveedor debe de ser el mismo");
 
             entidad._Proveedor = null;
 

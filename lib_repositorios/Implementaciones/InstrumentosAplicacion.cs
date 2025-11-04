@@ -27,6 +27,9 @@ namespace lib_repositorios.Implementaciones
 
         public Instrumentos? Borrar(Instrumentos? entidad)
         {
+            Instrumentos? entidadvieja = this.IConexion!.Instrumentos!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
@@ -70,6 +73,12 @@ namespace lib_repositorios.Implementaciones
             if (existeDuplicado)
                 throw new Exception("Ya existe un instrumento con el mismo nombre y marca");
 
+            var proveedor = this.IConexion!.Proveedores!
+                .FirstOrDefault(i => i.Id == entidad.Proveedor);
+
+            if (proveedor == null)
+                throw new Exception("El proveedor no existe");
+
             entidad._Proveedor= null;
 
             this.IConexion!.Instrumentos!.Add(entidad);
@@ -95,6 +104,9 @@ namespace lib_repositorios.Implementaciones
 
         public Instrumentos? Modificar(Instrumentos? entidad)
         {
+            Instrumentos? entidadvieja = this.IConexion!.Instrumentos!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
@@ -115,6 +127,8 @@ namespace lib_repositorios.Implementaciones
 
             if (existeDuplicado)
                 throw new Exception("Ya existe un instrumento con el mismo nombre y marca");
+
+            if (entidadvieja.Proveedor != entidad.Proveedor) throw new Exception("El proveedor debe ser el mismo");
 
             entidad._Proveedor = null;
 

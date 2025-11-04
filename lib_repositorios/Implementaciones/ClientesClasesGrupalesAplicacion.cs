@@ -20,6 +20,9 @@ namespace lib_repositorios.Implementaciones
 
         public ClientesClasesGrupales? Borrar(ClientesClasesGrupales? entidad)
         {
+            ClientesClasesGrupales? entidadvieja = this.IConexion!.ClientesClasesGrupales!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
@@ -88,11 +91,18 @@ namespace lib_repositorios.Implementaciones
 
         public ClientesClasesGrupales? Modificar(ClientesClasesGrupales? entidad)
         {
+            ClientesClasesGrupales? entidadvieja = this.IConexion!.ClientesClasesGrupales!.FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+
             if (entidad == null)
                 throw new Exception("lbFaltaInformación");
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            if (entidadvieja.IdClientes != entidad.IdClientes) throw new Exception("El id del cliente debe de ser el mismo");
+
+            if (entidadvieja.IdClasesGrupales != entidad.IdClasesGrupales) throw new Exception("El id de la clase grupal debe de ser el mismo");
 
             var entry = this.IConexion!.Entry<ClientesClasesGrupales>(entidad);
             entry.State = EntityState.Modified;
