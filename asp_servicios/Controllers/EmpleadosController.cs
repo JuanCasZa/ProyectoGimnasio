@@ -13,11 +13,13 @@ namespace asp_servicios.Controllers
     {
         private IEmpleadosAplicacion? iAplicacion = null;
         private TokenAplicacion? iAplicacionToken = null;
+        private AuditoriasAplicacion? iAplicacionAuditoria = null;
 
-        public EmpleadosController(IEmpleadosAplicacion? iAplicacion, TokenAplicacion iAplicacionToken)
+        public EmpleadosController(IEmpleadosAplicacion? iAplicacion, TokenAplicacion iAplicacionToken, AuditoriasAplicacion? iAplicacionAuditoria)
         {
             this.iAplicacion = iAplicacion;
             this.iAplicacionToken = iAplicacionToken;
+            this.iAplicacionAuditoria = iAplicacionAuditoria;
         }
 
         private Dictionary<string, object> ObtenerDatos()
@@ -122,6 +124,7 @@ namespace asp_servicios.Controllers
             try
             {
                 var datos = ObtenerDatos();
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 1);
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 if (!(iAplicacionToken!.Validar(datos) && iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")))
@@ -153,6 +156,7 @@ namespace asp_servicios.Controllers
             try
             {
                 var datos = ObtenerDatos();
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 2);
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 if (!(iAplicacionToken!.Validar(datos) && iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")))
@@ -184,6 +188,7 @@ namespace asp_servicios.Controllers
             try
             {
                 var datos = ObtenerDatos();
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 3);
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 if (!(iAplicacionToken!.Validar(datos) && iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")))

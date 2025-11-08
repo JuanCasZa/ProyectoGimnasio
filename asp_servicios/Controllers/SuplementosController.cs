@@ -15,7 +15,6 @@ namespace asp_servicios.Controllers
         private ISuplementosAplicacion? iAplicacion = null;
         private TokenAplicacion? iAplicacionToken = null;
         private AuditoriasAplicacion? iAplicacionAuditoria = null;
-        private Auditorias? auditoria = new Auditorias();
 
         public SuplementosController(ISuplementosAplicacion? iAplicacion, TokenAplicacion iAplicacionToken, AuditoriasAplicacion iAuditoriasAplicacion)
         {
@@ -135,9 +134,9 @@ namespace asp_servicios.Controllers
         {
             var respuesta = new Dictionary<string, object>();
             try
-            {
-                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(), 1);
+            {                
                 var datos = ObtenerDatos();
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 1);
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
@@ -168,8 +167,8 @@ namespace asp_servicios.Controllers
             var respuesta = new Dictionary<string, object>();
             try
             {
-                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(), 2);
                 var datos = ObtenerDatos();
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 2);
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
@@ -201,8 +200,8 @@ namespace asp_servicios.Controllers
             var respuesta = new Dictionary<string, object>();
             try
             {
-                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(), 3);
                 var datos = ObtenerDatos();
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 3);
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
