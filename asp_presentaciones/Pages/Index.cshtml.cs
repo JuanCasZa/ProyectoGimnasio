@@ -8,7 +8,7 @@ namespace asp_presentacion.Pages
     {
         public bool EstaLogueado = false;
         [BindProperty] public string? Email { get; set; }
-        [BindProperty] public string? Contrasena { get; set; }
+        [BindProperty] public string? Contrasenha { get; set; }
 
         public void OnGet()
         {
@@ -23,11 +23,9 @@ namespace asp_presentacion.Pages
         public void OnPostBtClean()
         {
             try
-
-
             {
                 Email = string.Empty;
-                Contrasena = string.Empty;
+                Contrasenha = string.Empty;
             }
             catch (Exception ex)
             {
@@ -40,13 +38,13 @@ namespace asp_presentacion.Pages
             try
             {
                 if (string.IsNullOrEmpty(Email) &&
-                    string.IsNullOrEmpty(Contrasena))
+                    string.IsNullOrEmpty(Contrasenha))
                 {
                     OnPostBtClean();
                     return;
                 }
                 /*Usuario quemado, hay que cambiarlo para traer a los usuarios acá*/
-                if ("admin.123" != Email + "." + Contrasena)
+                if ("admin.123" != Email + "." + Contrasenha)
                 {
                     OnPostBtClean();
                     return;
