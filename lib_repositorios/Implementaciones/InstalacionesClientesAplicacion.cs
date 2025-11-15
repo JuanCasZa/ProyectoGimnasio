@@ -64,24 +64,22 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.InstalacionesClientes!.Take(20).ToList();
         }
 
-        public List<InstalacionesClientes> PorIdClientes(InstalacionesClientes? entidad)
+        public List<InstalacionesClientes> Filtro(InstalacionesClientes? entidad)
         {
-            if (entidad == null)
+            //Filtro por Id de cliente y de instalacion
+            var consulta = this.IConexion!.InstalacionesClientes!.AsQueryable();
+
+            if (entidad!.IdClientes != 0)
             {
-                return new List<InstalacionesClientes>();
+                consulta = consulta.Where(x => x.IdClientes == entidad.IdClientes);
             }
 
-            return this.IConexion!.InstalacionesClientes!.Where(x => x.IdClientes! == entidad!.IdClientes).ToList();
-        }
-
-        public List<InstalacionesClientes> PorIdInstalaciones(InstalacionesClientes? entidad)
-        {
-            if (entidad == null)
+            if (entidad!.IdInstalaciones != 0)
             {
-                return new List<InstalacionesClientes>();
+                consulta = consulta.Where(x => x.IdInstalaciones == entidad.IdInstalaciones);
             }
 
-            return this.IConexion!.InstalacionesClientes!.Where(x => x.IdInstalaciones! == entidad!.IdInstalaciones).ToList();
+            return consulta.ToList();
         }
 
         public InstalacionesClientes? Modificar(InstalacionesClientes? entidad)

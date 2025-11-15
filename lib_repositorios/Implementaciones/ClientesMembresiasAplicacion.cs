@@ -76,24 +76,22 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.ClientesMembresias!.Take(20).ToList();
         }
 
-        public List<ClientesMembresias> PorIdClientes(ClientesMembresias? entidad)
+        public List<ClientesMembresias> Filtro(ClientesMembresias? entidad)
         {
-            if (entidad == null)
+            //Filtro por Id
+            var consulta = this.IConexion!.ClientesMembresias!.AsQueryable();
+
+            if (entidad!.IdClientes != 0)
             {
-                return new List<ClientesMembresias>();
+                consulta = consulta.Where(x => x.IdClientes == entidad.IdClientes);
             }
 
-            return this.IConexion!.ClientesMembresias!.Where(x => x.IdClientes! == entidad!.IdClientes).ToList();
-        }
-
-        public List<ClientesMembresias> PorIdMembresias(ClientesMembresias? entidad)
-        {
-            if (entidad == null)
+            if (entidad!.IdMembresias != 0)
             {
-                return new List<ClientesMembresias>();
+                consulta = consulta.Where(x => x.IdMembresias == entidad.IdMembresias);
             }
 
-            return this.IConexion!.ClientesMembresias!.Where(x => x.IdMembresias! == entidad!.IdMembresias).ToList();
+            return consulta.ToList();
         }
 
         public ClientesMembresias? Modificar(ClientesMembresias? entidad)

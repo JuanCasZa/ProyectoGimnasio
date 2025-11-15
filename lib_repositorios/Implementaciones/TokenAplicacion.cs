@@ -1,12 +1,9 @@
 ﻿using lib_dominio.Entidades;
 using lib_repositorios.Interfaces;
-<<<<<<< HEAD
-=======
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using Microsoft.Extensions.Configuration;
 using System.Reflection.Metadata.Ecma335;
->>>>>>> 6ce1043a95f118b82b6a3f599ec64a0aff2c9e27
 
 namespace lib_repositorios.Implementaciones
 {
@@ -154,6 +151,16 @@ namespace lib_repositorios.Implementaciones
 
             return Rol;
         }
+
+        
+        public Usuarios? GetUsuario(string llave)
+        {
+            if (!LlavesActivas.ContainsKey(llave))
+                throw new Exception("Usuario no encontrado para registrar auditoria");
+
+            return LlavesActivas[llave];
+        }
+
     }
 
 }

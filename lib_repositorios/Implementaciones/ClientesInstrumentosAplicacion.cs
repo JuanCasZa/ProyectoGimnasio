@@ -90,24 +90,22 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.ClientesInstrumentos!.Take(20).ToList();
         }
 
-        public List<ClientesInstrumentos> PorIdClientes(ClientesInstrumentos? entidad)
+        public List<ClientesInstrumentos> Filtro(ClientesInstrumentos? entidad)
         {
-            if (entidad == null)
+            //Filtro por Id del cliente y por Id del instrumento
+            var consulta = this.IConexion!.ClientesInstrumentos!.AsQueryable();
+
+            if (entidad!.IdClientes != 0)
             {
-                return new List<ClientesInstrumentos>();
+                consulta = consulta.Where(x => x.IdClientes == entidad.IdClientes);
             }
 
-            return this.IConexion!.ClientesInstrumentos!.Where(x => x.IdClientes! == entidad!.IdClientes).ToList();
-        }
-
-        public List<ClientesInstrumentos> PorIdInstrumentos(ClientesInstrumentos? entidad)
-        {
-            if (entidad == null)
+            if (entidad!.IdInstrumentos != 0)
             {
-                return new List<ClientesInstrumentos>();
+                consulta = consulta.Where(x => x.IdInstrumentos == entidad.IdInstrumentos);
             }
 
-            return this.IConexion!.ClientesInstrumentos!.Where(x => x.IdInstrumentos! == entidad!.IdInstrumentos).ToList();
+            return consulta.ToList();
         }
 
         public ClientesInstrumentos? Modificar(ClientesInstrumentos? entidad)

@@ -69,24 +69,22 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.ClientesClasesGrupales!.Take(20).ToList();
         }
 
-        public List<ClientesClasesGrupales> PorCliente(ClientesClasesGrupales? entidad)
+        public List<ClientesClasesGrupales> Filtro(ClientesClasesGrupales? entidad)
         {
-            if (entidad == null)
+            //Filtro por Id del cliente e Id de la clase
+            var consulta = this.IConexion!.ClientesClasesGrupales!.AsQueryable();
+
+            if (entidad!.IdClientes != 0)
             {
-                return new List<ClientesClasesGrupales>();
+                consulta = consulta.Where(x => x.IdClientes == entidad.IdClientes);
             }
 
-            return this.IConexion!.ClientesClasesGrupales!.Where(x => x.IdClientes! == entidad!.IdClientes).ToList();
-        }
-
-        public List<ClientesClasesGrupales> PorClaseGrupal(ClientesClasesGrupales? entidad)
-        {
-            if (entidad == null)
+            if (entidad!.IdClasesGrupales != 0)
             {
-                return new List<ClientesClasesGrupales>();
+                consulta = consulta.Where(x => x.IdClasesGrupales == entidad.IdClasesGrupales);
             }
 
-            return this.IConexion!.ClientesClasesGrupales!.Where(x => x.IdClasesGrupales! == entidad!.IdClasesGrupales).ToList();
+            return consulta.ToList();
         }
 
         public ClientesClasesGrupales? Modificar(ClientesClasesGrupales? entidad)

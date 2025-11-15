@@ -85,6 +85,17 @@ namespace lib_repositorios.Implementaciones
         {
             return this.IConexion!.Proveedores!.Take(20).ToList();
         }
+
+        public List<Proveedores> Filtro(Proveedores? entidad)
+        {
+            var consulta = this.IConexion!.Proveedores!.AsQueryable();
+
+            //Filtro por Direccion y por Telefono
+            consulta = consulta.Where(x => x.Direccion!.Contains(entidad!.Direccion!) && x.Telefono!.Contains(entidad!.Telefono!)).Take(50);
+
+            return consulta.ToList();
+        }
+
         public Proveedores? Modificar(Proveedores? entidad)
         {
             Proveedores? entidadvieja = this.IConexion!.Proveedores!.FirstOrDefault(x => x.Id! == entidad!.Id);

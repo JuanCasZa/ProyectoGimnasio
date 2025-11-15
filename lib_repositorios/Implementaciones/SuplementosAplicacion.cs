@@ -73,19 +73,20 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.Suplementos!.Take(20).ToList();
         }
 
-        public List<Suplementos> PorProveedor(Suplementos? entidad)
+        public List<Suplementos> Filtro(Suplementos? entidad)
         {
-            if (entidad == null)
+            //Filtro por proveedor
+            var consulta = this.IConexion!.Suplementos!.AsQueryable();
+
+            if (entidad!.Proveedor != 0)
             {
-                return new List<Suplementos>();
+                consulta = consulta.Where(x => x.Proveedor == entidad.Proveedor);
             }
 
-            return this.IConexion!.Suplementos!.Where(x => x.Proveedor! == entidad!.Proveedor).ToList();
-        }
+            //Filtro por nombre y tipo de suplemento
+            consulta = consulta.Where(x => x.NombreSuplemento!.Contains(entidad!.NombreSuplemento!) && x.TipoSuplemento!.Contains(entidad!.TipoSuplemento!)).Take(50);
 
-        public List<Suplementos> PorTipoSuplemento(Suplementos? entidad)
-        {
-            return this.IConexion!.Suplementos!.Where(x => x.TipoSuplemento!.Contains(entidad!.TipoSuplemento!)).ToList();
+            return consulta.ToList();
         }
 
         public Suplementos? Modificar(Suplementos? entidad)

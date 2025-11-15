@@ -69,7 +69,7 @@ namespace asp_servicios.Controllers
         }
 
         [HttpPost]
-        public string PorTipoSuplemento()
+        public string Filtro()
         {
             var respuesta = new Dictionary<string, object>();
             try
@@ -86,38 +86,7 @@ namespace asp_servicios.Controllers
                 var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(
                 JsonConversor.ConvertirAString(datos["Entidad"]));
 
-                respuesta["Entidades"] = this.iAplicacion!.PorTipoSuplemento(entidad);
-                respuesta["Respuesta"] = "OK";
-                respuesta["Fecha"] = DateTime.Now.ToString();
-                return JsonConversor.ConvertirAString(respuesta);
-            }
-            catch (Exception ex)
-            {
-                respuesta["Error"] = ex.Message.ToString();
-                respuesta["Respuesta"] = "Error";
-                return JsonConversor.ConvertirAString(respuesta);
-            }
-        }
-
-        [HttpPost]
-        public string PorProveedor()
-        {
-            var respuesta = new Dictionary<string, object>();
-            try
-            {
-                var datos = ObtenerDatos();
-                this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
-                this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
-                if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
-                    || iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Ventas"))))
-                {
-                    respuesta["Error"] = "lbNoAutenticacion";
-                    return JsonConversor.ConvertirAString(respuesta);
-                }
-                var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(
-                JsonConversor.ConvertirAString(datos["Entidad"]));
-
-                respuesta["Entidades"] = this.iAplicacion!.PorProveedor(entidad);
+                respuesta["Entidades"] = this.iAplicacion!.Filtro(entidad);
                 respuesta["Respuesta"] = "OK";
                 respuesta["Fecha"] = DateTime.Now.ToString();
                 return JsonConversor.ConvertirAString(respuesta);
@@ -136,10 +105,10 @@ namespace asp_servicios.Controllers
             var respuesta = new Dictionary<string, object>();
             try
             {
-                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(), 1);
                 var datos = ObtenerDatos();
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
+                ConfigurarAuditoria();
                 if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
                     || iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Ventas"))))
                 {
@@ -152,6 +121,7 @@ namespace asp_servicios.Controllers
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
                 respuesta["Fecha"] = DateTime.Now.ToString();
+                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 1);
                 return JsonConversor.ConvertirAString(respuesta);
             }
             catch (Exception ex)
@@ -168,7 +138,6 @@ namespace asp_servicios.Controllers
             var respuesta = new Dictionary<string, object>();
             try
             {
-                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(), 2);
                 var datos = ObtenerDatos();
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
@@ -185,6 +154,7 @@ namespace asp_servicios.Controllers
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
                 respuesta["Fecha"] = DateTime.Now.ToString();
+                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 2);
                 return JsonConversor.ConvertirAString(respuesta);
             }
             catch (Exception ex)
@@ -201,7 +171,6 @@ namespace asp_servicios.Controllers
             var respuesta = new Dictionary<string, object>();
             try
             {
-                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(), 3);
                 var datos = ObtenerDatos();
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
@@ -218,6 +187,7 @@ namespace asp_servicios.Controllers
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
                 respuesta["Fecha"] = DateTime.Now.ToString();
+                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 3);
                 return JsonConversor.ConvertirAString(respuesta);
             }
             catch (Exception ex)

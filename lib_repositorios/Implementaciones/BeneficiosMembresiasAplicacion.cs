@@ -60,15 +60,22 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.BeneficiosMembresias!.Take(20).ToList();
         }
 
-        public List<BeneficiosMembresias> PorMembresia(BeneficiosMembresias? entidad)
+        public List<BeneficiosMembresias> Filtro(BeneficiosMembresias? entidad)
         {
-            if (entidad == null)
+            //Filtro por Id
+            var consulta = this.IConexion!.BeneficiosMembresias!.AsQueryable();
+
+            if (entidad!.IdMembresias != 0)
             {
-                return new List<BeneficiosMembresias>();
+                consulta = consulta.Where(x => x.IdMembresias == entidad.IdMembresias);
             }
 
-            return this.IConexion!.BeneficiosMembresias!.Where(x => x.IdMembresias! == entidad!.IdMembresias).ToList();
+            //Filtro por beneficios
+            consulta = consulta.Where(x => x.Beneficios!.Contains(entidad!.Beneficios!)).Take(50);
+
+            return consulta.ToList();
         }
+
         public BeneficiosMembresias? Modificar(BeneficiosMembresias? entidad)
         {
             BeneficiosMembresias? entidadvieja = this.IConexion!.BeneficiosMembresias!.FirstOrDefault(x => x.Id! == entidad!.Id);

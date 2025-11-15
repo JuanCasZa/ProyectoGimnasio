@@ -71,25 +71,24 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.InstalacionesEmpleados!.Take(20).ToList();
         }
 
-        public List<InstalacionesEmpleados> PorIdEmpleados(InstalacionesEmpleados? entidad)
+        public List<InstalacionesEmpleados> Filtro(InstalacionesEmpleados? entidad)
         {
-            if (entidad == null)
+            //Filtro por Id
+            var consulta = this.IConexion!.InstalacionesEmpleados!.AsQueryable();
+
+            if (entidad!.IdEmpleados != 0)
             {
-                return new List<InstalacionesEmpleados>();
+                consulta = consulta.Where(x => x.IdEmpleados == entidad.IdEmpleados);
             }
 
-            return this.IConexion!.InstalacionesEmpleados!.Where(x => x.IdEmpleados! == entidad!.IdEmpleados).ToList();
-        }
-
-        public List<InstalacionesEmpleados> PorIdInstalaciones(InstalacionesEmpleados? entidad)
-        {
-            if (entidad == null)
+            if (entidad!.IdInstalaciones != 0)
             {
-                return new List<InstalacionesEmpleados>();
+                consulta = consulta.Where(x => x.IdInstalaciones == entidad.IdInstalaciones);
             }
 
-            return this.IConexion!.InstalacionesEmpleados!.Where(x => x.IdInstalaciones! == entidad!.IdInstalaciones).ToList();
+            return consulta.ToList();
         }
+
         public InstalacionesEmpleados? Modificar(InstalacionesEmpleados? entidad)
         {
             InstalacionesEmpleados? entidadvieja = this.IConexion!.InstalacionesEmpleados!.FirstOrDefault(x => x.Id! == entidad!.Id);

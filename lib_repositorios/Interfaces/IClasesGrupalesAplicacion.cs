@@ -11,7 +11,7 @@ namespace lib_repositorios.Interfaces
     {
         void Configurar(string StringConexion);
         List<ClasesGrupales> Listar();
-        List<ClasesGrupales> PorTipoClase(ClasesGrupales? entidad);
+        List<ClasesGrupales> Filtro(ClasesGrupales? entidad);
         ClasesGrupales? Guardar(ClasesGrupales? entidad);
         ClasesGrupales? Modificar(ClasesGrupales? entidad);
         ClasesGrupales? Borrar(ClasesGrupales? entidad);

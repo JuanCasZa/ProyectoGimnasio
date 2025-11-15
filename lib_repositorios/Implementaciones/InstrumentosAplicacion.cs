@@ -91,14 +91,20 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.Instrumentos!.Take(20).ToList();
         }
 
-        public List<Instrumentos> PorProveedor(Instrumentos? entidad)
+        public List<Instrumentos> Filtro(Instrumentos? entidad)
         {
-            if (entidad == null)
+            //Filtro por proveedor
+            var consulta = this.IConexion!.Instrumentos!.AsQueryable();
+
+            if (entidad!.Proveedor != 0)
             {
-                return new List<Instrumentos>();
+                consulta = consulta.Where(x => x.Proveedor == entidad.Proveedor);
             }
 
-            return this.IConexion!.Instrumentos!.Where(x => x.Proveedor! == entidad!.Proveedor).ToList();
+            //Filtro por marca y por nombre del instrumento
+            consulta = consulta.Where(x => x.Marca!.Contains(entidad!.Marca!) && x.NombreInstrumento!.Contains(entidad!.NombreInstrumento!)).Take(50);
+
+            return consulta.ToList();
         }
 
 

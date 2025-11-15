@@ -58,7 +58,7 @@ namespace asp_servicios.Controllers
         }
 
         [HttpPost]
-        public string PorProveedor()
+        public string Filtro()
         {
             var respuesta = new Dictionary<string, object>();
             try
@@ -75,7 +75,7 @@ namespace asp_servicios.Controllers
                 var entidad = JsonConversor.ConvertirAObjeto<Instrumentos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
-                respuesta["Entidades"] = this.iAplicacion!.PorProveedor(entidad);
+                respuesta["Entidades"] = this.iAplicacion!.Filtro(entidad);
                 respuesta["Respuesta"] = "OK";
                 respuesta["Fecha"] = DateTime.Now.ToString();
                 return JsonConversor.ConvertirAString(respuesta);

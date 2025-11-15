@@ -67,6 +67,23 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.Clientes!.Take(20).ToList();
         }
 
+        public List<Clientes> Filtro(Clientes? entidad)
+        {
+            
+            var consulta = this.IConexion!.Clientes!.AsQueryable();
+
+            //Filtro por Edad
+            if (entidad!.Edad != 0)
+            {
+                consulta = consulta.Where(x => x.Edad == entidad.Edad);
+            }
+
+            //Filtro por Identificacion y por telefono
+            consulta = consulta.Where(x => x.Identificacion!.Contains(entidad!.Identificacion!) && x.Telefono!.Contains(entidad!.Telefono!)).Take(50);
+
+            return consulta.ToList();
+        }
+
         public Clientes? Modificar(Clientes? entidad)
         {
             Clientes? entidadvieja = this.IConexion!.Clientes!.FirstOrDefault(x => x.Id! == entidad!.Id);

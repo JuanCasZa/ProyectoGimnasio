@@ -66,9 +66,14 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.ClasesGrupales!.Take(20).ToList();
         }
 
-        public List<ClasesGrupales> PorTipoClase(ClasesGrupales? entidad)
+        public List<ClasesGrupales> Filtro(ClasesGrupales? entidad)
         {
-            return this.IConexion!.ClasesGrupales!.Where(x => x.TipoClase!.Contains(entidad!.TipoClase!)).ToList();
+            var consulta = this.IConexion!.ClasesGrupales!.AsQueryable();
+
+            //Filtro por èl tipo de clase y por el nivel
+            consulta = consulta.Where(x => x.TipoClase!.Contains(entidad!.TipoClase!) && x.Nivel!.Contains(entidad!.Nivel!)).Take(50);
+
+            return consulta.ToList();
         }
 
         public ClasesGrupales? Modificar(ClasesGrupales? entidad)

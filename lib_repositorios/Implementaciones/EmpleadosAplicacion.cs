@@ -69,24 +69,15 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.Empleados!.Take(20).ToList();
         }
 
-        public List<Empleados> PorCargo(Empleados? entidad)
+        public List<Empleados> Filtro(Empleados? entidad)
         {
-            if (entidad == null)
-            {
-                return new List<Empleados>();
-            }
+            var consulta = this.IConexion!.Empleados!.AsQueryable();
 
-            return this.IConexion!.Empleados!.Where(x => x.Cargo!.Contains(entidad!.Cargo!)).ToList();
-        }
+            //Filtro por Especialidad, Identificacion, Telefono, Cargo y HorarioDisponible
+            consulta = consulta.Where(x => x.Especialidad!.Contains(entidad!.Especialidad!) && x.Identificacion!.Contains(entidad!.Identificacion!)
+            && x.Telefono!.Contains(entidad!.Telefono!) && x.Cargo!.Contains(entidad!.Cargo!) && x.HorarioDisponible!.Contains(entidad!.HorarioDisponible!)).Take(50);
 
-        public List<Empleados> PorEspecialidad(Empleados? entidad)
-        {
-            if (entidad == null)
-            {
-                return new List<Empleados>();
-            }
-
-            return this.IConexion!.Empleados!.Where(x => x.Especialidad!.Contains(entidad!.Especialidad!)).ToList();
+            return consulta.ToList();
         }
 
         public Empleados? Modificar(Empleados? entidad)
