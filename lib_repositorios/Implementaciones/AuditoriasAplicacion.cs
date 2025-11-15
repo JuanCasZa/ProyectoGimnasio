@@ -26,6 +26,7 @@ namespace lib_repositorios.Implementaciones
             {
                 case 1:
                     entidad!.TipoOperacion = "INSERT";
+                    entidad.ValoresAntiguos = "Sin valores";
                     entidad.ValoresNuevos = entidad.ToString();
                     break;
                 case 2:

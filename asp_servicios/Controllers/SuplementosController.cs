@@ -15,7 +15,6 @@ namespace asp_servicios.Controllers
         private ISuplementosAplicacion? iAplicacion = null;
         private TokenAplicacion? iAplicacionToken = null;
         private AuditoriasAplicacion? iAplicacionAuditoria = null;
-        private Auditorias? auditoria = new Auditorias();
 
         public SuplementosController(ISuplementosAplicacion? iAplicacion, TokenAplicacion iAplicacionToken, AuditoriasAplicacion iAuditoriasAplicacion)
         {
@@ -104,11 +103,11 @@ namespace asp_servicios.Controllers
         {
             var respuesta = new Dictionary<string, object>();
             try
-            {
+            {                
                 var datos = ObtenerDatos();
+                //MIRAR COMO HACER PARA QUE ESAS ENTIDADES NO RETORNEN ESA CADENA DE TEXTO TODA RARA
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
-                ConfigurarAuditoria();
                 if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
                     || iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Ventas"))))
                 {
@@ -117,11 +116,11 @@ namespace asp_servicios.Controllers
                 }
                 var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(JsonConversor.ConvertirAString(datos["Entidad"]));
 
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 1);
                 entidad = this.iAplicacion!.Guardar(entidad);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
                 respuesta["Fecha"] = DateTime.Now.ToString();
-                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 1);
                 return JsonConversor.ConvertirAString(respuesta);
             }
             catch (Exception ex)
@@ -150,11 +149,11 @@ namespace asp_servicios.Controllers
                 var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 2);
                 entidad = this.iAplicacion!.Modificar(entidad);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
                 respuesta["Fecha"] = DateTime.Now.ToString();
-                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 2);
                 return JsonConversor.ConvertirAString(respuesta);
             }
             catch (Exception ex)
@@ -183,11 +182,11 @@ namespace asp_servicios.Controllers
                 var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 3);
                 entidad = this.iAplicacion!.Borrar(entidad);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
                 respuesta["Fecha"] = DateTime.Now.ToString();
-                iAplicacionAuditoria!.AgregarAuditoria(this.auditoria, iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 3);
                 return JsonConversor.ConvertirAString(respuesta);
             }
             catch (Exception ex)
