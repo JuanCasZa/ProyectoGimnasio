@@ -26,24 +26,24 @@ namespace lib_presentaciones.Implementaciones
             return lista;
         }
 
-        //public async Task<List<ClasesGrupales>> PorTipo(ClasesGrupales? entidad)
-        //{
-        //    var lista = new List<ClasesGrupales>();
-        //    var datos = new Dictionary<string, object>();
-        //    datos["Entidad"] = entidad!;
+        public async Task<List<ClasesGrupales>> Filtro(ClasesGrupales? entidad)
+        {
+            var lista = new List<ClasesGrupales>();
+            var datos = new Dictionary<string, object>();
+            datos["Entidad"] = entidad!;
 
-        //    comunicaciones = new Comunicaciones();
-        //    datos = comunicaciones.ConstruirUrl(datos, "ClasesGrupales/PorTipo");
-        //    var respuesta = await comunicaciones!.Ejecutar(datos);
+            comunicaciones = new Comunicaciones();
+            datos = comunicaciones.ConstruirUrl(datos, "ClasesGrupales/Filtro");
+            var respuesta = await comunicaciones!.Ejecutar(datos);
 
-        //    if (respuesta.ContainsKey("Error"))
-        //    {
-        //        throw new Exception(respuesta["Error"].ToString()!);
-        //    }
-        //    lista = JsonConversor.ConvertirAObjeto<List<ClasesGrupales>>(
-        //        JsonConversor.ConvertirAString(respuesta["Entidades"]));
-        //    return lista;
-        //}
+            if (respuesta.ContainsKey("Error"))
+            {
+                throw new Exception(respuesta["Error"].ToString()!);
+            }
+            lista = JsonConversor.ConvertirAObjeto<List<ClasesGrupales>>(
+                JsonConversor.ConvertirAString(respuesta["Entidades"]));
+            return lista;
+        }
 
         public async Task<ClasesGrupales?> Guardar(ClasesGrupales? entidad)
         {

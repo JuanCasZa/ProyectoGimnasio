@@ -97,7 +97,6 @@ namespace asp_servicios.Controllers
             try
             {
                 var datos = ObtenerDatos();
-                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 1);
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
@@ -109,6 +108,7 @@ namespace asp_servicios.Controllers
                 var entidad = JsonConversor.ConvertirAObjeto<ClientesSuplementos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 1);
                 entidad = this.iAplicacion!.Guardar(entidad);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
@@ -130,7 +130,6 @@ namespace asp_servicios.Controllers
             try
             {
                 var datos = ObtenerDatos();
-                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 2);
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
@@ -142,6 +141,7 @@ namespace asp_servicios.Controllers
                 var entidad = JsonConversor.ConvertirAObjeto<ClientesSuplementos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 2);
                 entidad = this.iAplicacion!.Modificar(entidad);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
@@ -163,7 +163,6 @@ namespace asp_servicios.Controllers
             try
             {
                 var datos = ObtenerDatos();
-                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 3);
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
@@ -175,6 +174,7 @@ namespace asp_servicios.Controllers
                 var entidad = JsonConversor.ConvertirAObjeto<ClientesSuplementos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 3);
                 entidad = this.iAplicacion!.Borrar(entidad);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";

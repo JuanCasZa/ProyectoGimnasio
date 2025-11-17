@@ -26,24 +26,24 @@ namespace lib_presentaciones.Implementaciones
             return lista;
         }
 
-        //public async Task<List<ClientesClasesGrupales>> PorTipo(ClientesClasesGrupales? entidad)
-        //{
-        //    var lista = new List<ClientesClasesGrupales>();
-        //    var datos = new Dictionary<string, object>();
-        //    datos["Entidad"] = entidad!;
+        public async Task<List<ClientesClasesGrupales>> Filtro(ClientesClasesGrupales? entidad)
+        {
+            var lista = new List<ClientesClasesGrupales>();
+            var datos = new Dictionary<string, object>();
+            datos["Entidad"] = entidad!;
 
-        //    comunicaciones = new Comunicaciones();
-        //    datos = comunicaciones.ConstruirUrl(datos, "ClientesClasesGrupales/PorTipo");
-        //    var respuesta = await comunicaciones!.Ejecutar(datos);
+            comunicaciones = new Comunicaciones();
+            datos = comunicaciones.ConstruirUrl(datos, "ClientesClasesGrupales/Filtro");
+            var respuesta = await comunicaciones!.Ejecutar(datos);
 
-        //    if (respuesta.ContainsKey("Error"))
-        //    {
-        //        throw new Exception(respuesta["Error"].ToString()!);
-        //    }
-        //    lista = JsonConversor.ConvertirAObjeto<List<ClientesClasesGrupales>>(
-        //        JsonConversor.ConvertirAString(respuesta["Entidades"]));
-        //    return lista;
-        //}
+            if (respuesta.ContainsKey("Error"))
+            {
+                throw new Exception(respuesta["Error"].ToString()!);
+            }
+            lista = JsonConversor.ConvertirAObjeto<List<ClientesClasesGrupales>>(
+                JsonConversor.ConvertirAString(respuesta["Entidades"]));
+            return lista;
+        }
 
         public async Task<ClientesClasesGrupales?> Guardar(ClientesClasesGrupales? entidad)
         {

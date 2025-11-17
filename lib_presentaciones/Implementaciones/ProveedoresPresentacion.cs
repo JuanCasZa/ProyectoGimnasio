@@ -26,24 +26,24 @@ namespace lib_presentaciones.Implementaciones
             return lista;
         }
 
-        //public async Task<List<Proveedores>> PorTipo(Proveedores? entidad)
-        //{
-        //    var lista = new List<Proveedores>();
-        //    var datos = new Dictionary<string, object>();
-        //    datos["Entidad"] = entidad!;
+        public async Task<List<Proveedores>> Filtro(Proveedores? entidad)
+        {
+            var lista = new List<Proveedores>();
+            var datos = new Dictionary<string, object>();
+            datos["Entidad"] = entidad!;
 
-        //    comunicaciones = new Comunicaciones();
-        //    datos = comunicaciones.ConstruirUrl(datos, "Proveedores/PorTipo");
-        //    var respuesta = await comunicaciones!.Ejecutar(datos);
+            comunicaciones = new Comunicaciones();
+            datos = comunicaciones.ConstruirUrl(datos, "Proveedores/Filtro");
+            var respuesta = await comunicaciones!.Ejecutar(datos);
 
-        //    if (respuesta.ContainsKey("Error"))
-        //    {
-        //        throw new Exception(respuesta["Error"].ToString()!);
-        //    }
-        //    lista = JsonConversor.ConvertirAObjeto<List<Proveedores>>(
-        //        JsonConversor.ConvertirAString(respuesta["Entidades"]));
-        //    return lista;
-        //}
+            if (respuesta.ContainsKey("Error"))
+            {
+                throw new Exception(respuesta["Error"].ToString()!);
+            }
+            lista = JsonConversor.ConvertirAObjeto<List<Proveedores>>(
+                JsonConversor.ConvertirAString(respuesta["Entidades"]));
+            return lista;
+        }
 
         public async Task<Proveedores?> Guardar(Proveedores? entidad)
         {

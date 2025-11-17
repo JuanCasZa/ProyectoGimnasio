@@ -73,6 +73,8 @@ namespace lib_presentaciones
                 var url = datos["UrlLlave"].ToString();
 
                 var temp = new Dictionary<string, object>();
+
+                //HAY QUE MODIFICAR ESTO, PORQUE CREO QUE ES UN USUARIO QUEMADO
                 temp["Entidad"] = new Dictionary<string, object>()
                 {
                     { "Nombre", "Pepito@email.com" },

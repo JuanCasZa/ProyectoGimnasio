@@ -26,24 +26,24 @@ namespace lib_presentaciones.Implementaciones
             return lista;
         }
 
-        //public async Task<List<BeneficiosMembresias>> PorTipo(BeneficiosMembresias? entidad)
-        //{
-        //    var lista = new List<BeneficiosMembresias>();
-        //    var datos = new Dictionary<string, object>();
-        //    datos["Entidad"] = entidad!;
+        public async Task<List<BeneficiosMembresias>> Filtro(BeneficiosMembresias? entidad)
+        {
+            var lista = new List<BeneficiosMembresias>();
+            var datos = new Dictionary<string, object>();
+            datos["Entidad"] = entidad!;
 
-        //    comunicaciones = new Comunicaciones();
-        //    datos = comunicaciones.ConstruirUrl(datos, "BeneficiosMembresias/PorTipo");
-        //    var respuesta = await comunicaciones!.Ejecutar(datos);
+            comunicaciones = new Comunicaciones();
+            datos = comunicaciones.ConstruirUrl(datos, "BeneficiosMembresias/Filtro");
+            var respuesta = await comunicaciones!.Ejecutar(datos);
 
-        //    if (respuesta.ContainsKey("Error"))
-        //    {
-        //        throw new Exception(respuesta["Error"].ToString()!);
-        //    }
-        //    lista = JsonConversor.ConvertirAObjeto<List<BeneficiosMembresias>>(
-        //        JsonConversor.ConvertirAString(respuesta["Entidades"]));
-        //    return lista;
-        //}
+            if (respuesta.ContainsKey("Error"))
+            {
+                throw new Exception(respuesta["Error"].ToString()!);
+            }
+            lista = JsonConversor.ConvertirAObjeto<List<BeneficiosMembresias>>(
+                JsonConversor.ConvertirAString(respuesta["Entidades"]));
+            return lista;
+        }
 
         public async Task<BeneficiosMembresias?> Guardar(BeneficiosMembresias? entidad)
         {

@@ -29,6 +29,7 @@ namespace asp_presentaciones
             services.AddScoped<IMembresiasPresentacion, MembresiasPresentacion>();
             services.AddScoped<ISuplementosPresentacion, SuplementosPresentacion>();
             services.AddScoped<IProveedoresPresentacion, ProveedoresPresentacion>();
+            services.AddScoped<IUsuariosPresentacion, UsuariosPresentacion>();
 
             //Para Razor Pages
             services.AddControllers();
