@@ -7,7 +7,7 @@ namespace lib_presentaciones
         private string? URL = string.Empty, llave = null;
 
         //Se establece la URL del servicio web
-        public Comunicaciones(string url = "http://localhost:5080/")
+        public Comunicaciones(string url = "http://localhost:5291/") //EL NUMERO DE AQUI DEBE COINCIDIR CON EL DEL ASP_SERVICIOS CUANDO SE INICIA
         {
             URL = url;
         }
@@ -16,11 +16,12 @@ namespace lib_presentaciones
         public Dictionary<string, object> ConstruirUrl(Dictionary<string, object> data, string Metodo)
         {
             data["Url"] = URL + Metodo;                 //URL completa del método a invocar
-            data["UrlLlave"] = URL + "Token/Llave";     //URL para obtener la llave de autenticación
+            data["UrlLlave"] = URL + "Token/Autenticar";     //URL para obtener la llave de autenticación
             return data;
             //Acá se prepararon los datos necesarios para la invocación del servicio web
         }
 
+        /*
         public async Task<Dictionary<string, object>> Ejecutar(Dictionary<string, object> datos)
         {
             var respuesta = new Dictionary<string, object>();
@@ -63,8 +64,48 @@ namespace lib_presentaciones
                 respuesta["Error"] = ex.ToString();
                 return respuesta;
             }
-        }
+        }*/
 
+        //Nuevo Ejecutar
+        public async Task<Dictionary<string, object>> Ejecutar(Dictionary<string, object> datos, string token)
+        {
+            var respuesta = new Dictionary<string, object>();
+            try
+            {
+                var url = datos["Url"].ToString();
+                datos.Remove("Url");
+                datos.Remove("UrlLlave");
+
+                datos["Llave"] = token;
+
+                var stringData = JsonConversor.ConvertirAString(datos);
+
+                var httpClient = new HttpClient();
+                httpClient.Timeout = new TimeSpan(0, 4, 0);
+
+                var message = await httpClient.PostAsync(url, new StringContent(stringData));
+
+                if (!message.IsSuccessStatusCode)
+                {
+                    respuesta["Error"] = "lbErrorComunicacion";
+                    return respuesta;
+                }
+
+                var resp = await message.Content.ReadAsStringAsync();
+                httpClient.Dispose();
+
+                resp = Replace(resp);
+                return JsonConversor.ConvertirAObjeto(resp);
+            }
+            catch (Exception ex)
+            {
+                respuesta["Error"] = ex.ToString();
+                return respuesta;
+            }
+        }
+        
+        //"Eliminando al metodo Llave"
+        /*
         private async Task<Dictionary<string, object>> Llave(Dictionary<string, object> datos)
         {
             var respuesta = new Dictionary<string, object>();
@@ -74,11 +115,11 @@ namespace lib_presentaciones
 
                 var temp = new Dictionary<string, object>();
 
-                //HAY QUE MODIFICAR ESTO, PORQUE CREO QUE ES UN USUARIO QUEMADO
+                //HAY QUE SOLUCIONAR ESTO, PORQUE ES UN USUARIO QUEMADO
                 temp["Entidad"] = new Dictionary<string, object>()
                 {
-                    { "Nombre", "Pepito@email.com" },
-                    { "Contraseña", "JHGjkhtu6387456yssdf" }
+                    { "Nombre", "JuanPerez" },
+                    { "Contrasenha", "1234Segura!" }
                 };
 
                 var stringData = JsonConversor.ConvertirAString(temp);
@@ -113,6 +154,7 @@ namespace lib_presentaciones
                 return respuesta;
             }
         }
+        */
 
         private string Replace(string resp)
         {

@@ -1,21 +1,29 @@
 using lib_dominio.Nucleo;
+using lib_presentaciones.Implementaciones;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Routing;
+using System.Numerics;
+using System.Threading.Tasks;
 
 namespace asp_presentaciones.Pages
 {
     public class IndexModel : PageModel
     {
+
+        // IMPLEMENTANDO COSAS
         private readonly IUsuariosPresentacion? iPresentacion;    
 
         public IndexModel(IUsuariosPresentacion presentacion)
         {
             iPresentacion = presentacion;
         }
+        //
 
         public bool EstaLogueado = false;
+
+        [BindProperty] public Enumerables.Ventanas Accion { get; set; }
         [BindProperty] public string? Email { get; set; }
         [BindProperty] public string? Contrasenha { get; set; }
 
@@ -42,7 +50,7 @@ namespace asp_presentaciones.Pages
             }
         }
 
-        public void OnPostBtEnter()
+        public async Task OnPostBtEnter()
         {
             try
             {
@@ -52,30 +60,33 @@ namespace asp_presentaciones.Pages
                     OnPostBtClean();
                     return;
                 }
+                // IMPLEMENTANDO COSAS
+                var Token = HttpContext.Session.GetString("Token"); //Implementando cosas
 
-                
+                var token = await iPresentacion!.Autenticar(Email!, Contrasenha!, Token!);
+
+                if (token == null)
+                {
+                    ViewData["Mensaje"] = "Usuario o contraseña incorrecta";
+                    OnPostBtClean();
+                    return;
+                }
+
+                //
+
                 //Usuario quemado, hay que cambiarlo para traer a los usuarios acá
+                /*
                 if ("admin.123" != Email + "." + Contrasenha)
                 {
                     OnPostBtClean();
                     return;
-                }
-                
-
-                /*
-                var lista = await this.iPresentacion!.Listar();
-
-                var usuario = lista.FirstOrDefault(x => x.Nombre == Email && x.Contrasenha == Contrasenha);
-
-                if (usuario == null)
-                {
-                    OnPostBtClean();
-                    return;
-                }
-                */
+                }*/
 
                 ViewData["Logged"] = true;
                 HttpContext.Session.SetString("Usuario", Email!);
+                HttpContext.Session.SetString("Token", token); //IMPLEMENTANDO COSAS
+                var rol = await iPresentacion.ObtenerRol(token); //IMPLEMENTANDO COSAS
+                HttpContext.Session.SetString("Rol", rol ?? ""); //IMPLEMENTANDO COSAS
                 EstaLogueado = true;
                 OnPostBtClean();
             }
@@ -92,6 +103,23 @@ namespace asp_presentaciones.Pages
                 HttpContext.Session.Clear();
                 HttpContext.Response.Redirect("/");
                 EstaLogueado = false;
+            }
+            catch (Exception ex)
+            {
+                LogConversor.Log(ex, ViewData!);
+            }
+        }
+
+        //Para cerrar el cuadro emergente
+        public void OnPostBtCerrar()
+        {
+            try
+            {
+                if (Accion == Enumerables.Ventanas.Listas)
+                {
+                    OnPostBtClean();
+                    HttpContext.Response.Redirect("/");
+                }
             }
             catch (Exception ex)
             {

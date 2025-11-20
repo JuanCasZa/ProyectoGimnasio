@@ -1,6 +1,7 @@
 ﻿using lib_dominio.Entidades;
 using lib_dominio.Nucleo;
 using lib_presentaciones.Interfaces;
+using System.Net.Http;
 
 namespace lib_presentaciones.Implementaciones
 {
@@ -8,14 +9,14 @@ namespace lib_presentaciones.Implementaciones
     {
         private Comunicaciones? comunicaciones = null;
 
-        public async Task<List<Usuarios>> Listar()
+        public async Task<List<Usuarios>> Listar(string token/*IMPLEMENTANDO COSAS*/)
         {
             var lista = new List<Usuarios>();
             var datos = new Dictionary<string, object>();
 
             comunicaciones = new Comunicaciones();
             datos = comunicaciones.ConstruirUrl(datos, "Usuarios/Listar");
-            var respuesta = await comunicaciones!.Ejecutar(datos);
+            var respuesta = await comunicaciones!.Ejecutar(datos, token);
 
             if (respuesta.ContainsKey("Error"))
             {
@@ -25,7 +26,7 @@ namespace lib_presentaciones.Implementaciones
                 JsonConversor.ConvertirAString(respuesta["Entidades"]));
             return lista;
         }
-
+        /*
         public async Task<Usuarios?> Guardar(Usuarios? entidad)
         {
             if (entidad!.Id != 0)
@@ -90,6 +91,45 @@ namespace lib_presentaciones.Implementaciones
             entidad = JsonConversor.ConvertirAObjeto<Usuarios>(
                 JsonConversor.ConvertirAString(respuesta["Entidad"]));
             return entidad;
+        }*/
+
+        //IMPLEMENTANDO COSAS
+        public async Task<string?> Autenticar(string nombre, string contrasenha, string token)
+        {
+            comunicaciones = new Comunicaciones();
+
+            var datos = new Dictionary<string, object>();
+            datos["Entidad"] = new
+            {
+                Nombre = nombre,
+                Contrasenha = contrasenha
+            };
+
+            datos = comunicaciones.ConstruirUrl(datos, "Token/Autenticar");
+
+            var respuesta = await comunicaciones.Ejecutar(datos, token);
+
+
+            if (respuesta.ContainsKey("Error"))
+                return null;
+
+            return respuesta["Llave"].ToString();
         }
+
+        public async Task<string?> ObtenerRol(string token)
+        {
+            comunicaciones = new Comunicaciones();
+
+            var datos = new Dictionary<string, object>();
+            datos = comunicaciones.ConstruirUrl(datos, "Token/ValidarRol");
+
+            var respuesta = await comunicaciones.Ejecutar(datos, token);
+
+            if (respuesta.ContainsKey("Error"))
+                return null;
+
+            return respuesta["Rol"]?.ToString();
+        }
+
     }
 }

@@ -47,7 +47,7 @@ namespace lib_repositorios.Implementaciones
                 .FirstOrDefault(x => x.Nombre == entidad!.Nombre &&
                                      x.Contrasenha == entidad.Contrasenha);
             if (usuario == null)
-                return string.Empty;
+                throw new Exception("Usuario o contraseña incorrecta");
 
             string nuevaLlave = GenerarLlave();
             LlavesActivas[nuevaLlave] = usuario;

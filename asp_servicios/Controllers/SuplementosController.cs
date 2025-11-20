@@ -105,7 +105,6 @@ namespace asp_servicios.Controllers
             try
             {                
                 var datos = ObtenerDatos();
-                //MIRAR COMO HACER PARA QUE ESAS ENTIDADES NO RETORNEN ESA CADENA DE TEXTO TODA RARA
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
@@ -116,6 +115,7 @@ namespace asp_servicios.Controllers
                 }
                 var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(JsonConversor.ConvertirAString(datos["Entidad"]));
 
+                //MIRAR COMO HACER PARA QUE ESAS ENTIDADES NO RETORNEN ESA CADENA DE TEXTO TODA RARA
                 iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 1);
                 entidad = this.iAplicacion!.Guardar(entidad);
                 respuesta["Entidad"] = entidad!;

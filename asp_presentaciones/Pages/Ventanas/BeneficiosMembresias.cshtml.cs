@@ -3,18 +3,19 @@ using lib_dominio.Nucleo;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json.Linq;
 namespace asp_presentacion.Pages.Ventanas
 {
-    public class ClientesModel : PageModel
+    public class BeneficiosMembresiasModel : PageModel
     {
-        private IClientesPresentacion? iPresentacion = null;
+        private IClasesGrupalesPresentacion? iPresentacion = null;
 
-        public ClientesModel(IClientesPresentacion iPresentacion)
+        public BeneficiosMembresiasModel(IClasesGrupalesPresentacion iPresentacion)
         {
             try
             {
                 this.iPresentacion = iPresentacion;
-                Filtro = new Clientes();
+                Filtro = new BeneficiosMembresias();
             }
             catch (Exception ex)
             {
@@ -24,15 +25,16 @@ namespace asp_presentacion.Pages.Ventanas
 
         public IFormFile? FormFile { get; set; }
         [BindProperty] public Enumerables.Ventanas Accion { get; set; }
-        [BindProperty] public Clientes? Actual { get; set; }
-        [BindProperty] public Clientes? Filtro { get; set; }
-        [BindProperty] public List<Clientes>? Lista { get; set; }
+        [BindProperty] public BeneficiosMembresias? Actual { get; set; }
+        [BindProperty] public BeneficiosMembresias? Filtro { get; set; }
+        [BindProperty] public List<BeneficiosMembresias>? Lista { get; set; }
         public virtual void OnGet() { OnPostBtRefrescar(); }
 
         public void OnPostBtRefrescar()
         {
             try
             {
+                var token = HttpContext.Session.GetString("Token"); //IMPLEMENTANDO COSAS
                 var variable_session = HttpContext.Session.GetString("Usuario");
                 if (String.IsNullOrEmpty(variable_session))
                 {
@@ -40,9 +42,9 @@ namespace asp_presentacion.Pages.Ventanas
                     return;
                 }
 
-                Filtro!.Nombre = Filtro!.Nombre ?? "";
+                Filtro!.Beneficios = Filtro!.Beneficios ?? "";
                 Accion = Enumerables.Ventanas.Listas;
-                var task = this.iPresentacion!.Listar();
+                var task = this.iPresentacion!.Filtro(Filtro!, token!);
                 task.Wait();
                 Lista = task.Result;
                 Actual = null;
@@ -58,7 +60,7 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 Accion = Enumerables.Ventanas.Editar;
-                Actual = new Clientes();
+                Actual = new BeneficiosMembresias();
             }
             catch (Exception ex)
             {
@@ -84,12 +86,13 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
+                var token = HttpContext.Session.GetString("Token"); //Implementando cosas
                 Accion = Enumerables.Ventanas.Editar;
-                Task<Clientes>? task = null;
+                Task<BeneficiosMembresias>? task = null;
                 if (Actual!.Id == 0)
-                    task = this.iPresentacion!.Guardar(Actual!)!;
+                    task = this.iPresentacion!.Guardar(Actual!, token! /*Implementando cosas*/)!;
                 else
-                    task = this.iPresentacion!.Modificar(Actual!)!;
+                    task = this.iPresentacion!.Modificar(Actual!, token! /*Implementando cosas*/)!;
                 task.Wait();
                 Actual = task.Result;
                 Accion = Enumerables.Ventanas.Listas;
@@ -119,7 +122,8 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                var task = this.iPresentacion!.Borrar(Actual!);
+                var token = HttpContext.Session.GetString("Token"); //Implementando cosas
+                var task = this.iPresentacion!.Borrar(Actual!, token!/*Implementando cosas*/);
                 Actual = task.Result;
                 OnPostBtRefrescar();
             }
@@ -141,6 +145,7 @@ namespace asp_presentacion.Pages.Ventanas
                 LogConversor.Log(ex, ViewData!);
             }
         }
+
 
         public void OnPostBtCerrar()
         {

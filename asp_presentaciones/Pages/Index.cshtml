@@ -1,10 +1,10 @@
 ﻿@page
 @model asp_presentaciones.Pages.IndexModel
 @{
-    ViewData["Title"] = "";
+    ViewData["Titulo"] = "";
 }
 @{
-    ViewData["OcultarHeader"] = !Model.EstaLogueado;
+    ViewData["OcultarCabecera"] = !Model.EstaLogueado;
 }
 @if (!Model.EstaLogueado)
 {
@@ -46,6 +46,31 @@
             </div>
         </form>
     </div>
+    @if (ViewData["Mensaje"] != null)
+    {
+        <center>
+            <div class='popup'>
+                <div class='pp_ms_inner'>
+                    <div style='width:95%'>
+                        <h2 align="left">
+                            Mensaje
+                        </h2>
+
+                        <h4 align="left">
+                            @ViewData["Mensaje"]
+                        </h4>
+                        <form>
+                            <input type="submit"
+                                   value="Cerrar"
+                                   asp-page-handler="BtCerrar"
+                                   class="btn btn-secondary" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </center>
+    }
+
 }
 else
 {

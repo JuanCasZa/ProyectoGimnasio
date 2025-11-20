@@ -4,10 +4,11 @@ namespace lib_presentaciones.Interfaces
 {
     public interface IInstrumentosPresentacion
     {
-        Task<List<Instrumentos>> Listar();
-        Task<List<Instrumentos>> Filtro(Instrumentos? entidad);
-        Task<Instrumentos?> Guardar(Instrumentos? entidad);
-        Task<Instrumentos?> Modificar(Instrumentos? entidad);
-        Task<Instrumentos?> Borrar(Instrumentos? entidad);
+        Task<List<Instrumentos>> Listar(string Token);
+
+        Task<List<Instrumentos>> Filtro(Instrumentos? entidad, string Token);
+        Task<Instrumentos?> Guardar(Instrumentos? entidad, string Token);
+        Task<Instrumentos?> Modificar(Instrumentos? entidad, string Token);
+        Task<Instrumentos?> Borrar(Instrumentos? entidad, string Token);
     }
 }

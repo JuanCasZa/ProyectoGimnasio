@@ -2,12 +2,13 @@
 
 namespace lib_presentaciones.Interfaces
 {
-    public interface IInstalacionesPresentacion
+    public interface IInstalacionesEmpleadosPresentacion
     {
-        Task<List<Instalaciones>> Listar();
-        Task<List<Instalaciones>> Filtro(Instalaciones? entidad);
-        Task<Instalaciones?> Guardar(Instalaciones? entidad);
-        Task<Instalaciones?> Modificar(Instalaciones? entidad);
-        Task<Instalaciones?> Borrar(Instalaciones? entidad);
+        Task<List<InstalacionesEmpleados>> Listar(string Token);
+
+        Task<List<InstalacionesEmpleados>> Filtro(InstalacionesEmpleados? entidad, string Token);
+        Task<InstalacionesEmpleados?> Guardar(InstalacionesEmpleados? entidad, string Token);
+        Task<InstalacionesEmpleados?> Modificar(InstalacionesEmpleados? entidad, string Token);
+        Task<InstalacionesEmpleados?> Borrar(InstalacionesEmpleados? entidad, string Token);
     }
 }

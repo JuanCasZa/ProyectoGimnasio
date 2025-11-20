@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="~/asp_presentacion.styles.css" asp-append-version="true" />
 </head>
 <body>
-    @if (ViewData["OcultarHeader"] as bool? != true)
+    @{
+        var rol = Context.Session.GetString("Rol"); 
+    }
+    @if (ViewData["OcultarCabecera"] as bool? != true)
     {
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -22,127 +25,175 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Inicio</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/BeneficiosMembresias">
-                                BeneficiosMembresias
-                            </a>
-                        </li>
+
+                        @if (rol == "Administrador" || rol == "Entrenador" || rol == "Recepcionista")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                     asp-area=""
+                                    asp-page="/Ventanas/BeneficiosMembresias">
+                                     BeneficiosMembresias
+                                  </a>
+                              </li>
+                        }
+                        @if (rol == "Administrador" || rol == "Entrenador")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                   asp-area=""
+                                   asp-page="/Ventanas/ClasesGrupales">
+                                    ClasesGrupales
+                                </a>
+                            </li>
+                        }
+
+                            @if (rol == "Administrador" || rol == "Recepcionista")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-page="/Ventanas/Clientes">
+                                        Clientes
+                                    </a>
+                                </li>
+                            }
+
+                            @if (rol == "Administrador" || rol == "Entrenador")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-page="/Ventanas/ClientesClasesGrupales">
+                                        ClientesClasesGrupales
+                                    </a>
+                                </li>
+                            }
+
+                            @if (rol == "Administrador" || rol == "Ventas")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-page="/Ventanas/ClientesInstrumentos">
+                                        ClientesInstrumentos
+                                    </a>
+                                </li>
+                            }
+
+                            @if (rol == "Administrador" || rol == "Entrenador" || rol == "Recepcionista")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-page="/Ventanas/ClientesMembresias">
+                                        ClientesMembresias
+                                    </a>
+                                </li>
+                            }
+
+                            @if (rol == "Administrador" || rol == "Ventas")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-page="/Ventanas/ClientesSuplementos">
+                                        ClientesSuplementos
+                                    </a>
+                                </li>
+                            }
+
+                            @if (rol == "Administrador")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-page="/Ventanas/Empleados">
+                                        Empleados
+                                    </a>
+                                </li>
+                            }
+
+                            @if (rol == "Administrador")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-page="/Ventanas/Instalaciones">
+                                        Instalaciones
+                                    </a>
+                                </li>
+                            }
+
+                            @if (rol == "Administrador")
+                            {
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-page="/Ventanas/InstalacionesClientes">
+                                        InstalacionesClientes
+                                    </a>
+                                </li>
+                            }
+
+                            @if (rol == "Administrador")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-page="/Ventanas/InstalacionesEmpleados">
+                                        InstalacionesEmpleados
+                                    </a>
+                                </li>
+                            }
+
+                            @if (rol == "Administrador" || rol == "Ventas")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-page="/Ventanas/Instrumentos">
+                                        Instrumentos
+                                    </a>
+                                </li>
+                            }
+
+                            @if (rol == "Administrador" || rol == "Entrenador" || rol == "Recepcionista")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-page="/Ventanas/Membresias">
+                                        Membresias
+                                    </a>
+                                </li>
+                            }
+
+                            @if (rol == "Administrador" || rol == "Ventas")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-page="/Ventanas/Proveedores">
+                                        Proveedores
+                                    </a>
+                                </li>
+                            }
+
+                            @if (rol == "Administrador" || rol == "Ventas")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-page="/Ventanas/Suplementos">
+                                        Suplementos
+                                    </a>
+                                </li>
+                            }
+
                         
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/ClasesGrupales">
-                                ClasesGrupales
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/Clientes">
-                                Clientes
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/ClientesClasesGrupales">
-                                ClientesClasesGrupales
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/ClientesInstrumentos">
-                                ClientesInstrumentos
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/ClientesMembresias">
-                                ClientesMembresias
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/ClientesSuplementos">
-                                ClientesSuplementos
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/Empleados">
-                                Empleados
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/Instalaciones">
-                                Instalaciones
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/InstalacionesClientes">
-                                InstalacionesClientes
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/InstalacionesEmpleados">
-                                InstalacionesEmpleados
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/Instrumentos">
-                                Instrumentos
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/Membresias">
-                                Membresias
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/Proveedores">
-                                Proveedores
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-page="/Ventanas/Suplementos">
-                                Suplementos
-                            </a>
-                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>

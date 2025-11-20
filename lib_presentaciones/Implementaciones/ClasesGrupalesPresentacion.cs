@@ -8,14 +8,14 @@ namespace lib_presentaciones.Implementaciones
     {
         private Comunicaciones? comunicaciones = null;
 
-        public async Task<List<ClasesGrupales>> Listar()
+        public async Task<List<ClasesGrupales>> Listar(string token/*Implementando cosas*/)
         {
             var lista = new List<ClasesGrupales>();
             var datos = new Dictionary<string, object>();
 
             comunicaciones = new Comunicaciones();
             datos = comunicaciones.ConstruirUrl(datos, "ClasesGrupales/Listar");
-            var respuesta = await comunicaciones!.Ejecutar(datos);
+            var respuesta = await comunicaciones!.Ejecutar(datos, token /*IMPLEMENTANDO COSAS*/);
 
             if (respuesta.ContainsKey("Error"))
             {
@@ -26,7 +26,7 @@ namespace lib_presentaciones.Implementaciones
             return lista;
         }
 
-        public async Task<List<ClasesGrupales>> Filtro(ClasesGrupales? entidad)
+        public async Task<List<ClasesGrupales>> Filtro(ClasesGrupales? entidad, string token/*Implementando cosas*/)
         {
             var lista = new List<ClasesGrupales>();
             var datos = new Dictionary<string, object>();
@@ -34,7 +34,7 @@ namespace lib_presentaciones.Implementaciones
 
             comunicaciones = new Comunicaciones();
             datos = comunicaciones.ConstruirUrl(datos, "ClasesGrupales/Filtro");
-            var respuesta = await comunicaciones!.Ejecutar(datos);
+            var respuesta = await comunicaciones!.Ejecutar(datos, token /*Implementando cosas*/);
 
             if (respuesta.ContainsKey("Error"))
             {
@@ -45,7 +45,7 @@ namespace lib_presentaciones.Implementaciones
             return lista;
         }
 
-        public async Task<ClasesGrupales?> Guardar(ClasesGrupales? entidad)
+        public async Task<ClasesGrupales?> Guardar(ClasesGrupales? entidad, string token/*Implementando cosas*/)
         {
             if (entidad!.Id != 0)
             {
@@ -56,7 +56,7 @@ namespace lib_presentaciones.Implementaciones
 
             comunicaciones = new Comunicaciones();
             datos = comunicaciones.ConstruirUrl(datos, "ClasesGrupales/Guardar");
-            var respuesta = await comunicaciones!.Ejecutar(datos);
+            var respuesta = await comunicaciones!.Ejecutar(datos, token /*Implementando cosas*/);
 
             if (respuesta.ContainsKey("Error"))
             {
@@ -67,7 +67,7 @@ namespace lib_presentaciones.Implementaciones
             return entidad;
         }
 
-        public async Task<ClasesGrupales?> Modificar(ClasesGrupales? entidad)
+        public async Task<ClasesGrupales?> Modificar(ClasesGrupales? entidad, string token/*Implementando cosas*/)
         {
             if (entidad!.Id == 0)
             {
@@ -79,7 +79,7 @@ namespace lib_presentaciones.Implementaciones
             comunicaciones = new Comunicaciones();
             datos = comunicaciones.ConstruirUrl(datos, "ClasesGrupales/Modificar");
 
-            var respuesta = await comunicaciones!.Ejecutar(datos);
+            var respuesta = await comunicaciones!.Ejecutar(datos, token /*IMPLEMENTANDO COSAS*/);
             if (respuesta.ContainsKey("Error"))
             {
                 throw new Exception(respuesta["Error"].ToString()!);
@@ -89,7 +89,7 @@ namespace lib_presentaciones.Implementaciones
             return entidad;
         }
 
-        public async Task<ClasesGrupales?> Borrar(ClasesGrupales? entidad)
+        public async Task<ClasesGrupales?> Borrar(ClasesGrupales? entidad, string token/*Implementando cosas*/)
         {
             if (entidad!.Id == 0)
             {
@@ -100,7 +100,7 @@ namespace lib_presentaciones.Implementaciones
 
             comunicaciones = new Comunicaciones();
             datos = comunicaciones.ConstruirUrl(datos, "ClasesGrupales/Borrar");
-            var respuesta = await comunicaciones!.Ejecutar(datos);
+            var respuesta = await comunicaciones!.Ejecutar(datos, token /*IMPLEMENTANDO COSAS*/);
 
             if (respuesta.ContainsKey("Error"))
             {
