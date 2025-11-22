@@ -57,21 +57,29 @@ namespace lib_repositorios.Implementaciones
 
         public List<BeneficiosMembresias> Listar()
         {
-            return this.IConexion!.BeneficiosMembresias!.Take(20).ToList();
+            return this.IConexion!.BeneficiosMembresias!.Take(20).Include(x=> x._IdMembresias).ToList();
         }
 
         public List<BeneficiosMembresias> Filtro(BeneficiosMembresias? entidad)
         {
-            //Filtro por Id
-            var consulta = this.IConexion!.BeneficiosMembresias!.AsQueryable();
+            
+            var consulta = this.IConexion!.BeneficiosMembresias!.Include(x=> x._IdMembresias).AsQueryable();
 
-            if (entidad!.IdMembresias != 0)
+            //Filtro por tipo de la membresia asociada
+            if (entidad?._IdMembresias?.TipoMembresia is not null)
             {
-                consulta = consulta.Where(x => x.IdMembresias == entidad.IdMembresias);
+                consulta = consulta.Where(x =>
+                    x._IdMembresias!.TipoMembresia.Contains(entidad._IdMembresias.TipoMembresia)
+                );
             }
 
-            //Filtro por beneficios
-            consulta = consulta.Where(x => x.Beneficios!.Contains(entidad!.Beneficios!)).Take(50);
+            //Filtro por Beneficios
+            if (!string.IsNullOrEmpty(entidad?.Beneficios))
+            {
+                consulta = consulta.Where(x =>
+                    x.Beneficios!.Contains(entidad.Beneficios)
+                );
+            }            
 
             return consulta.ToList();
         }

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Folder Include="Pages\Emergentes\" />
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>

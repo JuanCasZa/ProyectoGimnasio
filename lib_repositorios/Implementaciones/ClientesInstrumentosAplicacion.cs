@@ -87,22 +87,27 @@ namespace lib_repositorios.Implementaciones
         }
         public List<ClientesInstrumentos> Listar()
         {
-            return this.IConexion!.ClientesInstrumentos!.Take(20).ToList();
+            return this.IConexion!.ClientesInstrumentos!.Take(20).Include(x => x._IdClientes).Include(y => y._IdInstrumentos).ToList();
         }
 
         public List<ClientesInstrumentos> Filtro(ClientesInstrumentos? entidad)
         {
-            //Filtro por Id del cliente y por Id del instrumento
-            var consulta = this.IConexion!.ClientesInstrumentos!.AsQueryable();
+            var consulta = this.IConexion!.ClientesInstrumentos!.Include(x => x._IdClientes).Include(y => y._IdInstrumentos).AsQueryable();
 
-            if (entidad!.IdClientes != 0)
+            //Filtro por el nombre del cliente
+            if (entidad?._IdClientes?.Nombre is not null)
             {
-                consulta = consulta.Where(x => x.IdClientes == entidad.IdClientes);
+                consulta = consulta.Where(x =>
+                    x._IdClientes!.Nombre.Contains(entidad._IdClientes.Nombre)
+                );
             }
 
-            if (entidad!.IdInstrumentos != 0)
+            //Filtro por el nombre del instrumento
+            if (entidad?._IdInstrumentos?.NombreInstrumento is not null)
             {
-                consulta = consulta.Where(x => x.IdInstrumentos == entidad.IdInstrumentos);
+                consulta = consulta.Where(x =>
+                    x._IdInstrumentos!.NombreInstrumento.Contains(entidad._IdInstrumentos.NombreInstrumento)
+                );
             }
 
             return consulta.ToList();

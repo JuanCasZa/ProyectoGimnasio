@@ -1,3 +1,4 @@
+using lib_dominio.Entidades;
 using lib_dominio.Nucleo;
 using lib_presentaciones.Implementaciones;
 using lib_presentaciones.Interfaces;
@@ -60,8 +61,9 @@ namespace asp_presentaciones.Pages
                     OnPostBtClean();
                     return;
                 }
+
                 // IMPLEMENTANDO COSAS
-                var Token = HttpContext.Session.GetString("Token"); //Implementando cosas
+                var Token = HttpContext.Session.GetString("Token"); //Implementando cosas                
 
                 var token = await iPresentacion!.Autenticar(Email!, Contrasenha!, Token!);
 
@@ -85,8 +87,9 @@ namespace asp_presentaciones.Pages
                 ViewData["Logged"] = true;
                 HttpContext.Session.SetString("Usuario", Email!);
                 HttpContext.Session.SetString("Token", token); //IMPLEMENTANDO COSAS
-                var rol = await iPresentacion.ObtenerRol(token); //IMPLEMENTANDO COSAS
-                HttpContext.Session.SetString("Rol", rol ?? ""); //IMPLEMENTANDO COSAS
+                //var rol = await iPresentacion.ObtenerRol(token); //IMPLEMENTANDO COSAS
+                //ViewData["Rol"] = rol; //IMPLEMENTANDO COSAS
+                //HttpContext.Session.SetString("Rol", rol ?? ""); //IMPLEMENTANDO COSAS
                 EstaLogueado = true;
                 OnPostBtClean();
             }

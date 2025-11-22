@@ -7,7 +7,7 @@ namespace lib_presentaciones
         private string? URL = string.Empty, llave = null;
 
         //Se establece la URL del servicio web
-        public Comunicaciones(string url = "http://localhost:5291/") //EL NUMERO DE AQUI DEBE COINCIDIR CON EL DEL ASP_SERVICIOS CUANDO SE INICIA
+        public Comunicaciones(string url = "http://localhost:5291/") 
         {
             URL = url;
         }
@@ -76,7 +76,7 @@ namespace lib_presentaciones
                 datos.Remove("Url");
                 datos.Remove("UrlLlave");
 
-                datos["Llave"] = token;
+                datos["Llave"] = token; 
 
                 var stringData = JsonConversor.ConvertirAString(datos);
 

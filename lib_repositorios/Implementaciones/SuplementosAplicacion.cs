@@ -75,12 +75,14 @@ namespace lib_repositorios.Implementaciones
 
         public List<Suplementos> Filtro(Suplementos? entidad)
         {
-            //Filtro por proveedor
-            var consulta = this.IConexion!.Suplementos!.AsQueryable();
+            var consulta = this.IConexion!.Suplementos!.Include(x => x._Proveedor).AsQueryable();
 
-            if (entidad!.Proveedor != 0)
+            //Filtro por el nombre del proveedor
+            if (entidad?._Proveedor?.NombreEntidad is not null)
             {
-                consulta = consulta.Where(x => x.Proveedor == entidad.Proveedor);
+                consulta = consulta.Where(x =>
+                    x._Proveedor!.NombreEntidad.Contains(entidad._Proveedor.NombreEntidad)
+                );
             }
 
             //Filtro por nombre y tipo de suplemento

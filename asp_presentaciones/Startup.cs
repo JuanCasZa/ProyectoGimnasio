@@ -49,8 +49,8 @@ namespace asp_presentaciones
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
-            app.MapRazorPages();
             app.UseSession();
+            app.MapRazorPages();
             app.Run();
         }
     }        

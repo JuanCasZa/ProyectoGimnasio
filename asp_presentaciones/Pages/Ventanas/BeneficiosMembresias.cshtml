@@ -67,7 +67,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                IdMembresias
+                                Id de la Membresia asociada
                             </label>
                             <div class="col-lg-6">
                                 <input id="nmIdMembresias"
@@ -101,7 +101,7 @@
                                 Beneficios : @Model.Actual!.Beneficios
                             </h6>
                             <h6 align="left">
-                                Membresia asociada : @Model.Actual!.IdMembresias
+                                Tipo de la Membresia asociada : @Model.Actual!._IdMembresias!.TipoMembresia
                             </h6>
                             <br />
                             <br />
@@ -128,11 +128,11 @@
                        asp-for="@Model.Filtro!.Beneficios"
                        placeholder="Beneficios" />
                 <br />
-                <h6>Id de la membresia</h6>
-                <input id="flIdMembresias"
+                <h6>Tipo de la membresia</h6>
+                <input id="fl_IdMembresiasTipoMembresia"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!.IdMembresias"
-                       placeholder="Id de la membresia" />
+                       asp-for="@Model.Filtro!._IdMembresias!.TipoMembresia"
+                       placeholder="Tipo de la membresia asociada" />
                 <br />
 
                 <h1 align="left">Tabla de informacion</h1>
@@ -143,7 +143,10 @@
                                 Beneficios
                             </th>
                             <th>
-                                Id Membresia
+                                Id de la membresia Asociada
+                            </th>
+                            <th>
+                                Tipo de la Membresia asociada
                             </th>
                             <th class="cl_actions">
                                 Accion
@@ -159,6 +162,9 @@
                                     </td>
                                     <td>
                                         @elemento.IdMembresias
+                                    </td>
+                                    <td>
+                                        @elemento._IdMembresias!.TipoMembresia
                                     </td>
                                     <td>
                                         <input type="submit"

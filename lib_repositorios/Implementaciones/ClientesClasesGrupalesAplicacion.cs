@@ -66,22 +66,28 @@ namespace lib_repositorios.Implementaciones
 
         public List<ClientesClasesGrupales> Listar()
         {
-            return this.IConexion!.ClientesClasesGrupales!.Take(20).ToList();
+            return this.IConexion!.ClientesClasesGrupales!.Take(20).Include(x=> x._IdClientes).Include(y=> y._IdClasesGrupales).ToList();
         }
 
         public List<ClientesClasesGrupales> Filtro(ClientesClasesGrupales? entidad)
         {
-            //Filtro por Id del cliente e Id de la clase
-            var consulta = this.IConexion!.ClientesClasesGrupales!.AsQueryable();
+            
+            var consulta = this.IConexion!.ClientesClasesGrupales!.Include(x => x._IdClientes).Include(y => y._IdClasesGrupales).AsQueryable();
 
-            if (entidad!.IdClientes != 0)
+            //Filtro por el nombre del cliente
+            if (entidad?._IdClientes?.Nombre is not null)
             {
-                consulta = consulta.Where(x => x.IdClientes == entidad.IdClientes);
+                consulta = consulta.Where(x =>
+                   x._IdClientes!.Nombre.Contains(entidad._IdClientes.Nombre)
+               );
             }
 
-            if (entidad!.IdClasesGrupales != 0)
+            //Filtro por el tipo de la clase grupal
+            if (entidad?._IdClasesGrupales?.TipoClase is not null)
             {
-                consulta = consulta.Where(x => x.IdClasesGrupales == entidad.IdClasesGrupales);
+                consulta = consulta.Where(x =>
+                   x._IdClasesGrupales!.TipoClase.Contains(entidad._IdClasesGrupales.TipoClase)
+               );
             }
 
             return consulta.ToList();

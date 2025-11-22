@@ -4,6 +4,11 @@ a.navbar-brand {
     word-break: break-all;
 }
 
+.navbar-nav {
+    flex-wrap: wrap !important;
+}
+
+
 a {
 }
 
@@ -110,6 +115,7 @@ body {
 
 .popup {
     position: fixed;
+    color: black;
     width: 100%;
     height: 100%;
     top: 0;
@@ -145,3 +151,139 @@ body {
     margin: auto;
     background: white;
 }
+
+/* Formularios */
+.form-container {
+    width: 350px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #ffffff;
+    color: black;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+    border: 1px solid #ddd;
+}
+
+.form-container h2,
+.form-container h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-container input[type="submit"] {
+    width: 100%;
+}
+
+/*Botones*/
+/* Estilo para todos los botones */
+
+button,
+input[type="submit"],
+input[type="button"],
+.btn {
+    background-color: #000 !important; /* Negro */
+    color: white !important; /* Texto blanco */
+    border: 1px solid #333 !important; /* Borde sutil */
+    padding: 10px 18px !important;
+    border-radius: 6px !important;
+    cursor: pointer;
+    transition: 0.2s ease-in-out !important;
+}
+
+    button:hover,
+    input[type="submit"]:hover,
+    input[type="button"]:hover,
+    .btn:hover {
+        background-color: #222 !important; /* Negro más claro */
+        color: #fff !important;
+        transform: scale(1.03);
+    }
+
+/*Fondo login*/
+body.login-page {
+    background-image: url('/img/login_bg.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background-color: transparent !important;
+}
+
+.login-background {
+    background-image: url('/img/login_bg.jpg');
+    background-size: cover; /* cubre toda la pantalla */
+    background-position: center; /* centra la imagen */
+    background-repeat: no-repeat; /* evita repeticiones */
+    background-attachment: fixed; /* opcional: efecto elegante */
+    width: 100%;
+    height: 100vh; /* ocupa toda la pantalla */
+    display: flex;
+    justify-content: center; /* centra horizontalmente */
+    align-items: center; /* centra verticalmente */
+}
+
+/*Fondo de bienvenida*/
+body.welcome-page {
+    background-image: url('/img/welcome_image.jpg'); /* imagen distinta */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: transparent !important;
+}
+
+    body.welcome-page::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.75);
+        z-index: -1;
+    }
+
+
+.welcome-content {
+    width: 100%;
+    padding-top: 40px;
+    text-align: center;
+    color: white;
+}
+
+.welcomedesign {
+    position: relative;
+    height: calc(100vh - 70px);
+    background-image: url('/img/gym.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+    .welcomedesign::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.75);
+    }
+
+.welcomedesign-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+/*Para la parte del footer, osea donde dice el @2025 - gimnasio - privacy*/
+.login-footer {
+    background-color: rgba(0,0,0,0.9) !important; /* Fondo negro semitransparente */
+    color: white !important;
+    border-top: none !important;
+}
+

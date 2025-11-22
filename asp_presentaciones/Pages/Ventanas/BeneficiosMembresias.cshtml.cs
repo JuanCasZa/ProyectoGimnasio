@@ -8,14 +8,17 @@ namespace asp_presentacion.Pages.Ventanas
 {
     public class BeneficiosMembresiasModel : PageModel
     {
-        private IClasesGrupalesPresentacion? iPresentacion = null;
+        private IBeneficiosMembresiasPresentacion? iPresentacion = null;
 
-        public BeneficiosMembresiasModel(IClasesGrupalesPresentacion iPresentacion)
+        public BeneficiosMembresiasModel(IBeneficiosMembresiasPresentacion iPresentacion)
         {
             try
             {
                 this.iPresentacion = iPresentacion;
-                Filtro = new BeneficiosMembresias();
+                Filtro = new BeneficiosMembresias()
+                {
+                    _IdMembresias = new Membresias() //Para inicializar el constructor de Membresias
+                };
             }
             catch (Exception ex)
             {
@@ -43,6 +46,7 @@ namespace asp_presentacion.Pages.Ventanas
                 }
 
                 Filtro!.Beneficios = Filtro!.Beneficios ?? "";
+                Filtro!._IdMembresias!.TipoMembresia = Filtro!._IdMembresias!.TipoMembresia ?? "";
                 Accion = Enumerables.Ventanas.Listas;
                 var task = this.iPresentacion!.Filtro(Filtro!, token!);
                 task.Wait();
@@ -151,8 +155,9 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                if (Accion == Enumerables.Ventanas.Listas)
-                    OnPostBtRefrescar();
+                HttpContext.Response.Redirect("/"); //
+                //if (Accion == Enumerables.Ventanas.Listas)
+                //OnPostBtRefrescar();
             }
             catch (Exception ex)
             {

@@ -61,22 +61,27 @@ namespace lib_repositorios.Implementaciones
 
         public List<InstalacionesClientes> Listar()
         {
-            return this.IConexion!.InstalacionesClientes!.Take(20).ToList();
+            return this.IConexion!.InstalacionesClientes!.Take(20).Include(x => x._IdClientes).Include(y => y._IdInstalaciones).ToList();
         }
 
         public List<InstalacionesClientes> Filtro(InstalacionesClientes? entidad)
-        {
-            //Filtro por Id de cliente y de instalacion
-            var consulta = this.IConexion!.InstalacionesClientes!.AsQueryable();
+        {            
+            var consulta = this.IConexion!.InstalacionesClientes!.Include(x => x._IdClientes).Include(y => y._IdInstalaciones).AsQueryable();
 
-            if (entidad!.IdClientes != 0)
+            //Filtro por el nombre del cliente
+            if (entidad?._IdClientes?.Nombre is not null)
             {
-                consulta = consulta.Where(x => x.IdClientes == entidad.IdClientes);
+                consulta = consulta.Where(x =>
+                    x._IdClientes!.Nombre.Contains(entidad._IdClientes.Nombre)
+                );
             }
 
-            if (entidad!.IdInstalaciones != 0)
+            //Filtro por la direccion de la instalacion
+            if (entidad?._IdInstalaciones?.Direccion is not null)
             {
-                consulta = consulta.Where(x => x.IdInstalaciones == entidad.IdInstalaciones);
+                consulta = consulta.Where(x =>
+                    x._IdInstalaciones!.Direccion.Contains(entidad._IdInstalaciones.Direccion)
+                );
             }
 
             return consulta.ToList();
