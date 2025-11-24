@@ -34,6 +34,14 @@
                            asp-for="@Model.Contrasenha"
                            class="form-control" />
                 </div>
+                    <!--Implementando un link para crear el usuario en caso de no tenerlo-->
+                    <div style="margin-top: 15px; text-align:center;">
+                        <a asp-page="/Ventanas/Usuarios"
+                           asp-page-handler="BtNuevo">
+                            Crear Usuario
+                        </a>
+                    </div>
+
                 <div style="margin-top: 20px;">
                     <input type="submit"
                            value="Entrar"
@@ -86,7 +94,19 @@ else
 
             <form method="POST">
                 <input type="submit"
-                       value="Cerrar"
+                       value="Modificar usuario"
+                       asp-page="/Ventanas/Usuarios"
+                       asp-page-handler="BtGuardar"
+                       class="btn btn-default" />
+
+                <input type="submit"
+                       value="Borrar usuario"
+                       asp-page="/Ventanas/Usuarios"
+                       asp-page-handler="BtBorrar"
+                       class="btn btn-default" />
+
+                <input type="submit"
+                       value="Cerrar sesion"
                        asp-page-handler="BtClose"
                        class="btn btn-default" />
             </form>

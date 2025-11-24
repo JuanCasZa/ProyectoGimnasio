@@ -34,6 +34,8 @@ namespace lib_repositorios.Implementaciones
 
             if (this.IConexion!.InstalacionesEmpleados!.Any(s => s.IdEmpleados == entidad.Id))
                 throw new Exception("lbEmpleado ligado a otras tablas");
+            if (this.IConexion!.Usuarios!.Any(s => s.IdEmpleado == entidad.Id))
+                throw new Exception("lbEmpleado ligado a otras tablas");
 
             this.IConexion!.Empleados!.Remove(entidad);
             this.IConexion.SaveChanges();

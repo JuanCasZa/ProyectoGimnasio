@@ -9,11 +9,11 @@
               enctype="multipart/form-data">
 
             @Html.AntiForgeryToken()
-            <div align="left">
+            <div align="center">
                 <h2>Beneficios de la Membresia</h2>
             </div>
 
-            <div align="left"
+            <div align="center"
                  class="bt_panel_buttons">
                 <input type="submit"
                        value="Refrescar"
@@ -83,7 +83,7 @@
             {
                 <input type="hidden"
                        asp-for="@Model.Accion" />
-                @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
+                @await Html.PartialAsync("../Emergentes/Mensajes2.cshtml");
             }
 
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
@@ -121,6 +121,7 @@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas ||
                         Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
             {
+                <div class="filtros-container">
                 <h3>Filtros</h3>
                 <h6>Beneficios de la membresia</h6>
                 <input id="flBeneficios"
@@ -133,8 +134,10 @@
                        class="cts_forms form-control"
                        asp-for="@Model.Filtro!._IdMembresias!.TipoMembresia"
                        placeholder="Tipo de la membresia asociada" />
+                </div>
                 <br />
-
+                
+                <div class="tabla-container">
                 <h1 align="left">Tabla de informacion</h1>
                 <div class="containers_vn panel panel-default">
                     <table class="tb_data table table-striped table-bordered table-hover">
@@ -182,6 +185,7 @@
                             }
                         }
                     </table>
+                </div>
                 </div>
             }
         </form>

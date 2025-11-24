@@ -6,19 +6,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json.Linq;
 namespace asp_presentacion.Pages.Ventanas
 {
-    public class BeneficiosMembresiasModel : PageModel
+    public class UsuariosModel : PageModel
     {
-        private IBeneficiosMembresiasPresentacion? iPresentacion = null;
+        //IMPORTANTE: MIRAR COMO HACER PARA QUE LOS BOTONES DE MODIFICAR, BORRAR Y EL LINK FUNCIONEN CORRECTAMENTE
 
-        public BeneficiosMembresiasModel(IBeneficiosMembresiasPresentacion iPresentacion)
+        private IUsuariosPresentacion? iPresentacion = null;
+
+        public UsuariosModel(IUsuariosPresentacion iPresentacion)
         {
             try
             {
                 this.iPresentacion = iPresentacion;
-                Filtro = new BeneficiosMembresias()
-                {
-                    _IdMembresias = new Membresias() //Para inicializar el constructor de Membresias
-                };
             }
             catch (Exception ex)
             {
@@ -26,11 +24,20 @@ namespace asp_presentacion.Pages.Ventanas
             }
         }
 
+        //Se agrego para hacer el desplegable
+        public List<(int Id, string Nombre)> Roles { get; set; } = new()
+        {
+            (1, "Administrador"),
+            (2, "Entrenador"),
+            (3, "Recepcionista"),
+            (4, "Ventas")
+        };
+        //
+
         public IFormFile? FormFile { get; set; }
         [BindProperty] public Enumerables.Ventanas Accion { get; set; }
-        [BindProperty] public BeneficiosMembresias? Actual { get; set; }
-        [BindProperty] public BeneficiosMembresias? Filtro { get; set; }
-        [BindProperty] public List<BeneficiosMembresias>? Lista { get; set; }
+        [BindProperty] public Usuarios? Actual { get; set; }
+        [BindProperty] public List<Usuarios>? Lista { get; set; }
         public virtual void OnGet() { OnPostBtRefrescar(); }
 
         public void OnPostBtRefrescar()
@@ -44,14 +51,10 @@ namespace asp_presentacion.Pages.Ventanas
                     HttpContext.Response.Redirect("/");
                     return;
                 }
-                Filtro ??= new BeneficiosMembresias();
-                Filtro._IdMembresias ??= new Membresias();
 
 
-                Filtro!.Beneficios = Filtro!.Beneficios ?? "";
-                Filtro!._IdMembresias!.TipoMembresia = Filtro!._IdMembresias!.TipoMembresia ?? "";
                 Accion = Enumerables.Ventanas.Listas;
-                var task = this.iPresentacion!.Filtro(Filtro!, token!);
+                var task = this.iPresentacion!.Listar(token!);
                 task.Wait();
                 Lista = task.Result;
                 Actual = null;
@@ -59,7 +62,6 @@ namespace asp_presentacion.Pages.Ventanas
             catch (Exception ex)
             {
                 LogConversor.Log(ex, ViewData!);
-                ViewData["TipoError"] = "Acceso";
             }
         }
 
@@ -68,7 +70,7 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 Accion = Enumerables.Ventanas.Editar;
-                Actual = new BeneficiosMembresias();
+                Actual = new Usuarios();
             }
             catch (Exception ex)
             {
@@ -96,9 +98,9 @@ namespace asp_presentacion.Pages.Ventanas
             {
                 var token = HttpContext.Session.GetString("Token"); //Implementando cosas
                 Accion = Enumerables.Ventanas.Editar;
-                Task<BeneficiosMembresias>? task = null;
+                Task<Usuarios>? task = null;
                 if (Actual!.Id == 0)
-                    task = this.iPresentacion!.Guardar(Actual!, token! /*Implementando cosas*/)!;
+                    task = this.iPresentacion!.Guardar(Actual!)!;
                 else
                     task = this.iPresentacion!.Modificar(Actual!, token! /*Implementando cosas*/)!;
                 task.Wait();
@@ -154,32 +156,19 @@ namespace asp_presentacion.Pages.Ventanas
             }
         }
 
-        //Este BtCerrar cierra el cuadro emergente en caso de ocurrir un error de acceso
+
         public void OnPostBtCerrar()
         {
             try
             {
-                HttpContext.Response.Redirect("/");
+                HttpContext.Response.Redirect("/"); //
+                //if (Accion == Enumerables.Ventanas.Listas)
+                //OnPostBtRefrescar();
             }
             catch (Exception ex)
             {
                 LogConversor.Log(ex, ViewData!);
             }
         }
-
-        //Este BtCerrar cierra el cuadro emergente en caso de ocurrir algun error de datos invalidos
-        public void OnPostBtCerrar2()
-        {
-            try
-            {                
-                if (Accion == Enumerables.Ventanas.Listas)
-                    OnPostBtRefrescar();
-            }
-            catch (Exception ex)
-            {
-                LogConversor.Log(ex, ViewData!);
-            }
-        }
-
     }
 }

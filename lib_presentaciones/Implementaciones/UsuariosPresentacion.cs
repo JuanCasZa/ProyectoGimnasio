@@ -26,7 +26,7 @@ namespace lib_presentaciones.Implementaciones
                 JsonConversor.ConvertirAString(respuesta["Entidades"]));
             return lista;
         }
-        /*
+        
         public async Task<Usuarios?> Guardar(Usuarios? entidad)
         {
             if (entidad!.Id != 0)
@@ -36,9 +36,11 @@ namespace lib_presentaciones.Implementaciones
             var datos = new Dictionary<string, object>();
             datos["Entidad"] = entidad;
 
+            var token = string.Empty;
+
             comunicaciones = new Comunicaciones();
             datos = comunicaciones.ConstruirUrl(datos, "Usuarios/Guardar");
-            var respuesta = await comunicaciones!.Ejecutar(datos);
+            var respuesta = await comunicaciones!.Ejecutar(datos, token);
 
             if (respuesta.ContainsKey("Error"))
             {
@@ -49,7 +51,7 @@ namespace lib_presentaciones.Implementaciones
             return entidad;
         }
 
-        public async Task<Usuarios?> Modificar(Usuarios? entidad)
+        public async Task<Usuarios?> Modificar(Usuarios? entidad, string token)
         {
             if (entidad!.Id == 0)
             {
@@ -61,7 +63,7 @@ namespace lib_presentaciones.Implementaciones
             comunicaciones = new Comunicaciones();
             datos = comunicaciones.ConstruirUrl(datos, "Usuarios/Modificar");
 
-            var respuesta = await comunicaciones!.Ejecutar(datos);
+            var respuesta = await comunicaciones!.Ejecutar(datos, token);
             if (respuesta.ContainsKey("Error"))
             {
                 throw new Exception(respuesta["Error"].ToString()!);
@@ -71,7 +73,7 @@ namespace lib_presentaciones.Implementaciones
             return entidad;
         }
 
-        public async Task<Usuarios?> Borrar(Usuarios? entidad)
+        public async Task<Usuarios?> Borrar(Usuarios? entidad, string token)
         {
             if (entidad!.Id == 0)
             {
@@ -82,7 +84,7 @@ namespace lib_presentaciones.Implementaciones
 
             comunicaciones = new Comunicaciones();
             datos = comunicaciones.ConstruirUrl(datos, "Usuarios/Borrar");
-            var respuesta = await comunicaciones!.Ejecutar(datos);
+            var respuesta = await comunicaciones!.Ejecutar(datos, token);
 
             if (respuesta.ContainsKey("Error"))
             {
@@ -91,7 +93,7 @@ namespace lib_presentaciones.Implementaciones
             entidad = JsonConversor.ConvertirAObjeto<Usuarios>(
                 JsonConversor.ConvertirAString(respuesta["Entidad"]));
             return entidad;
-        }*/
+        }
 
         //IMPLEMENTANDO COSAS
         public async Task<string?> Autenticar(string nombre, string contrasenha, string token)
@@ -115,14 +117,13 @@ namespace lib_presentaciones.Implementaciones
 
             return respuesta["Llave"].ToString();
         }
-
         public async Task<string?> ObtenerRol(string token)
         {
             comunicaciones = new Comunicaciones();
 
             var datos = new Dictionary<string, object>();
             datos = comunicaciones.ConstruirUrl(datos, "Token/ValidarRol");
-
+        
             var respuesta = await comunicaciones.Ejecutar(datos, token);
 
             if (respuesta.ContainsKey("Error"))
@@ -130,6 +131,6 @@ namespace lib_presentaciones.Implementaciones
 
             return respuesta["Rol"]?.ToString();
         }
-
+        
     }
 }
