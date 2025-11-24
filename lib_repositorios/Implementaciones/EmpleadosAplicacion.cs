@@ -75,9 +75,9 @@ namespace lib_repositorios.Implementaciones
         {
             var consulta = this.IConexion!.Empleados!.AsQueryable();
 
-            //Filtro por Especialidad, Identificacion, Telefono, Cargo y HorarioDisponible
+            //Filtro por Especialidad, Identificacion, Telefono y Cargo
             consulta = consulta.Where(x => x.Especialidad!.Contains(entidad!.Especialidad!) && x.Identificacion!.Contains(entidad!.Identificacion!)
-            && x.Telefono!.Contains(entidad!.Telefono!) && x.Cargo!.Contains(entidad!.Cargo!) && x.HorarioDisponible!.Contains(entidad!.HorarioDisponible!)).Take(50);
+            && x.Telefono!.Contains(entidad!.Telefono!) && x.Cargo!.Contains(entidad!.Cargo!)).Take(50);
 
             return consulta.ToList();
         }

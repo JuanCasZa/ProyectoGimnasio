@@ -93,7 +93,6 @@ namespace lib_repositorios.Implementaciones
 
         public List<Instrumentos> Filtro(Instrumentos? entidad)
         {
-            //Filtro por proveedor
             var consulta = this.IConexion!.Instrumentos!.Include(x => x._Proveedor).AsQueryable();
 
             //Filtro por el nombre del proveedor

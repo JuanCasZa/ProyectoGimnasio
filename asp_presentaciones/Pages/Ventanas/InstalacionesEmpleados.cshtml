@@ -1,5 +1,5 @@
 ﻿@page
-@model asp_presentacion.Pages.Ventanas.BeneficiosMembresiasModel
+@model asp_presentacion.Pages.Ventanas.InstalacionesEmpleadosModel
 @{
     ViewData["Titulo"] = "";
 }
@@ -10,7 +10,7 @@
 
             @Html.AntiForgeryToken()
             <div align="center">
-                <h2>Beneficios de la Membresia</h2>
+                <h2>Instalaciones y empleados</h2>
             </div>
 
             <div align="center"
@@ -46,9 +46,9 @@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
             {
                 <input type="hidden"
-                       asp-for="@Model.Actual!.Beneficios" />
+                       asp-for="@Model.Actual!.IdInstalaciones" />
                 <input type="hidden"
-                       asp-for="@Model.Actual!.IdMembresias" />
+                       asp-for="@Model.Actual!.IdEmpleados" />
             }
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
             {
@@ -56,22 +56,22 @@
                     <div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Beneficios
+                                Id de la Instalacion asociada
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmBeneficios"
+                                <input id="nmIdInstalaciones"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Beneficios" />
+                                       asp-for="@Model.Actual!.IdInstalaciones" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Id de la Membresia asociada
+                                Id del Empleado asociado
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmIdMembresias"
+                                <input id="nmIdEmpleados"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.IdMembresias" />
+                                       asp-for="@Model.Actual!.IdEmpleados" />
                             </div>
                         </div>
                     </div>
@@ -97,10 +97,10 @@
                                 Desea borrar la entidad?
                             </h4>
                             <h6 align="left">
-                                Beneficios : @Model.Actual!.Beneficios
+                                Direccion de la Instalacion asociada : @Model.Actual!._IdInstalaciones!.Direccion
                             </h6>
                             <h6 align="left">
-                                Tipo de la Membresia asociada : @Model.Actual!._IdMembresias!.TipoMembresia
+                                Nombre del Empleado asociado : @Model.Actual!._IdEmpleados!.Nombre
                             </h6>
                             <br />
                             <br />
@@ -122,17 +122,17 @@
             {
                 <div class="filtros-container">
                 <h3>Filtros</h3>
-                <h6>Beneficios de la membresia</h6>
-                <input id="flBeneficios"
+                <h6>Direccion de la instalacion asociada</h6>
+                    <input id="fl_IdInstalacionesDireccion"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!.Beneficios"
-                       placeholder="Beneficios" />
+                       asp-for="@Model.Filtro!._IdInstalaciones!.Direccion"
+                           placeholder="Direccion" />
                 <br />
-                <h6>Tipo de la membresia</h6>
-                <input id="fl_IdMembresiasTipoMembresia"
+                <h6>Nombre del empleado asociado</h6>
+                <input id="fl_IdEmpleadosNombre"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!._IdMembresias!.TipoMembresia"
-                       placeholder="Tipo de la membresia asociada" />
+                       asp-for="@Model.Filtro!._IdEmpleados!.Nombre"
+                       placeholder="Nombre" />
                 </div>
                 <br />
                 
@@ -142,13 +142,16 @@
                     <table class="tb_data table table-striped table-bordered table-hover">
                         <tr>
                             <th>
-                                Beneficios
+                                    Id de la Instalacion Asociada
                             </th>
                             <th>
-                                Id de la membresia Asociada
+                                    Direccion de la Instalacion Asociada
                             </th>
                             <th>
-                                Tipo de la Membresia asociada
+                                    Id del Empleado Asociado
+                            </th>
+                            <th>
+                                    Nombre del Empleado Asociado
                             </th>
                             <th class="cl_actions">
                                 Accion
@@ -160,13 +163,16 @@
                             {
                                 <tr>
                                     <td>
-                                        @elemento.Beneficios
+                                            @elemento.IdInstalaciones
                                     </td>
                                     <td>
-                                        @elemento.IdMembresias
+                                            @elemento._IdInstalaciones!.Direccion
                                     </td>
                                     <td>
-                                        @elemento._IdMembresias!.TipoMembresia
+                                            @elemento.IdEmpleados
+                                    </td>
+                                    <td>
+                                            @elemento._IdEmpleados!.Nombre
                                     </td>
                                     <td>
                                         <input type="submit"

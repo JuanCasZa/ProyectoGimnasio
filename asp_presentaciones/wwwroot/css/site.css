@@ -124,7 +124,18 @@ body {
     bottom: 0;
     margin: auto;
     background-color: rgba(0,0,0, 0.5);
+    z-index: 9999 !important;
 }
+
+    .popup h1,
+    .popup h2,
+    .popup h3,
+    .popup h4,
+    .popup h5,
+    .popup h6 {
+        color: black !important;
+    }
+
 
 .pp_inner {
     position: absolute;
@@ -141,16 +152,55 @@ body {
 
 .pp_del_inner, .pp_ms_inner {
     position: absolute;
-    left: 50px;
-    right: 50px;
-    top: 50px;
-    bottom: 25%;
-    min-width: 300px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
     max-width: 500px;
-    height: 200px;
-    margin: auto;
     background: white;
+    padding: 25px;
+    border-radius: 10px;
+    color: black;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
+
+.pp_del_inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+    width: auto;
+    max-width: 90%;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    color: black;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    word-wrap: break-word;
+    text-align: center;
+}
+
+
+.pp_ms_inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block; /* ? Permite que el contenido defina el tamaño */
+    width: auto; /* ? El ancho se ajusta al texto */
+    max-width: 90%; /* ? Para evitar que sea demasiado grande */
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    color: black;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    word-wrap: break-word; /* ? Evita que palabras largas se desborden */
+    text-align: center; /* ? Mantiene el texto centrado */
+}
+
+
+
 
 /* Formularios */
 .form-container {

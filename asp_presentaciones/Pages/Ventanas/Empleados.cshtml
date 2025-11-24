@@ -1,0 +1,339 @@
+﻿@page
+@model asp_presentacion.Pages.Ventanas.EmpleadosModel
+@{
+    ViewData["Titulo"] = "";
+}
+<center>
+    <div>
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            @Html.AntiForgeryToken()
+            <div align="center">
+                <h2>Empleados</h2>
+            </div>
+
+            <div align="center"
+                 class="bt_panel_buttons">
+                <input type="submit"
+                       value="Refrescar"
+                       asp-page-handler="BtRefrescar"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+                <input type="submit"
+                       value="Nuevo"
+                       asp-page-handler="BtNuevo"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+                <input type="submit"
+                       value="Guardar"
+                       asp-page-handler="BtGuardar"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+                <input type="submit"
+                       value="Cancelar"
+                       asp-page-handler="BtCancelar"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+            </div>
+
+            @if (Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas ||
+                        Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Id" />
+            }
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Nombre" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Identificacion" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Telefono" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.AnhosExperiencia" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Salario" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Estado" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Especialidad" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Cargo" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.HorarioDisponible" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.FechaContratacion" />
+            }
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
+            {
+                <div class="containers_vn panel panel-default">
+                    <div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Nombre
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmNombre"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Nombre" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Identificacion
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmIdentificacion"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Identificacion" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Telefono
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmTelefono"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Telefono" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Años de experiencia
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmAnhosExperiencia"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.AnhosExperiencia" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Salario
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmSalario"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Salario" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Estado
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmEstado" type="checkbox"
+                                       asp-for="@Model.Actual!.Estado"
+                                       class="form-check-input" />
+                                <span>Activo</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Especialidad
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmEspecialidad"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Especialidad" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Cargo
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmCargo"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Cargo" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Horario Disponible
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmHorarioDisponible"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.HorarioDisponible" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Fecha de contratacion
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmFechaContratacion"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.FechaContratacion" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (ViewData.ContainsKey("Mensaje"))
+            {
+                <input type="hidden"
+                       asp-for="@Model.Accion" />
+                @await Html.PartialAsync("../Emergentes/Mensajes2.cshtml");
+            }
+
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <div class='popup'>
+                    <div class='pp_del_inner'>
+                        <div style='width:95%'>
+                            <h2 align="left">
+                                Mensaje
+                            </h2>
+                            <h4 align="left">
+                                Desea borrar la entidad?
+                            </h4>
+                            <h6 align="left">
+                                @Model.Actual!.Nombre
+                            </h6>
+                            <br />
+                            <br />
+                            <input type="submit"
+                                   value="Borrar"
+                                   asp-page-handler="BtBorrar"
+                                   class="btn btn-secondary" />
+                            <input type="submit"
+                                   value="Cerrar"
+                                   asp-page-handler="BtCancelar"
+                                   class="btn btn-secondary" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas ||
+                        Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <div class="filtros-container">
+                <h3>Filtros</h3>
+                    <h6>Especialidad</h6>
+                    <input id="flEspecialidad"
+                       class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.Especialidad"
+                           placeholder="Especialidad" />
+                <br />
+                    <h6>Identificacion</h6>
+                    <input id="flIdentificacion"
+                       class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.Identificacion"
+                           placeholder="Identificacion" />
+                <br />
+                    <h6>Telefono</h6>
+                    <input id="flTelefono"
+                       class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.Telefono"
+                           placeholder="Telefono" />
+                <br />
+                    <h6>Cargo</h6>
+                    <input id="flCargo"
+                       class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.Cargo"
+                           placeholder="Cargo" />
+                </div>
+                <br />
+                <div class="tabla-container">
+                <h1 align="left">Tabla de informacion</h1>
+                <div class="containers_vn panel panel-default">
+                    <table class="tb_data table table-striped table-bordered table-hover">
+                        <tr>
+                            <th>
+                                    Nombre
+                            </th>
+                            <th>
+                                    Identificacion
+                            </th>
+                            <th>
+                                    Telefono
+                            </th>
+                            <th>
+                                    Años de Experiencia
+                            </th>
+                            <th>
+                                    Salario
+                            </th>
+                            <th>
+                                    Estado
+                            </th>
+                            <th>
+                                    Especialidad
+                            </th>
+                            <th>
+                                    Cargo
+                            </th>
+                            <th>
+                                    Horario Disponible
+                            </th>
+                            <th>
+                                    Fecha de Contratacion
+                            </th>
+                            <th class="cl_actions">
+                                Accion
+                            </th>
+                        </tr>
+                        @if (Model != null && Model.Lista != null)
+                        {
+                            @foreach (var elemento in Model.Lista)
+                            {
+                                <tr>
+                                    <td>
+                                            @elemento.Nombre
+                                    </td>
+                                    <td>
+                                            @elemento.Identificacion
+                                    </td>
+                                    <td>
+                                            @elemento.Telefono
+                                    </td>
+                                    <td>
+                                            @elemento.AnhosExperiencia
+                                    </td>
+                                    <td>
+                                            @elemento.Salario
+                                    </td>
+                                    <td>
+                                            @elemento.Estado
+                                    </td>
+                                    <td>
+                                            @elemento.Especialidad
+                                    </td>
+                                    <td>
+                                            @elemento.Cargo
+                                    </td>
+                                    <td>
+                                            @elemento.HorarioDisponible
+                                    </td>
+                                    <td>
+                                            @(elemento.FechaContratacion?.ToString("dd/MM/yyyy") ?? "Sin fecha")
+                                    </td>
+                                    <td>
+                                        <input type="submit"
+                                               value="Modificar"
+                                               asp-page-handler="BtModificar"
+                                               class="btn btn-secondary"
+                                               asp-route-data="@elemento.Id" />
+                                        <input type="submit"
+                                               value="Borrar"
+                                               asp-page-handler="BtBorrarVal"
+                                               class="btn btn-secondary"
+                                               asp-route-data="@elemento.Id" />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+                </div>
+            }
+        </form>
+    </div>
+</center>

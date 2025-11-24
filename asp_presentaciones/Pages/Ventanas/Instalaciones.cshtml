@@ -1,5 +1,5 @@
 ﻿@page
-@model asp_presentacion.Pages.Ventanas.BeneficiosMembresiasModel
+@model asp_presentacion.Pages.Ventanas.InstalacionesModel
 @{
     ViewData["Titulo"] = "";
 }
@@ -10,7 +10,7 @@
 
             @Html.AntiForgeryToken()
             <div align="center">
-                <h2>Beneficios de la Membresia</h2>
+                <h2>Instalaciones</h2>
             </div>
 
             <div align="center"
@@ -46,9 +46,9 @@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
             {
                 <input type="hidden"
-                       asp-for="@Model.Actual!.Beneficios" />
+                       asp-for="@Model.Actual!.Direccion" />
                 <input type="hidden"
-                       asp-for="@Model.Actual!.IdMembresias" />
+                       asp-for="@Model.Actual!.Telefono" />
             }
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
             {
@@ -56,22 +56,22 @@
                     <div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Beneficios
+                                Direccion
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmBeneficios"
+                                <input id="nmDireccion"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Beneficios" />
+                                       asp-for="@Model.Actual!.Direccion" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Id de la Membresia asociada
+                                Telefono
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmIdMembresias"
+                                <input id="nmTelefono"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.IdMembresias" />
+                                       asp-for="@Model.Actual!.Telefono" />
                             </div>
                         </div>
                     </div>
@@ -97,10 +97,7 @@
                                 Desea borrar la entidad?
                             </h4>
                             <h6 align="left">
-                                Beneficios : @Model.Actual!.Beneficios
-                            </h6>
-                            <h6 align="left">
-                                Tipo de la Membresia asociada : @Model.Actual!._IdMembresias!.TipoMembresia
+                                Direccion de la instalacion: @Model.Actual!.Direccion
                             </h6>
                             <br />
                             <br />
@@ -122,33 +119,30 @@
             {
                 <div class="filtros-container">
                 <h3>Filtros</h3>
-                <h6>Beneficios de la membresia</h6>
-                <input id="flBeneficios"
+                    <h6>Direccion</h6>
+                    <input id="flDireccion"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!.Beneficios"
-                       placeholder="Beneficios" />
+                           asp-for="@Model.Filtro!.Direccion"
+                           placeholder="Direccion" />
                 <br />
-                <h6>Tipo de la membresia</h6>
-                <input id="fl_IdMembresiasTipoMembresia"
+                    <h6>Telefono</h6>
+                    <input id="flTelefono"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!._IdMembresias!.TipoMembresia"
-                       placeholder="Tipo de la membresia asociada" />
+                           asp-for="@Model.Filtro!.Telefono"
+                           placeholder="Telefono" />
+                <br />
                 </div>
                 <br />
-                
                 <div class="tabla-container">
                 <h1 align="left">Tabla de informacion</h1>
                 <div class="containers_vn panel panel-default">
                     <table class="tb_data table table-striped table-bordered table-hover">
                         <tr>
                             <th>
-                                Beneficios
+                                    Direccion
                             </th>
                             <th>
-                                Id de la membresia Asociada
-                            </th>
-                            <th>
-                                Tipo de la Membresia asociada
+                                    Telefono
                             </th>
                             <th class="cl_actions">
                                 Accion
@@ -160,13 +154,10 @@
                             {
                                 <tr>
                                     <td>
-                                        @elemento.Beneficios
+                                            @elemento.Direccion
                                     </td>
                                     <td>
-                                        @elemento.IdMembresias
-                                    </td>
-                                    <td>
-                                        @elemento._IdMembresias!.TipoMembresia
+                                            @elemento.Telefono
                                     </td>
                                     <td>
                                         <input type="submit"

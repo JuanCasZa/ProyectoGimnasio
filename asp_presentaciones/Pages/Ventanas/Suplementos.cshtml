@@ -1,5 +1,5 @@
 ﻿@page
-@model asp_presentacion.Pages.Ventanas.BeneficiosMembresiasModel
+@model asp_presentacion.Pages.Ventanas.SuplementosModel
 @{
     ViewData["Titulo"] = "";
 }
@@ -10,7 +10,7 @@
 
             @Html.AntiForgeryToken()
             <div align="center">
-                <h2>Beneficios de la Membresia</h2>
+                <h2>Suplementos</h2>
             </div>
 
             <div align="center"
@@ -46,9 +46,15 @@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
             {
                 <input type="hidden"
-                       asp-for="@Model.Actual!.Beneficios" />
+                       asp-for="@Model.Actual!.NombreSuplemento" />
                 <input type="hidden"
-                       asp-for="@Model.Actual!.IdMembresias" />
+                       asp-for="@Model.Actual!.TipoSuplemento" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Valor" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Cantidad" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Proveedor" />
             }
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
             {
@@ -56,22 +62,52 @@
                     <div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Beneficios
+                                Nombre del Suplemento
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmBeneficios"
+                                <input id="nmNombreSuplemento"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Beneficios" />
+                                       asp-for="@Model.Actual!.NombreSuplemento" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Id de la Membresia asociada
+                                Tipo de Suplemento
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmIdMembresias"
+                                <input id="nmTipoSuplemento"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.IdMembresias" />
+                                       asp-for="@Model.Actual!.TipoSuplemento" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Valor
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmValor"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Valor" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Cantidad
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmCantidad"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Cantidad" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Id del Proveedor asociado
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmProveedor"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Proveedor" />
                             </div>
                         </div>
                     </div>
@@ -97,10 +133,10 @@
                                 Desea borrar la entidad?
                             </h4>
                             <h6 align="left">
-                                Beneficios : @Model.Actual!.Beneficios
+                                @Model.Actual!.NombreSuplemento
                             </h6>
                             <h6 align="left">
-                                Tipo de la Membresia asociada : @Model.Actual!._IdMembresias!.TipoMembresia
+                                Proveedor asociado : @Model.Actual!._Proveedor!.NombreEntidad
                             </h6>
                             <br />
                             <br />
@@ -122,17 +158,23 @@
             {
                 <div class="filtros-container">
                 <h3>Filtros</h3>
-                <h6>Beneficios de la membresia</h6>
-                <input id="flBeneficios"
+                    <h6>Nombre del Suplemento</h6>
+                    <input id="flNombreSuplemento"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!.Beneficios"
-                       placeholder="Beneficios" />
-                <br />
-                <h6>Tipo de la membresia</h6>
-                <input id="fl_IdMembresiasTipoMembresia"
+                           asp-for="@Model.Filtro!.NombreSuplemento"
+                           placeholder="Nombre del Suplemento" />
+                    <br />
+                    <h6>Tipo de Suplemento</h6>
+                    <input id="flTipoSuplemento"
+                           class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.TipoSuplemento"
+                           placeholder="Marca" />
+                    <br />
+                <h6>Nombre del proveedor</h6>
+                    <input id="fl_ProveedorNombreEntidad"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!._IdMembresias!.TipoMembresia"
-                       placeholder="Tipo de la membresia asociada" />
+                       asp-for="@Model.Filtro!._Proveedor!.NombreEntidad"
+                       placeholder="nombre del proveedor asociado" />
                 </div>
                 <br />
                 
@@ -142,13 +184,22 @@
                     <table class="tb_data table table-striped table-bordered table-hover">
                         <tr>
                             <th>
-                                Beneficios
+                                    Nombre del Suplemento
                             </th>
                             <th>
-                                Id de la membresia Asociada
+                                    Tipo de Suplemento
                             </th>
                             <th>
-                                Tipo de la Membresia asociada
+                                    Valor
+                            </th>
+                            <th>
+                                    Cantidad
+                            </th>
+                            <th>
+                                Id del Proveedor Asociado
+                            </th>
+                            <th>
+                                Nombre del Proveedor Asociado
                             </th>
                             <th class="cl_actions">
                                 Accion
@@ -160,13 +211,22 @@
                             {
                                 <tr>
                                     <td>
-                                        @elemento.Beneficios
+                                            @elemento.NombreSuplemento
                                     </td>
                                     <td>
-                                        @elemento.IdMembresias
+                                            @elemento.TipoSuplemento
                                     </td>
                                     <td>
-                                        @elemento._IdMembresias!.TipoMembresia
+                                            @elemento.Valor
+                                    </td>
+                                    <td>
+                                            @elemento.Cantidad
+                                    </td>
+                                    <td>
+                                        @elemento.Proveedor
+                                    </td>
+                                    <td>
+                                        @elemento._Proveedor!.NombreEntidad
                                     </td>
                                     <td>
                                         <input type="submit"

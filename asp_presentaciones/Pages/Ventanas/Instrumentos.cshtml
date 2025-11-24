@@ -1,5 +1,5 @@
 ﻿@page
-@model asp_presentacion.Pages.Ventanas.BeneficiosMembresiasModel
+@model asp_presentacion.Pages.Ventanas.InstrumentosModel
 @{
     ViewData["Titulo"] = "";
 }
@@ -10,7 +10,7 @@
 
             @Html.AntiForgeryToken()
             <div align="center">
-                <h2>Beneficios de la Membresia</h2>
+                <h2>Instrumentos</h2>
             </div>
 
             <div align="center"
@@ -46,9 +46,19 @@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
             {
                 <input type="hidden"
-                       asp-for="@Model.Actual!.Beneficios" />
+                       asp-for="@Model.Actual!.NombreInstrumento" />
                 <input type="hidden"
-                       asp-for="@Model.Actual!.IdMembresias" />
+                       asp-for="@Model.Actual!.CantidadEquip" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Piezas" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Marca" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.DescripcionGeneral" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Estado" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Proveedor" />
             }
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
             {
@@ -56,22 +66,73 @@
                     <div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Beneficios
+                                Nombre del Instrumento
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmBeneficios"
+                                <input id="nmNombreInstrumento"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Beneficios" />
+                                       asp-for="@Model.Actual!.NombreInstrumento" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Id de la Membresia asociada
+                                Cantidad de Equipos
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmIdMembresias"
+                                <input id="nmCantidadEquip"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.IdMembresias" />
+                                       asp-for="@Model.Actual!.CantidadEquip" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Numero de Piezas
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmPiezas"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Piezas" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Marca
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmMarca"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Marca" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Descripcion General
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmDescripcionGeneral"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.DescripcionGeneral" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Estado
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmEstado" type="checkbox"
+                                       asp-for="@Model.Actual!.Estado"
+                                       class="form-check-input" />
+                                <span>Activo</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Id del Proveedor asociado
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmProveedor"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Proveedor" />
                             </div>
                         </div>
                     </div>
@@ -97,10 +158,10 @@
                                 Desea borrar la entidad?
                             </h4>
                             <h6 align="left">
-                                Beneficios : @Model.Actual!.Beneficios
+                                @Model.Actual!.NombreInstrumento
                             </h6>
                             <h6 align="left">
-                                Tipo de la Membresia asociada : @Model.Actual!._IdMembresias!.TipoMembresia
+                                Proveedor asociado : @Model.Actual!._Proveedor!.NombreEntidad
                             </h6>
                             <br />
                             <br />
@@ -122,17 +183,23 @@
             {
                 <div class="filtros-container">
                 <h3>Filtros</h3>
-                <h6>Beneficios de la membresia</h6>
-                <input id="flBeneficios"
+                    <h6>Nombre del Instrumento</h6>
+                    <input id="flNombreInstrumento"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!.Beneficios"
-                       placeholder="Beneficios" />
-                <br />
-                <h6>Tipo de la membresia</h6>
-                <input id="fl_IdMembresiasTipoMembresia"
+                           asp-for="@Model.Filtro!.NombreInstrumento"
+                           placeholder="Nombre del Instrumento" />
+                    <br />
+                    <h6>Marca</h6>
+                    <input id="flMarca"
+                           class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.Marca"
+                           placeholder="Marca" />
+                    <br />
+                <h6>Nombre del proveedor</h6>
+                    <input id="fl_ProveedorNombreEntidad"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!._IdMembresias!.TipoMembresia"
-                       placeholder="Tipo de la membresia asociada" />
+                       asp-for="@Model.Filtro!._Proveedor!.NombreEntidad"
+                       placeholder="nombre del proveedor asociado" />
                 </div>
                 <br />
                 
@@ -142,13 +209,28 @@
                     <table class="tb_data table table-striped table-bordered table-hover">
                         <tr>
                             <th>
-                                Beneficios
+                                    Nombre del Instrumento
                             </th>
                             <th>
-                                Id de la membresia Asociada
+                                    Cantidad de Equipos
                             </th>
                             <th>
-                                Tipo de la Membresia asociada
+                                    Numero de Piezas
+                            </th>
+                            <th>
+                                    Marca
+                            </th>
+                            <th>
+                                    DescripcionGeneral
+                            </th>
+                            <th>
+                                    Estado
+                            </th>
+                            <th>
+                                Id del Proveedor Asociado
+                            </th>
+                            <th>
+                                Nombre del Proveedor Asociado
                             </th>
                             <th class="cl_actions">
                                 Accion
@@ -160,13 +242,28 @@
                             {
                                 <tr>
                                     <td>
-                                        @elemento.Beneficios
+                                            @elemento.NombreInstrumento
                                     </td>
                                     <td>
-                                        @elemento.IdMembresias
+                                            @elemento.CantidadEquip
                                     </td>
                                     <td>
-                                        @elemento._IdMembresias!.TipoMembresia
+                                            @elemento.Piezas
+                                    </td>
+                                    <td>
+                                            @elemento.Marca
+                                    </td>
+                                    <td>
+                                            @elemento.DescripcionGeneral
+                                    </td>
+                                    <td>
+                                            @elemento.Estado
+                                    </td>
+                                    <td>
+                                        @elemento.Proveedor
+                                    </td>
+                                    <td>
+                                        @elemento._Proveedor!.NombreEntidad
                                     </td>
                                     <td>
                                         <input type="submit"
