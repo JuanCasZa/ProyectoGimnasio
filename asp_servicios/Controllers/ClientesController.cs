@@ -60,11 +60,7 @@ namespace asp_servicios.Controllers
         }
 
         [HttpPost]
-<<<<<<< HEAD
-        public string PorEdad()
-=======
         public string Filtro()
->>>>>>> 4513b1bb842d2298da43cd4afc1208b322bd6b1d
         {
             var respuesta = new Dictionary<string, object>();
             try
@@ -72,24 +68,18 @@ namespace asp_servicios.Controllers
                 var datos = ObtenerDatos();
                 this.iAplicacion!.Configurar(Configuracion.ObtenerValor("StringConexion"));
                 this.iAplicacionToken!.Configurar(Configuracion.ObtenerValor("StringConexion"));
-<<<<<<< HEAD
+                
                 if (!(iAplicacionToken!.Validar(datos) && iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")))
-=======
-                if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
-                    || iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Recepcionista"))))
->>>>>>> 4513b1bb842d2298da43cd4afc1208b322bd6b1d
-                {
-                    respuesta["Error"] = "lbNoAutenticacion";
-                    return JsonConversor.ConvertirAString(respuesta);
-                }
+                    if (!(iAplicacionToken!.Validar(datos) && (iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Administrador")
+                        || iAplicacionToken.ValidarRol(datos["Llave"].ToString()!).Equals("Recepcionista"))))
+                    {
+                        respuesta["Error"] = "lbNoAutenticacion";
+                        return JsonConversor.ConvertirAString(respuesta);
+                    }
                 var entidad = JsonConversor.ConvertirAObjeto<Clientes>(
                 JsonConversor.ConvertirAString(datos["Entidad"]));
 
-<<<<<<< HEAD
-                respuesta["Entidades"] = this.iAplicacion!.PorEdad(entidad);
-=======
                 respuesta["Entidades"] = this.iAplicacion!.Filtro(entidad);
->>>>>>> 4513b1bb842d2298da43cd4afc1208b322bd6b1d
                 respuesta["Respuesta"] = "OK";
                 respuesta["Fecha"] = DateTime.Now.ToString();
                 return JsonConversor.ConvertirAString(respuesta);

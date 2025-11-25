@@ -67,16 +67,6 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.Clientes!.Take(20).ToList();
         }
 
-<<<<<<< HEAD
-        public List<Clientes> PorEdad(Clientes? entidad)
-        {
-            if (entidad == null)
-            {
-                return new List<Clientes>();
-            }
-
-            return this.IConexion!.Clientes!.Where(x => x.Edad == entidad!.Edad!).ToList();
-=======
         public List<Clientes> Filtro(Clientes? entidad)
         {
             
@@ -92,7 +82,6 @@ namespace lib_repositorios.Implementaciones
             consulta = consulta.Where(x => x.Identificacion!.Contains(entidad!.Identificacion!) && x.Telefono!.Contains(entidad!.Telefono!)).Take(50);
 
             return consulta.ToList();
->>>>>>> 4513b1bb842d2298da43cd4afc1208b322bd6b1d
         }
 
         public Clientes? Modificar(Clientes? entidad)
