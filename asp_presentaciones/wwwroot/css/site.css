@@ -1,0 +1,427 @@
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+.navbar-nav {
+    flex-wrap: wrap !important;
+}
+
+
+a {
+}
+
+color: #0366d6;
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+.card_index {
+    background-color: white;
+}
+
+/* Screens --------------------- */
+.tb_data {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.cts_forms {
+    width: 100%;
+}
+
+.cl_actions {
+    width: 170px;
+}
+
+.cl_hidden {
+    display: normal;
+}
+
+@media (max-width: 950px) {
+    .cl_hidden {
+        display: none;
+    }
+}
+
+.containers_vn {
+    height: 70vh;
+    width: 100%;
+    overflow: auto;
+    display: inline-block;
+}
+
+/* Popups --------------------- */
+.containers_em {
+    height: 250px;
+    width: 100%;
+    overflow: auto;
+    display: inline-block;
+}
+
+
+.popup {
+    position: fixed;
+    color: black;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: rgba(0,0,0, 0.5);
+    z-index: 9999 !important;
+}
+
+    .popup h1,
+    .popup h2,
+    .popup h3,
+    .popup h4,
+    .popup h5,
+    .popup h6 {
+        color: black !important;
+    }
+
+
+.pp_inner {
+    position: absolute;
+    left: 50px;
+    right: 50px;
+    top: 50px;
+    bottom: 25%;
+    min-width: 300px;
+    max-width: 500px;
+    height: 440px;
+    margin: auto;
+    background: white;
+}
+
+.pp_del_inner, .pp_ms_inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    color: black;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.pp_del_inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+    width: auto;
+    max-width: 90%;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    color: black;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    word-wrap: break-word;
+    text-align: center;
+}
+
+
+.pp_ms_inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block; /* ? Permite que el contenido defina el tamaño */
+    width: auto; /* ? El ancho se ajusta al texto */
+    max-width: 90%; /* ? Para evitar que sea demasiado grande */
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    color: black;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    word-wrap: break-word; /* ? Evita que palabras largas se desborden */
+    text-align: center; /* ? Mantiene el texto centrado */
+}
+
+
+
+
+/* Formularios */
+.form-container {
+    width: 350px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #ffffff;
+    color: black;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+    border: 1px solid #ddd;
+}
+
+.form-container h2,
+.form-container h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-container input[type="submit"] {
+    width: 100%;
+}
+
+
+/*Botones*/
+/* Estilo para todos los botones */
+
+button,
+input[type="submit"],
+input[type="button"],
+.btn {
+    background-color: #000 !important; /* Negro */
+    color: white !important; /* Texto blanco */
+    border: 1px solid #333 !important; /* Borde sutil */
+    padding: 10px 18px !important;
+    border-radius: 6px !important;
+    cursor: pointer;
+    transition: 0.2s ease-in-out !important;
+}
+
+    button:hover,
+    input[type="submit"]:hover,
+    input[type="button"]:hover,
+    .btn:hover {
+        background-color: #222 !important; /* Negro más claro */
+        color: #fff !important;
+        transform: scale(1.03);
+    }
+
+/*Fondo login*/
+body.login-page {
+    background-image: url('/img/login_bg.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background-color: transparent !important;
+}
+
+.login-background {
+    background-image: url('/img/login_bg.jpg');
+    background-size: cover; /* cubre toda la pantalla */
+    background-position: center; /* centra la imagen */
+    background-repeat: no-repeat; /* evita repeticiones */
+    background-attachment: fixed; /* opcional: efecto elegante */
+    width: 100%;
+    height: 100vh; /* ocupa toda la pantalla */
+    display: flex;
+    justify-content: center; /* centra horizontalmente */
+    align-items: center; /* centra verticalmente */
+}
+
+    /* Evitar que el texto dentro del formulario del login sea blanco */
+    .login-background .form-container,
+    .login-background .form-container h1 {
+        color: black !important;
+    }
+
+
+
+/*Fondo de bienvenida*/
+body.welcome-page {
+    background-image: url('/img/welcome_image.jpg'); /* imagen distinta */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: transparent !important;
+}
+
+    body.welcome-page::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.75);
+        z-index: -1;
+    }
+
+
+.welcome-content {
+    width: 100%;
+    padding-top: 40px;
+    text-align: center;
+    color: white;
+}
+
+.welcomedesign {
+    position: relative;
+    height: calc(100vh - 70px);
+    background-image: url('/img/gym.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+    .welcomedesign::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.75);
+    }
+
+.welcomedesign-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+/*Para la parte del footer, osea donde dice el @2025 - gimnasio - privacy*/
+.login-footer {
+    background-color: rgba(0,0,0,0.9) !important; /* Fondo negro semitransparente */
+    color: white !important;
+    border-top: none !important;
+}
+
+/* Diseño para las tablas de informacion y filtros */
+
+/* Filtros más pequeños y organizados*/
+.filtros-container {
+    width: 70%;
+    margin: 20px auto;
+    padding: 15px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 12px;
+    backdrop-filter: blur(3px);
+}
+
+    .filtros-container h3,
+    .filtros-container h6 {
+        color: #fff;
+    }
+
+    .filtros-container input {
+        height: 36px;
+        font-size: 14px;
+        padding-left: 10px;
+        border: 1px solid #555;
+        border-radius: 6px;
+        background: rgba(255,255,255,0.15);
+        color: white;
+    }
+
+        .filtros-container input::placeholder {
+            color: #ccc;
+        }
+
+/* Tabla más centrada y pequeña */
+.tabla-container {
+    width: 80%;
+    margin: 30px auto;
+    background: rgba(0,0,0,0.55);
+    padding: 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(3px);
+}
+
+.tb_data {
+    width: 100%;
+    border-radius: 10px;
+    background: transparent !important;
+    color: white;
+}
+
+    /* Encabezados de tabla */
+    .tb_data th {
+        background: rgba(0,0,0,0.7);
+        color: #fff;
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    /* Filas */
+    .tb_data td {
+        color: white !important;
+        background: rgba(255,255,255,0.05);
+        padding: 12px;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Resaltar fila al pasar el mouse */
+    .tb_data tr:hover td {
+        background: rgba(255,255,255,0.15);
+    }
+
+    /* Botones dentro de la tabla */
+    .tb_data input[type="submit"] {
+        margin-bottom: 6px;
+        width: 100px;
+    }
+
+/*Títulos*/
+h1, h2, h3 {
+    color: white;
+}

@@ -1,0 +1,22 @@
+﻿<center>
+    <div class='popup'>
+        <div class='pp_ms_inner'>
+            <div style='width:95%'>
+                <h2 align="left">
+                    Mensaje
+                </h2>
+
+                <h4 align="left">
+                    @ViewData["Mensaje"]
+                </h4>
+                <form method="POST">
+                    <input type="submit"
+                           value="Cerrar"
+                           asp-page-handler="BtCerrar"
+                           class="btn btn-secondary" />
+                </form>
+            </div>
+        </div>
+    </div>
+</center>
+
