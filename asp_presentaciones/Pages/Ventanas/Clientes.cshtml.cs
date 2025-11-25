@@ -40,9 +40,9 @@ namespace asp_presentacion.Pages.Ventanas
                     return;
                 }
 
-                Filtro!.Nombre = Filtro!.Nombre ?? "";
+                Filtro!.Edad = Filtro!.Edad;
                 Accion = Enumerables.Ventanas.Listas;
-                var task = this.iPresentacion!.Listar();
+                var task = this.iPresentacion!.PorEdad(Filtro!);
                 task.Wait();
                 Lista = task.Result;
                 Actual = null;

@@ -67,6 +67,16 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.Clientes!.Take(20).ToList();
         }
 
+        public List<Clientes> PorEdad(Clientes? entidad)
+        {
+            if (entidad == null)
+            {
+                return new List<Clientes>();
+            }
+
+            return this.IConexion!.Clientes!.Where(x => x.Edad == entidad!.Edad!).ToList();
+        }
+
         public Clientes? Modificar(Clientes? entidad)
         {
             Clientes? entidadvieja = this.IConexion!.Clientes!.FirstOrDefault(x => x.Id! == entidad!.Id);
