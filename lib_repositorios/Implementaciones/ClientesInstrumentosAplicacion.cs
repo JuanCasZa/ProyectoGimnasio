@@ -87,27 +87,30 @@ namespace lib_repositorios.Implementaciones
         }
         public List<ClientesInstrumentos> Listar()
         {
-            return this.IConexion!.ClientesInstrumentos!.Take(20).ToList();
+            return this.IConexion!.ClientesInstrumentos!.Take(20).Include(x => x._IdClientes).Include(y => y._IdInstrumentos).ToList();
         }
 
-        public List<ClientesInstrumentos> PorIdClientes(ClientesInstrumentos? entidad)
+        public List<ClientesInstrumentos> Filtro(ClientesInstrumentos? entidad)
         {
-            if (entidad == null)
+            var consulta = this.IConexion!.ClientesInstrumentos!.Include(x => x._IdClientes).Include(y => y._IdInstrumentos).AsQueryable();
+
+            //Filtro por el nombre del cliente
+            if (entidad?._IdClientes?.Nombre is not null)
             {
-                return new List<ClientesInstrumentos>();
+                consulta = consulta.Where(x =>
+                    x._IdClientes!.Nombre.Contains(entidad._IdClientes.Nombre)
+                );
             }
 
-            return this.IConexion!.ClientesInstrumentos!.Where(x => x.IdClientes! == entidad!.IdClientes).ToList();
-        }
-
-        public List<ClientesInstrumentos> PorIdInstrumentos(ClientesInstrumentos? entidad)
-        {
-            if (entidad == null)
+            //Filtro por el nombre del instrumento
+            if (entidad?._IdInstrumentos?.NombreInstrumento is not null)
             {
-                return new List<ClientesInstrumentos>();
+                consulta = consulta.Where(x =>
+                    x._IdInstrumentos!.NombreInstrumento.Contains(entidad._IdInstrumentos.NombreInstrumento)
+                );
             }
 
-            return this.IConexion!.ClientesInstrumentos!.Where(x => x.IdInstrumentos! == entidad!.IdInstrumentos).ToList();
+            return consulta.ToList();
         }
 
         public ClientesInstrumentos? Modificar(ClientesInstrumentos? entidad)

@@ -1,5 +1,5 @@
 ﻿@page
-@model asp_presentacion.Pages.Ventanas.ClientesModel
+@model asp_presentacion.Pages.Ventanas.ProveedoresModel
 @{
     ViewData["Titulo"] = "";
 }
@@ -9,11 +9,11 @@
               enctype="multipart/form-data">
 
             @Html.AntiForgeryToken()
-            <div align="left">
-                <h3>Clientes</h3>
+            <div align="center">
+                <h2>Proveedores</h2>
             </div>
 
-            <div align="left"
+            <div align="center"
                  class="bt_panel_buttons">
                 <input type="submit"
                        value="Refrescar"
@@ -46,63 +46,46 @@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
             {
                 <input type="hidden"
-                       asp-for="@Model.Actual!.Nombre" />
+                       asp-for="@Model.Actual!.NombreEntidad" />
                 <input type="hidden"
-                       asp-for="@Model.Actual!.Identificacion" />
+                       asp-for="@Model.Actual!.ValorTotalVenta" />
                 <input type="hidden"
-                       asp-for="@Model.Actual!.Edad" />
-                <input type="hidden"
-                       asp-for="@Model.Actual!.CorreoElectronico" />
+                       asp-for="@Model.Actual!.Direccion" />
                 <input type="hidden"
                        asp-for="@Model.Actual!.Telefono" />
-                <input type="hidden"
-                       asp-for="@Model.Actual!.Estatura" />
-                <input type="hidden"
-                       asp-for="@Model.Actual!.Peso" />
             }
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
             {
                 <div class="containers_vn panel panel-default">
-                    <h3>Cliente</h3>
                     <div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Nombre
+                                Nombre de la entidad proveedora
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmNombre"
+                                <input id="nmNombreEntidad"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Nombre" />
+                                       asp-for="@Model.Actual!.NombreEntidad" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Identificacion
+                                Valor Total de Venta
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmIdentificacion"
+                                <input id="nmValorTotalVenta"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Identificacion" />
+                                       asp-for="@Model.Actual!.ValorTotalVenta" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Edad
+                                Direccion
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmEdad"
+                                <input id="nmDireccion"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Edad" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">
-                                CorreoElectronico
-                            </label>
-                            <div class="col-lg-6">
-                                <input id="nmCorreoElectronico"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.CorreoElectronico" />
+                                       asp-for="@Model.Actual!.Direccion" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -115,26 +98,6 @@
                                        asp-for="@Model.Actual!.Telefono" />
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">
-                                Estatura
-                            </label>
-                            <div class="col-lg-6">
-                                <input id="nmEstatura"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Estatura" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">
-                                Peso
-                            </label>
-                            <div class="col-lg-6">
-                                <input id="nmPeso"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.Peso" />
-                            </div>
-                        </div>
                     </div>
                 </div>
             }
@@ -143,7 +106,7 @@
             {
                 <input type="hidden"
                        asp-for="@Model.Accion" />
-                @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
+                @await Html.PartialAsync("../Emergentes/Mensajes2.cshtml");
             }
 
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
@@ -158,7 +121,7 @@
                                 Desea borrar la entidad?
                             </h4>
                             <h6 align="left">
-                                @Model.Actual!.Nombre
+                                @Model.Actual!.NombreEntidad
                             </h6>
                             <br />
                             <br />
@@ -178,35 +141,38 @@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas ||
                         Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
             {
-                <input id="flListar"
+                <div class="filtros-container">
+                <h3>Filtros</h3>
+                    <h6>Direccion</h6>
+                    <input id="flDireccion"
                        class="cts_forms form-control"
-                       asp-for="@Model.Filtro!.Nombre"
-                       placeholder="Nombre" />
+                           asp-for="@Model.Filtro!.Direccion"
+                           placeholder="Direccion" />
                 <br />
-
+                    <h6>Telefono</h6>
+                    <input id="flTelefono"
+                       class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.Telefono"
+                           placeholder="Telefono" />
+                <br />
+                </div>
+                <br />
+                <div class="tabla-container">
+                <h1 align="left">Tabla de informacion</h1>
                 <div class="containers_vn panel panel-default">
                     <table class="tb_data table table-striped table-bordered table-hover">
                         <tr>
                             <th>
-                                Nombre
+                                    Nombre de la Entidad proveedora
                             </th>
                             <th>
-                                CorreoElectronico
+                                    Valor Total de Venta
                             </th>
                             <th>
-                                Telefono
+                                    Direccion
                             </th>
-                            <th class="cl_hidden">
-                                Identificacion
-                            </th>
-                            <th class="cl_hidden">
-                                Edad
-                            </th>
-                            <th class="cl_hidden">
-                                Estatura
-                            </th>
-                            <th class="cl_hidden">
-                                Peso
+                            <th>
+                                    Telefono
                             </th>
                             <th class="cl_actions">
                                 Accion
@@ -218,30 +184,20 @@
                             {
                                 <tr>
                                     <td>
-                                        @elemento.Nombre
+                                            @elemento.NombreEntidad
                                     </td>
                                     <td>
-                                        @elemento.Edad
+                                            @elemento.ValorTotalVenta
                                     </td>
                                     <td>
-                                        @elemento.CorreoElectronico
+                                            @elemento.Direccion
                                     </td>
                                     <td>
-                                        @elemento.Telefono
-                                    </td>
-                                    <td>
-                                        @elemento.Estatura
-                                    </td>
-                                    <td>
-                                        @elemento.Peso
-                                    </td>
-
-                                    <td class="cl_hidden">
-                                        @elemento.Identificacion
+                                            @elemento.Telefono
                                     </td>
                                     <td>
                                         <input type="submit"
-                                               value="Modicar"
+                                               value="Modificar"
                                                asp-page-handler="BtModificar"
                                                class="btn btn-secondary"
                                                asp-route-data="@elemento.Id" />
@@ -255,6 +211,7 @@
                             }
                         }
                     </table>
+                </div>
                 </div>
             }
         </form>

@@ -73,27 +73,31 @@ namespace lib_repositorios.Implementaciones
 
         public List<ClientesMembresias> Listar()
         {
-            return this.IConexion!.ClientesMembresias!.Take(20).ToList();
+            return this.IConexion!.ClientesMembresias!.Take(20).Include(x => x._IdClientes).Include(y => y._IdMembresias).ToList();
         }
 
-        public List<ClientesMembresias> PorIdClientes(ClientesMembresias? entidad)
+        public List<ClientesMembresias> Filtro(ClientesMembresias? entidad)
         {
-            if (entidad == null)
+            
+            var consulta = this.IConexion!.ClientesMembresias!.Include(x => x._IdClientes).Include(y => y._IdMembresias).AsQueryable();
+
+            //Filtro por el nombre del cliente
+            if (entidad?._IdClientes?.Nombre is not null)
             {
-                return new List<ClientesMembresias>();
+                consulta = consulta.Where(x =>
+                    x._IdClientes!.Nombre.Contains(entidad._IdClientes.Nombre)
+                );
             }
 
-            return this.IConexion!.ClientesMembresias!.Where(x => x.IdClientes! == entidad!.IdClientes).ToList();
-        }
-
-        public List<ClientesMembresias> PorIdMembresias(ClientesMembresias? entidad)
-        {
-            if (entidad == null)
+            //Filtro por el tipo de membresia
+            if (entidad?._IdMembresias?.TipoMembresia is not null)
             {
-                return new List<ClientesMembresias>();
+                consulta = consulta.Where(x =>
+                    x._IdMembresias!.TipoMembresia.Contains(entidad._IdMembresias.TipoMembresia)
+                );
             }
 
-            return this.IConexion!.ClientesMembresias!.Where(x => x.IdMembresias! == entidad!.IdMembresias).ToList();
+            return consulta.ToList();
         }
 
         public ClientesMembresias? Modificar(ClientesMembresias? entidad)

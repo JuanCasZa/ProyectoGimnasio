@@ -9,11 +9,12 @@
                 <h4 align="left">
                     @ViewData["Mensaje"]
                 </h4>
-
-                <input type="submit"
-                       value="Cerrar"
-                       asp-page-handler="BtCerrar"
-                       class="btn btn-secondary" />
+                <form method="POST">
+                    <input type="submit"
+                           value="Cerrar"
+                           asp-page-handler="BtCerrar"
+                           class="btn btn-secondary" />
+                </form>
             </div>
         </div>
     </div>

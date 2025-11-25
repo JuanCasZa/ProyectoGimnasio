@@ -37,7 +37,11 @@ namespace lib_repositorios.Implementaciones
             if (entidad.Id != 0)
                 throw new Exception("lbYaSeGuardo");
 
-            
+            var consulta = this.IConexion!.Empleados!.FirstOrDefault(x => x.Id == entidad.IdEmpleado);
+            if (consulta == null) throw new Exception("El Empleado no existe");
+
+            var consulta2 = this.IConexion!.Roles!.FirstOrDefault(x => x.Id == entidad.IdRol);
+            if (consulta2 == null) throw new Exception("El Rol no existe");
 
             this.IConexion!.Usuarios!.Add(entidad);
             this.IConexion.SaveChanges();
@@ -55,6 +59,11 @@ namespace lib_repositorios.Implementaciones
 
             if (entidad!.Id == 0)
                 throw new Exception("lbNoSeGuardó");
+
+            var consulta = this.IConexion!.Usuarios!.FirstOrDefault(x => x.Id == entidad.Id);
+            if (consulta == null) throw new Exception("El Usuario no existe");
+
+            if (consulta.IdEmpleado != entidad.IdEmpleado) throw new Exception("El empleado debe ser el mismo");
 
             var entry = this.IConexion!.Entry<Usuarios>(entidad);
             entry.State = EntityState.Modified;

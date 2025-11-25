@@ -11,4 +11,11 @@
     <ProjectReference Include="..\lib_presentaciones\lib_presentaciones.csproj" />
   </ItemGroup>
 
+<<<<<<< HEAD
+=======
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
+>>>>>>> 4513b1bb842d2298da43cd4afc1208b322bd6b1d
 </Project>

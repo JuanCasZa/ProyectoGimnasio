@@ -68,28 +68,32 @@ namespace lib_repositorios.Implementaciones
 
         public List<InstalacionesEmpleados> Listar()
         {
-            return this.IConexion!.InstalacionesEmpleados!.Take(20).ToList();
+            return this.IConexion!.InstalacionesEmpleados!.Take(20).Include(x => x._IdEmpleados).Include(y => y._IdInstalaciones).ToList();
         }
 
-        public List<InstalacionesEmpleados> PorIdEmpleados(InstalacionesEmpleados? entidad)
+        public List<InstalacionesEmpleados> Filtro(InstalacionesEmpleados? entidad)
         {
-            if (entidad == null)
+            var consulta = this.IConexion!.InstalacionesEmpleados!.Include(x => x._IdEmpleados).Include(y => y._IdInstalaciones).AsQueryable();
+
+            //Filtro por el nombre del empleado
+            if (entidad?._IdEmpleados?.Nombre is not null)
             {
-                return new List<InstalacionesEmpleados>();
+                consulta = consulta.Where(x =>
+                    x._IdEmpleados!.Nombre.Contains(entidad._IdEmpleados.Nombre)
+                );
             }
 
-            return this.IConexion!.InstalacionesEmpleados!.Where(x => x.IdEmpleados! == entidad!.IdEmpleados).ToList();
-        }
-
-        public List<InstalacionesEmpleados> PorIdInstalaciones(InstalacionesEmpleados? entidad)
-        {
-            if (entidad == null)
+            //Filtro por la direccion de la instalacion
+            if (entidad?._IdInstalaciones?.Direccion is not null)
             {
-                return new List<InstalacionesEmpleados>();
+                consulta = consulta.Where(x =>
+                    x._IdInstalaciones!.Direccion.Contains(entidad._IdInstalaciones.Direccion)
+                );
             }
 
-            return this.IConexion!.InstalacionesEmpleados!.Where(x => x.IdInstalaciones! == entidad!.IdInstalaciones).ToList();
+            return consulta.ToList();
         }
+
         public InstalacionesEmpleados? Modificar(InstalacionesEmpleados? entidad)
         {
             InstalacionesEmpleados? entidadvieja = this.IConexion!.InstalacionesEmpleados!.FirstOrDefault(x => x.Id! == entidad!.Id);

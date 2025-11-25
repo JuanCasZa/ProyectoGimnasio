@@ -1,5 +1,9 @@
 ﻿using lib_dominio.Entidades;
 using lib_repositorios.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Update.Internal;
+using Microsoft.Extensions.Configuration;
+using System.Reflection.Metadata.Ecma335;
 
 namespace lib_repositorios.Implementaciones
 {
@@ -43,7 +47,7 @@ namespace lib_repositorios.Implementaciones
                 .FirstOrDefault(x => x.Nombre == entidad!.Nombre &&
                                      x.Contrasenha == entidad.Contrasenha);
             if (usuario == null)
-                return string.Empty;
+                throw new Exception("Usuario o contraseña incorrecta");
 
             string nuevaLlave = GenerarLlave();
             LlavesActivas[nuevaLlave] = usuario;
@@ -75,10 +79,10 @@ namespace lib_repositorios.Implementaciones
 
             return Rol;
         }
-
         public Auditorias? GetAuditoria()
         {
-            return this.auditoria;
+
+            return this.auditoria = new Auditorias();
         }
 
         public Usuarios? GetUsuario(string llave)

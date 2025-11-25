@@ -30,6 +30,8 @@ namespace asp_presentaciones
             services.AddScoped<ISuplementosPresentacion, SuplementosPresentacion>();
             services.AddScoped<IProveedoresPresentacion, ProveedoresPresentacion>();
 
+            services.AddScoped<IUsuariosPresentacion, UsuariosPresentacion>();
+
             //Para Razor Pages
             services.AddControllers();
             services.AddEndpointsApiExplorer();
@@ -47,8 +49,8 @@ namespace asp_presentaciones
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
-            app.MapRazorPages();
             app.UseSession();
+            app.MapRazorPages();
             app.Run();
         }
     }        

@@ -6,7 +6,7 @@ namespace lib_repositorios.Interfaces
     {
         void Configurar(string StringConexion);
         List<Membresias> Listar();
-        List<Membresias> PorTipoMembresia(Membresias? entidad);
+        List<Membresias> Filtro(Membresias? entidad);
         Membresias? Guardar(Membresias? entidad);
         Membresias? Modificar(Membresias? entidad);
         Membresias? Borrar(Membresias? entidad);

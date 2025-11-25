@@ -61,27 +61,30 @@ namespace lib_repositorios.Implementaciones
 
         public List<InstalacionesClientes> Listar()
         {
-            return this.IConexion!.InstalacionesClientes!.Take(20).ToList();
+            return this.IConexion!.InstalacionesClientes!.Take(20).Include(x => x._IdClientes).Include(y => y._IdInstalaciones).ToList();
         }
 
-        public List<InstalacionesClientes> PorIdClientes(InstalacionesClientes? entidad)
-        {
-            if (entidad == null)
+        public List<InstalacionesClientes> Filtro(InstalacionesClientes? entidad)
+        {            
+            var consulta = this.IConexion!.InstalacionesClientes!.Include(x => x._IdClientes).Include(y => y._IdInstalaciones).AsQueryable();
+
+            //Filtro por el nombre del cliente
+            if (entidad?._IdClientes?.Nombre is not null)
             {
-                return new List<InstalacionesClientes>();
+                consulta = consulta.Where(x =>
+                    x._IdClientes!.Nombre.Contains(entidad._IdClientes.Nombre)
+                );
             }
 
-            return this.IConexion!.InstalacionesClientes!.Where(x => x.IdClientes! == entidad!.IdClientes).ToList();
-        }
-
-        public List<InstalacionesClientes> PorIdInstalaciones(InstalacionesClientes? entidad)
-        {
-            if (entidad == null)
+            //Filtro por la direccion de la instalacion
+            if (entidad?._IdInstalaciones?.Direccion is not null)
             {
-                return new List<InstalacionesClientes>();
+                consulta = consulta.Where(x =>
+                    x._IdInstalaciones!.Direccion.Contains(entidad._IdInstalaciones.Direccion)
+                );
             }
 
-            return this.IConexion!.InstalacionesClientes!.Where(x => x.IdInstalaciones! == entidad!.IdInstalaciones).ToList();
+            return consulta.ToList();
         }
 
         public InstalacionesClientes? Modificar(InstalacionesClientes? entidad)

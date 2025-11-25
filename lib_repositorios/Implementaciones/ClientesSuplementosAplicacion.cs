@@ -73,27 +73,30 @@ namespace lib_repositorios.Implementaciones
 
         public List<ClientesSuplementos> Listar()
         {
-            return this.IConexion!.ClientesSuplementos!.Take(20).ToList();
+            return this.IConexion!.ClientesSuplementos!.Take(20).Include(x => x._IdClientes).Include(y => y._IdSuplementos).ToList();
         }
 
-        public List<ClientesSuplementos> PorIdClientes(ClientesSuplementos? entidad)
+        public List<ClientesSuplementos> Filtro(ClientesSuplementos? entidad)
         {
-            if (entidad == null)
+            var consulta = this.IConexion!.ClientesSuplementos!.Include(x => x._IdClientes).Include(y => y._IdSuplementos).AsQueryable();
+
+            //Filtro por el nombre del cliente
+            if (entidad?._IdClientes?.Nombre is not null)
             {
-                return new List<ClientesSuplementos>();
+                consulta = consulta.Where(x =>
+                    x._IdClientes!.Nombre.Contains(entidad._IdClientes.Nombre)
+                );
             }
 
-            return this.IConexion!.ClientesSuplementos!.Where(x => x.IdClientes! == entidad!.IdClientes).ToList();
-        }
-
-        public List<ClientesSuplementos> PorIdSuplementos(ClientesSuplementos? entidad)
-        {
-            if (entidad == null)
+            //Filtro por el nombre del suplemento
+            if (entidad?._IdSuplementos?.NombreSuplemento is not null)
             {
-                return new List<ClientesSuplementos>();
+                consulta = consulta.Where(x =>
+                    x._IdSuplementos!.NombreSuplemento.Contains(entidad._IdSuplementos.NombreSuplemento)
+                );
             }
 
-            return this.IConexion!.ClientesSuplementos!.Where(x => x.IdSuplementos! == entidad!.IdSuplementos).ToList();
+            return consulta.ToList();
         }
 
         public ClientesSuplementos? Modificar(ClientesSuplementos? entidad)

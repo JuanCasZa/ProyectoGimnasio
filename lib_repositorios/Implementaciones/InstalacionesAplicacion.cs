@@ -61,6 +61,17 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.Instalaciones!.Take(20).ToList();
         }
 
+        public List<Instalaciones> Filtro(Instalaciones? entidad)
+        {
+            
+            var consulta = this.IConexion!.Instalaciones!.AsQueryable();
+
+            //Filtro por Direccion y por Telefono
+            consulta = consulta.Where(x => x.Direccion!.Contains(entidad!.Direccion!) && x.Telefono!.Contains(entidad!.Telefono!)).Take(50);
+
+            return consulta.ToList();
+        }
+
         public Instalaciones? Modificar(Instalaciones? entidad)
         {
             Instalaciones? entidadvieja = this.IConexion!.Instalaciones!.FirstOrDefault(x => x.Id! == entidad!.Id);

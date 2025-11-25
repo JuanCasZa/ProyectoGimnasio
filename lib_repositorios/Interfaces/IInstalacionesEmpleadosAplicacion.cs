@@ -6,8 +6,7 @@ namespace lib_repositorios.Interfaces
     {
         void Configurar(string StringConexion);
         List<InstalacionesEmpleados> Listar();
-        List<InstalacionesEmpleados> PorIdEmpleados(InstalacionesEmpleados? entidad);
-        List<InstalacionesEmpleados> PorIdInstalaciones(InstalacionesEmpleados? entidad);
+        List<InstalacionesEmpleados> Filtro(InstalacionesEmpleados? entidad);
         InstalacionesEmpleados? Guardar(InstalacionesEmpleados? entidad);
         InstalacionesEmpleados? Modificar(InstalacionesEmpleados? entidad);
         InstalacionesEmpleados? Borrar(InstalacionesEmpleados? entidad);

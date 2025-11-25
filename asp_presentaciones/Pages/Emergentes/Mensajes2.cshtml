@@ -1,0 +1,34 @@
+﻿<center>
+    <div class='popup'>
+        <div class='pp_ms_inner'>
+            <div style='width:95%'>
+                <h2 align="left">
+                    Mensaje
+                </h2>
+
+                <h4 align="left">
+                    @ViewData["Mensaje"]
+                </h4>
+                @if (ViewData["TipoError"]?.ToString() == "Acceso")
+                {
+                    <form method="POST">
+                        <input type="submit"
+                               value="Cerrar"
+                               asp-page-handler="BtCerrar"
+                               class="btn btn-secondary" />
+                    </form>
+                }
+                else
+                {
+                    <form method="POST">
+                        <input type="submit"
+                               value="Cerrar"
+                               asp-page-handler="BtCerrar2"
+                               class="btn btn-secondary" />
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</center>
+

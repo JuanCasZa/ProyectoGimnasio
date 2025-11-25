@@ -6,7 +6,7 @@ namespace lib_repositorios.Interfaces
     {
         void Configurar(string StringConexion);
         List<BeneficiosMembresias> Listar();
-        List<BeneficiosMembresias> PorMembresia(BeneficiosMembresias? entidad);
+        List<BeneficiosMembresias> Filtro(BeneficiosMembresias? entidad);
         BeneficiosMembresias? Guardar(BeneficiosMembresias? entidad);
         BeneficiosMembresias? Modificar(BeneficiosMembresias? entidad);
         BeneficiosMembresias? Borrar(BeneficiosMembresias? entidad);

@@ -56,5 +56,30 @@ namespace asp_servicios.Controllers
                 return JsonConversor.ConvertirAString(respuesta); 
             }
         }
+
+        [HttpPost]
+        public string ValidarRol()
+        {
+            var respuesta = new Dictionary<string, object>();
+
+            try
+            {
+                var datos = ObtenerDatos();
+                string llave = datos["Llave"].ToString()!;
+
+                string rol = this.iAplicacion!.ValidarRol(llave);
+
+                respuesta["Rol"] = rol;
+                respuesta["Respuesta"] = "OK";
+
+                return JsonConversor.ConvertirAString(respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta["Error"] = ex.ToString();
+                return JsonConversor.ConvertirAString(respuesta);
+            }
+        }
+
     }
 }

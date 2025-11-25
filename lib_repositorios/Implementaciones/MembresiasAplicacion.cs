@@ -60,7 +60,7 @@ namespace lib_repositorios.Implementaciones
             return this.IConexion!.Membresias!.Take(20).ToList();
         }
 
-        public List<Membresias> PorTipoMembresia(Membresias? entidad)
+        public List<Membresias> Filtro(Membresias? entidad)
         {
             return this.IConexion!.Membresias!.Where(x => x.TipoMembresia!.Contains(entidad!.TipoMembresia!)).ToList();
         }
