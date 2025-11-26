@@ -51,6 +51,19 @@ namespace lib_presentaciones.Implementaciones
             {
                 throw new Exception("lbFaltaInformacion");
             }
+            
+            //Validacion para que los campos no esten vacios
+            if(entidad!.Nombre == null || entidad!.Identificacion == null || entidad!.Telefono == null || entidad!.Especialidad == null || 
+                entidad!.Cargo == null || entidad!.HorarioDisponible == null)
+            {
+                throw new Exception("HayCamposVacios");
+            }
+
+            //Validacion para que la identificacion y el telefono sean solo digitos
+            if (!entidad!.Identificacion.All(char.IsDigit)) throw new Exception("LaIdentificacionDebenSerSoloNumeros");
+
+            if (!entidad!.Telefono.All(char.IsDigit)) throw new Exception("ElTelefonoDebenSerSoloNumeros");
+
             var datos = new Dictionary<string, object>();
             datos["Entidad"] = entidad;
 
@@ -73,6 +86,19 @@ namespace lib_presentaciones.Implementaciones
             {
                 throw new Exception("lbFaltaInformacion");
             }
+
+            //Validacion para que los campos no esten vacios
+            if (entidad!.Nombre == null || entidad!.Identificacion == null || entidad!.Telefono == null || entidad!.Especialidad == null ||
+                entidad!.Cargo == null || entidad!.HorarioDisponible == null)
+            {
+                throw new Exception("HayCamposVacios");
+            }
+
+            //Validacion para que la identificacion y el telefono sean solo digitos
+            if (!entidad!.Identificacion.All(char.IsDigit)) throw new Exception("LaIdentificacionDebenSerSoloNumeros");
+
+            if (!entidad!.Telefono.All(char.IsDigit)) throw new Exception("ElTelefonoDebenSerSoloNumeros");
+
             var datos = new Dictionary<string, object>();
             datos["Entidad"] = entidad;
 

@@ -51,6 +51,11 @@ namespace lib_presentaciones.Implementaciones
             {
                 throw new Exception("lbFaltaInformacion");
             }
+
+            //Validacion de campos no vacios
+            if (entidad!.NombreInstrumento == null || entidad!.Marca == null || entidad!.DescripcionGeneral == null)
+                throw new Exception("CamposVacios");
+
             var datos = new Dictionary<string, object>();
             datos["Entidad"] = entidad;
 
@@ -73,6 +78,11 @@ namespace lib_presentaciones.Implementaciones
             {
                 throw new Exception("lbFaltaInformacion");
             }
+
+            //Validacion de campos no vacios
+            if (entidad!.NombreInstrumento == null || entidad!.Marca == null || entidad!.DescripcionGeneral == null)
+                throw new Exception("CamposVacios");
+
             var datos = new Dictionary<string, object>();
             datos["Entidad"] = entidad;
 
