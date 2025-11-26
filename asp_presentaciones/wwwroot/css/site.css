@@ -425,3 +425,11 @@ body.welcome-page {
 h1, h2, h3 {
     color: white;
 }
+
+/*Logotipo del encabezado*/
+.logo-gym {
+    height: 65px; /* Ajusta el tamaño a tu gusto */
+    width: auto;
+    object-fit: contain;
+    margin-top: -5px; /* opcional: alinea mejor con el menú */
+}
