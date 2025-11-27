@@ -105,7 +105,7 @@ namespace asp_servicios.Controllers
                 var entidad = JsonConversor.ConvertirAObjeto<InstalacionesEmpleados>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
-                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 1);
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), entidad!, 1);
                 entidad = this.iAplicacion!.Guardar(entidad);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
@@ -137,7 +137,7 @@ namespace asp_servicios.Controllers
                 var entidad = JsonConversor.ConvertirAObjeto<InstalacionesEmpleados>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
-                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 2);
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), entidad!, 2);
                 entidad = this.iAplicacion!.Modificar(entidad);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
@@ -169,7 +169,7 @@ namespace asp_servicios.Controllers
                 var entidad = JsonConversor.ConvertirAObjeto<InstalacionesEmpleados>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
-                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 3);
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), entidad!, 3);
                 entidad = this.iAplicacion!.Borrar(entidad);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";

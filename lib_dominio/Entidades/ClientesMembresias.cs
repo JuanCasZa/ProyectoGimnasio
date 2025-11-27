@@ -12,7 +12,6 @@ namespace lib_dominio.Entidades
         public int IdClientes { get; set; }
         [ForeignKey("IdClientes")] public Clientes? _IdClientes { get; set; }
         public int IdMembresias { get; set; }
-
         [ForeignKey("IdMembresias")] public Membresias? _IdMembresias { get; set; }
     }
 }

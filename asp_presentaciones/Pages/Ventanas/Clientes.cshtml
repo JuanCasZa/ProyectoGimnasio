@@ -1,0 +1,305 @@
+﻿@page
+@model asp_presentacion.Pages.Ventanas.ClientesModel
+@{
+    ViewData["Titulo"] = "";
+}
+<center>
+    <div>
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            @Html.AntiForgeryToken()
+            <div align="center">
+                <h2>Clientes</h2>
+            </div>
+
+            <div align="center"
+                 class="bt_panel_buttons">
+                <input type="submit"
+                       value="Refrescar"
+                       asp-page-handler="BtRefrescar"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+                <input type="submit"
+                       value="Nuevo"
+                       asp-page-handler="BtNuevo"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+                <input type="submit"
+                       value="Guardar"
+                       asp-page-handler="BtGuardar"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+                <input type="submit"
+                       value="Cancelar"
+                       asp-page-handler="BtCancelar"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+            </div>
+
+            @if (Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas ||
+                        Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Id" />
+            }
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Nombre" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Identificacion" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Edad" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.CorreoElectronico" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Telefono" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Estatura" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Peso" />
+            }
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
+            {
+                <div class="containers_vn panel panel-default">
+                    <div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Nombre
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmNombre"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Nombre" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Identificacion
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmIdentificacion"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Identificacion" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Edad
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmEdad"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Edad" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Correo Electronico
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmCorreoElectronico"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.CorreoElectronico" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Telefono
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmTelefono"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Telefono" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Estatura
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmEstatura"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Estatura" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Peso
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmPeso"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.Peso" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (ViewData.ContainsKey("Mensaje"))
+            {
+                <input type="hidden"
+                       asp-for="@Model.Accion" />
+                @await Html.PartialAsync("../Emergentes/Mensajes2.cshtml")
+                ;
+            }
+
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <div class='popup'>
+                    <div class='pp_del_inner'>
+                        <div style='width:95%'>
+                            <h2 align="left">
+                                Mensaje
+                            </h2>
+                            <h4 align="left">
+                                Desea borrar el Cliente?
+                            </h4>
+                            <h6 align="left">
+                                Beneficios : @Model.Actual!.Nombre
+                            </h6>
+                            <h6 align="left">
+                                Identificacion : @Model.Actual!.Identificacion
+                            </h6>
+                            <br />
+                            <br />
+                            <input type="submit"
+                                   value="Borrar"
+                                   asp-page-handler="BtBorrar"
+                                   class="btn btn-secondary" />
+                            <input type="submit"
+                                   value="Cerrar"
+                                   asp-page-handler="BtCancelar"
+                                   class="btn btn-secondary" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas ||
+                        Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <div class="filtros-container">
+                    <h3>Filtros</h3>
+                    <h6>Nombre</h6>
+                    <input id="flNombre"
+                           class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.Nombre"
+                           placeholder="Nombre" />
+                    <br />
+                    <h6>Identificacion</h6>
+                    <input id="flIdentificacion"
+                           class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.Identificacion"
+                           placeholder="Identificacion" />
+                    <h6>Edad</h6>
+                    <input id="flEdad"
+                           class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.Edad"
+                           placeholder="Edad" />
+                    <br />
+                    <h6>CorreoElectronico</h6>
+                    <input id="flCorreoElectronico"
+                           class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.CorreoElectronico"
+                           placeholder="CorreoElectronico" />
+                    <h6>Telefono</h6>
+                    <input id="flTelefono"
+                           class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.Telefono"
+                           placeholder="Telefono" />
+                    <br />
+                    <h6>Estatura</h6>
+                    <input id="flEstatura"
+                           class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.Estatura"
+                           placeholder="Estatura" />
+                    <h6>Peso</h6>
+                    <input id="flPeso"
+                           class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.Peso"
+                           placeholder="Peso" />
+                    <br />
+                </div>
+                <br />
+
+                <div class="tabla-container">
+                    <h1 align="left">Tabla de informacion</h1>
+                    <div class="containers_vn panel panel-default">
+                        <table class="tb_data table table-striped table-bordered table-hover">
+                            <tr>
+                                <th>
+                                    Nombre
+                                </th>
+                                <th>
+                                    Identificacion
+                                </th>
+                                <th>
+                                    Edad
+                                </th>
+                                <th>
+                                    CorreoElectronico
+                                </th>
+                                <th>
+                                    Telefono
+                                </th>
+                                <th>
+                                    Estatura
+                                </th>
+                                <th>
+                                    Peso
+                                </th>
+                                <th class="cl_actions">
+                                    Accion
+                                </th>
+                            </tr>
+                            @if (Model != null && Model.Lista != null)
+                            {
+                                @foreach (var elemento in Model.Lista)
+                                {
+                                    <tr>
+                                        <td>
+                                            @elemento.Nombre
+                                        </td>
+                                        <td>
+                                            @elemento.Identificacion
+                                        </td>
+                                        <td>
+                                            @elemento.Edad
+                                        </td>
+                                        <td>
+                                            @elemento.CorreoElectronico
+                                        </td>
+                                        <td>
+                                            @elemento.Telefono
+                                        </td>
+                                        <td>
+                                            @elemento.Estatura
+                                        </td>
+                                        <td>
+                                            @elemento.Peso
+                                        </td>
+                                        <td>
+                                            <input type="submit"
+                                                   value="Modificar"
+                                                   asp-page-handler="BtModificar"
+                                                   class="btn btn-secondary"
+                                                   asp-route-data="@elemento.Id" />
+                                            <input type="submit"
+                                                   value="Borrar"
+                                                   asp-page-handler="BtBorrarVal"
+                                                   class="btn btn-secondary"
+                                                   asp-route-data="@elemento.Id" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            }
+        </form>
+    </div>
+</center>

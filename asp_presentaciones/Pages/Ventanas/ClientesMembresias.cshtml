@@ -1,0 +1,223 @@
+﻿@page
+@model asp_presentacion.Pages.Ventanas.ClientesMembresiasModel
+@{
+    ViewData["Titulo"] = "";
+}
+<center>
+    <div>
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            @Html.AntiForgeryToken()
+            <div align="center">
+                <h2>Clientes y membresias</h2>
+            </div>
+
+            <div align="center"
+                 class="bt_panel_buttons">
+                <input type="submit"
+                       value="Refrescar"
+                       asp-page-handler="BtRefrescar"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+                <input type="submit"
+                       value="Nuevo"
+                       asp-page-handler="BtNuevo"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+                <input type="submit"
+                       value="Guardar"
+                       asp-page-handler="BtGuardar"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+                <input type="submit"
+                       value="Cancelar"
+                       asp-page-handler="BtCancelar"
+                       class="btn btn-secondary"
+                       disabled="@(Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas)" />
+            </div>
+
+            @if (Model.Accion != lib_dominio.Nucleo.Enumerables.Ventanas.Listas ||
+                        Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <input type="hidden"
+                       asp-for="@Model.Actual!.Id" />
+            }
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <input type="hidden"
+                       asp-for="@Model.Actual!.FechaInicio" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.FechaFin" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.IdClientes" />
+                <input type="hidden"
+                       asp-for="@Model.Actual!.IdMembresias" />
+            }
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
+            {
+                <div class="containers_vn panel panel-default">
+                    <div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Fecha inicio membresia
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmFechaInicio"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.FechaInicio" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Fecha fin membresia
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmFechaFin"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.FechaFin" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Id del Cliente asociado
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmIdClientes"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.IdClientes" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">
+                                Id del Membresia asociado
+                            </label>
+                            <div class="col-lg-6">
+                                <input id="nmIdMembresias"
+                                       class="cts_forms form-control"
+                                       asp-for="@Model.Actual!.IdMembresias" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (ViewData.ContainsKey("Mensaje"))
+            {
+                <input type="hidden"
+                       asp-for="@Model.Accion" />
+                @await Html.PartialAsync("../Emergentes/Mensajes2.cshtml")
+                ;
+            }
+
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <div class='popup'>
+                    <div class='pp_del_inner'>
+                        <div style='width:95%'>
+                            <h2 align="left">
+                                Mensaje
+                            </h2>
+                            <h4 align="left">
+                                Desea borrar este registro?
+                            </h4>
+                            <h6 align="left">
+                                Nombre del suplemento : @Model.Actual!._IdMembresias!.NombreSuplemento
+                            </h6>
+                            <h6 align="left">
+                                Nombre del Cliente asociado : @Model.Actual!._IdClientes!.Nombre
+                            </h6>
+                            <br />
+                            <br />
+                            <input type="submit"
+                                   value="Borrar"
+                                   asp-page-handler="BtBorrar"
+                                   class="btn btn-secondary" />
+                            <input type="submit"
+                                   value="Cerrar"
+                                   asp-page-handler="BtCancelar"
+                                   class="btn btn-secondary" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Listas ||
+                        Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
+            {
+                <div class="filtros-container">
+                    <h3>Filtros</h3>
+                    <h6>Tipo de membresia asociado</h6>
+                    <input id="fl_IdMembresiasNombre"
+                           class="cts_forms form-control"
+                           asp-for="@Model.Filtro!._IdMembresias!.TipoMembresia"
+                           placeholder="Direccion" />
+                    <br />
+                    <h6>Nombre del cliente asociado</h6>
+                    <input id="fl_IdClientesNombre"
+                           class="cts_forms form-control"
+                           asp-for="@Model.Filtro!._IdClientes!.Nombre"
+                           placeholder="Nombre" />
+                </div>
+                <br />
+
+                <div class="tabla-container">
+                    <h1 align="left">Tabla de informacion</h1>
+                    <div class="containers_vn panel panel-default">
+                        <table class="tb_data table table-striped table-bordered table-hover">
+                            <tr>
+                                <th>
+                                    Fecha inicio membresia
+                                </th>
+                                <th>
+                                    Fecha fin membresia
+                                </th>
+                                <th>
+                                    Tipo de membresia Asociada
+                                </th>
+                                <th>
+                                    Nombre del Cliente Asociado
+                                </th>
+                                <th class="cl_actions">
+                                    Accion
+                                </th>
+                            </tr>
+                            @if (Model != null && Model.Lista != null)
+                            {
+                                @foreach (var elemento in Model.Lista)
+                                {
+                                    <tr>
+                                        <td>
+                                            @elemento.FechaInicio
+                                        </td>
+                                        <td>
+                                            @elemento.FechaFin
+                                        </td>
+                                        <td>
+                                            @elemento._IdMembresias!.TipoMembresia
+                                        </td>
+                                        <td>
+                                            @elemento._IdClientes!.Nombre
+                                        </td>
+                                        <td>
+                                            <input type="submit"
+                                                   value="Modificar"
+                                                   asp-page-handler="BtModificar"
+                                                   class="btn btn-secondary"
+                                                   asp-route-data="@elemento.Id" />
+                                            <input type="submit"
+                                                   value="Borrar"
+                                                   asp-page-handler="BtBorrarVal"
+                                                   class="btn btn-secondary"
+                                                   asp-route-data="@elemento.Id" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            }
+        </form>
+    </div>
+</center>

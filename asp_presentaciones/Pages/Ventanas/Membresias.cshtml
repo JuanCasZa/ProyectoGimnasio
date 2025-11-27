@@ -1,5 +1,5 @@
 ﻿@page
-@model asp_presentacion.Pages.Ventanas.InstalacionesEmpleadosModel
+@model asp_presentacion.Pages.Ventanas.MembresiasModel
 @{
     ViewData["Titulo"] = "";
 }
@@ -10,7 +10,7 @@
 
             @Html.AntiForgeryToken()
             <div align="center">
-                <h2>Instalaciones y Empleados</h2>
+                <h2>Membresias</h2>
             </div>
 
             <div align="center"
@@ -46,9 +46,9 @@
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
             {
                 <input type="hidden"
-                       asp-for="@Model.Actual!.IdInstalaciones" />
+                       asp-for="@Model.Actual!.TipoMembresia" />
                 <input type="hidden"
-                       asp-for="@Model.Actual!.IdEmpleados" />
+                       asp-for="@Model.Actual!.Valor" />
             }
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Editar)
             {
@@ -56,22 +56,22 @@
                     <div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Id de la Instalacion asociada
+                                TipoMembresia
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmIdInstalaciones"
+                                <input id="nmTipoMembresia"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.IdInstalaciones" />
+                                       asp-for="@Model.Actual!.TipoMembresia" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Id del Empleado asociado
+                                Valor
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmIdEmpleados"
+                                <input id="nmValor"
                                        class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.IdEmpleados" />
+                                       asp-for="@Model.Actual!.Valor" />
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,8 @@
             {
                 <input type="hidden"
                        asp-for="@Model.Accion" />
-                @await Html.PartialAsync("../Emergentes/Mensajes2.cshtml");
+                @await Html.PartialAsync("../Emergentes/Mensajes2.cshtml")
+                ;
             }
 
             @if (Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
@@ -97,10 +98,7 @@
                                 Desea borrar la entidad?
                             </h4>
                             <h6 align="left">
-                                Direccion de la Instalacion asociada : @Model.Actual!._IdInstalaciones!.Direccion
-                            </h6>
-                            <h6 align="left">
-                                Nombre del Empleado asociado : @Model.Actual!._IdEmpleados!.Nombre
+                                Tipo de Membresia: @Model.Actual!.TipoMembresia
                             </h6>
                             <br />
                             <br />
@@ -121,76 +119,64 @@
                         Model.Accion == lib_dominio.Nucleo.Enumerables.Ventanas.Borrar)
             {
                 <div class="filtros-container">
-                <h3>Filtros</h3>
-                <h6>Direccion de la instalacion asociada</h6>
-                    <input id="fl_IdInstalacionesDireccion"
-                       class="cts_forms form-control"
-                       asp-for="@Model.Filtro!._IdInstalaciones!.Direccion"
-                           placeholder="Direccion" />
-                <br />
-                <h6>Nombre del empleado asociado</h6>
-                <input id="fl_IdEmpleadosNombre"
-                       class="cts_forms form-control"
-                       asp-for="@Model.Filtro!._IdEmpleados!.Nombre"
-                       placeholder="Nombre" />
+                    <h3>Filtros</h3>
+                    <h6>TipoMembresia</h6>
+                    <input id="flTipoMembresia"
+                           class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.TipoMembresia"
+                           placeholder="TipoMembresia" />
+                    <br />
+                    <h6>Valor</h6>
+                    <input id="flValor"
+                           class="cts_forms form-control"
+                           asp-for="@Model.Filtro!.Valor"
+                           placeholder="Valor" />
+                    <br />
                 </div>
                 <br />
-                
                 <div class="tabla-container">
-                <h1 align="left">Tabla de informacion</h1>
-                <div class="containers_vn panel panel-default">
-                    <table class="tb_data table table-striped table-bordered table-hover">
-                        <tr>
-                            <th>
-                                    Id de la Instalacion Asociada
-                            </th>
-                            <th>
-                                    Direccion de la Instalacion Asociada
-                            </th>
-                            <th>
-                                    Id del Empleado Asociado
-                            </th>
-                            <th>
-                                    Nombre del Empleado Asociado
-                            </th>
-                            <th class="cl_actions">
-                                Accion
-                            </th>
-                        </tr>
-                        @if (Model != null && Model.Lista != null)
-                        {
-                            @foreach (var elemento in Model.Lista)
+                    <h1 align="left">Tabla de informacion</h1>
+                    <div class="containers_vn panel panel-default">
+                        <table class="tb_data table table-striped table-bordered table-hover">
+                            <tr>
+                                <th>
+                                    TipoMembresia
+                                </th>
+                                <th>
+                                    Valor
+                                </th>
+                                <th class="cl_actions">
+                                    Accion
+                                </th>
+                            </tr>
+                            @if (Model != null && Model.Lista != null)
                             {
-                                <tr>
-                                    <td>
-                                            @elemento.IdInstalaciones
-                                    </td>
-                                    <td>
-                                            @elemento._IdInstalaciones!.Direccion
-                                    </td>
-                                    <td>
-                                            @elemento.IdEmpleados
-                                    </td>
-                                    <td>
-                                            @elemento._IdEmpleados!.Nombre
-                                    </td>
-                                    <td>
-                                        <input type="submit"
-                                               value="Modificar"
-                                               asp-page-handler="BtModificar"
-                                               class="btn btn-secondary"
-                                               asp-route-data="@elemento.Id" />
-                                        <input type="submit"
-                                               value="Borrar"
-                                               asp-page-handler="BtBorrarVal"
-                                               class="btn btn-secondary"
-                                               asp-route-data="@elemento.Id" />
-                                    </td>
-                                </tr>
+                                @foreach (var elemento in Model.Lista)
+                                {
+                                    <tr>
+                                        <td>
+                                            @elemento.TipoMembresia
+                                        </td>
+                                        <td>
+                                            @elemento.Valor
+                                        </td>
+                                        <td>
+                                            <input type="submit"
+                                                   value="Modificar"
+                                                   asp-page-handler="BtModificar"
+                                                   class="btn btn-secondary"
+                                                   asp-route-data="@elemento.Id" />
+                                            <input type="submit"
+                                                   value="Borrar"
+                                                   asp-page-handler="BtBorrarVal"
+                                                   class="btn btn-secondary"
+                                                   asp-route-data="@elemento.Id" />
+                                        </td>
+                                    </tr>
+                                }
                             }
-                        }
-                    </table>
-                </div>
+                        </table>
+                    </div>
                 </div>
             }
         </form>

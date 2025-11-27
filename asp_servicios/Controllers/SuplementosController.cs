@@ -116,8 +116,9 @@ namespace asp_servicios.Controllers
                 var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(JsonConversor.ConvertirAString(datos["Entidad"]));
 
                 //MIRAR COMO HACER PARA QUE ESAS ENTIDADES NO RETORNEN ESA CADENA DE TEXTO TODA RARA
-                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 1);
+                
                 entidad = this.iAplicacion!.Guardar(entidad);
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), entidad!, 1);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
                 respuesta["Fecha"] = DateTime.Now.ToString();
@@ -149,8 +150,9 @@ namespace asp_servicios.Controllers
                 var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
-                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 2);
+                
                 entidad = this.iAplicacion!.Modificar(entidad);
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!),entidad!, 2);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
                 respuesta["Fecha"] = DateTime.Now.ToString();
@@ -182,7 +184,7 @@ namespace asp_servicios.Controllers
                 var entidad = JsonConversor.ConvertirAObjeto<Suplementos>(
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
-                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), 3);
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!),entidad!, 3);
                 entidad = this.iAplicacion!.Borrar(entidad);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";

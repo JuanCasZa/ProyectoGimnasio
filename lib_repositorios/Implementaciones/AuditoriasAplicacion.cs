@@ -17,30 +17,30 @@ namespace lib_repositorios.Implementaciones
             this.IConexion!.StringConexion = StringConexion;
         }
 
-        public void AgregarAuditoria(Auditorias? entidad, Usuarios? usuario, int Tipo)
+        public void AgregarAuditoria(Auditorias? auditoria, Usuarios? usuario, Object entidad,  int Tipo)
         {
-            entidad!.Fecha = DateTime.Now;
-            entidad.IdUsuario = usuario!.Id;
+            auditoria!.Fecha = DateTime.Now;
+            auditoria.IdUsuario = usuario!.Id;
 
             switch (Tipo)
             {
                 case 1:
-                    entidad!.TipoOperacion = "INSERT";
-                    entidad.ValoresAntiguos = "Sin valores";
-                    entidad.ValoresNuevos = entidad.ToString();
+                    auditoria!.TipoOperacion = "INSERT";
+                    auditoria.ValoresAntiguos = "Sin valores";
+                    auditoria.ValoresNuevos = entidad.ToString();
                     break;
                 case 2:
-                    entidad!.TipoOperacion = "UPDATE";
-                    entidad.ValoresAntiguos = entidad.ToString();
-                    entidad.ValoresNuevos = "Se realizó una actualización";
+                    auditoria!.TipoOperacion = "UPDATE";
+                    auditoria.ValoresAntiguos = entidad.ToString();
+                    auditoria.ValoresNuevos = "Se realizó una actualización";
                     break;
                 case 3:
-                    entidad!.TipoOperacion = "DELETE";
-                    entidad.ValoresAntiguos = entidad.ToString();
-                    entidad.ValoresNuevos = "Se eliminó el registro";
+                    auditoria!.TipoOperacion = "DELETE";
+                    auditoria.ValoresAntiguos = entidad.ToString();
+                    auditoria.ValoresNuevos = "Se eliminó el registro";
                     break;
             }
-            this.IConexion!.Auditorias!.Add(entidad!);
+            this.IConexion!.Auditorias!.Add(auditoria!);
             this.IConexion.SaveChanges();
         }
     }
