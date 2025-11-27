@@ -51,6 +51,14 @@ namespace lib_presentaciones.Implementaciones
             {
                 throw new Exception("lbFaltaInformacion");
             }
+
+            //Validacion para campos no vacios
+            if (entidad!.NombreEntidad == null || entidad!.Direccion == null || entidad!.Telefono == null)
+                throw new Exception("CamposVacios");
+
+            //Validacion de los caracteres del telefono
+            if (!entidad!.Telefono.All(char.IsDigit)) throw new Exception("ElTelefonoDebeSerSoloNumeros");
+
             var datos = new Dictionary<string, object>();
             datos["Entidad"] = entidad;
 
@@ -73,6 +81,14 @@ namespace lib_presentaciones.Implementaciones
             {
                 throw new Exception("lbFaltaInformacion");
             }
+
+            //Validacion para campos no vacios
+            if (entidad!.NombreEntidad == null || entidad!.Direccion == null || entidad!.Telefono == null)
+                throw new Exception("CamposVacios");
+
+            //Validacion de los caracteres del telefono
+            if (!entidad!.Telefono.All(char.IsDigit)) throw new Exception("ElTelefonoDebeSerSoloNumeros");
+
             var datos = new Dictionary<string, object>();
             datos["Entidad"] = entidad;
 
