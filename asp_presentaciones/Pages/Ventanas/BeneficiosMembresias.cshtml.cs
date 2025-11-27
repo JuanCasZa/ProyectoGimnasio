@@ -9,12 +9,14 @@ namespace asp_presentacion.Pages.Ventanas
     public class BeneficiosMembresiasModel : PageModel
     {
         private IBeneficiosMembresiasPresentacion? iPresentacion = null;
+        private IMembresiasPresentacion? iPresentacion2 = null;
 
-        public BeneficiosMembresiasModel(IBeneficiosMembresiasPresentacion iPresentacion)
+        public BeneficiosMembresiasModel(IBeneficiosMembresiasPresentacion iPresentacion, IMembresiasPresentacion? iPresentacion2)
         {
             try
             {
                 this.iPresentacion = iPresentacion;
+                this.iPresentacion2 = iPresentacion2;
                 Filtro = new BeneficiosMembresias()
                 {
                     _IdMembresias = new Membresias() //Para inicializar el constructor de Membresias
@@ -24,6 +26,8 @@ namespace asp_presentacion.Pages.Ventanas
             {
                 LogConversor.Log(ex, ViewData!);
             }
+
+            this.iPresentacion2 = iPresentacion2;
         }
 
         public IFormFile? FormFile { get; set; }
@@ -31,6 +35,8 @@ namespace asp_presentacion.Pages.Ventanas
         [BindProperty] public BeneficiosMembresias? Actual { get; set; }
         [BindProperty] public BeneficiosMembresias? Filtro { get; set; }
         [BindProperty] public List<BeneficiosMembresias>? Lista { get; set; }
+
+        [BindProperty] public List<Membresias>? Lista2 { get; set; }
         public virtual void OnGet() { OnPostBtRefrescar(); }
 
         public void OnPostBtRefrescar()
@@ -54,6 +60,7 @@ namespace asp_presentacion.Pages.Ventanas
                 var task = this.iPresentacion!.Filtro(Filtro!, token!);
                 task.Wait();
                 Lista = task.Result;
+
                 Actual = null;
             }
             catch (Exception ex)
@@ -67,8 +74,14 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
+                var token = HttpContext.Session.GetString("Token"); //IMPLEMENTANDO COSAS
+
                 Accion = Enumerables.Ventanas.Editar;
                 Actual = new BeneficiosMembresias();
+
+                var task2 = this.iPresentacion2!.Listar(token!);
+                task2.Wait();
+                Lista2 = task2.Result;
             }
             catch (Exception ex)
             {

@@ -66,12 +66,12 @@
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">
-                                Id de la Membresia asociada
+                                Tipo de la membresia asociada
                             </label>
                             <div class="col-lg-6">
-                                <input id="nmIdMembresias"
-                                       class="cts_forms form-control"
-                                       asp-for="@Model.Actual!.IdMembresias" />
+                                <select id="nmTipoMembresia" class="form-control" asp-for="@Model.Actual!.IdMembresias" 
+                                    asp-items="@(new SelectList(Model.Lista2, "Id", "TipoMembresia"))">
+                                </select>
                             </div>
                         </div>
                     </div>
