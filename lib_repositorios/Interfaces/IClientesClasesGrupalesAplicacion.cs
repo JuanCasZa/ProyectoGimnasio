@@ -10,5 +10,6 @@ namespace lib_repositorios.Interfaces
         ClientesClasesGrupales? Guardar(ClientesClasesGrupales? entidad);
         ClientesClasesGrupales? Modificar(ClientesClasesGrupales? entidad);
         ClientesClasesGrupales? Borrar(ClientesClasesGrupales? entidad);
+        String ToStringClienteClaseGrupal(ClientesClasesGrupales? entidad);
     }
 }

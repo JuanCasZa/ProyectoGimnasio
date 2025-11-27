@@ -15,5 +15,6 @@ namespace lib_repositorios.Interfaces
         ClasesGrupales? Guardar(ClasesGrupales? entidad);
         ClasesGrupales? Modificar(ClasesGrupales? entidad);
         ClasesGrupales? Borrar(ClasesGrupales? entidad);
+        String ToStringClaseGrupal(ClasesGrupales? claseGrupal);
     }
 }

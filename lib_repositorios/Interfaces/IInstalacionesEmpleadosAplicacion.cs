@@ -10,5 +10,6 @@ namespace lib_repositorios.Interfaces
         InstalacionesEmpleados? Guardar(InstalacionesEmpleados? entidad);
         InstalacionesEmpleados? Modificar(InstalacionesEmpleados? entidad);
         InstalacionesEmpleados? Borrar(InstalacionesEmpleados? entidad);
+        String ToStringInstalacionesEmpleados(InstalacionesEmpleados? entidad);
     }
 }

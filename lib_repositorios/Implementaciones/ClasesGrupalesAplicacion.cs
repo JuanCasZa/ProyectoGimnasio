@@ -100,5 +100,12 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+        public String ToStringClaseGrupal(ClasesGrupales? claseGrupal)
+        {
+            if (claseGrupal == null)
+                return "Clase Grupal nula";
+            return $"ID: {claseGrupal.Id}, Tipo de Clase: {claseGrupal.TipoClase}, Nivel: {claseGrupal.Nivel}, Duración: {claseGrupal.Duracion} horas, Capacidad Máxima: {claseGrupal.CapacidadMax}";
+        }
+
     }
 }

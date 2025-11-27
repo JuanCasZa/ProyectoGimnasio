@@ -145,5 +145,11 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+        public String ToStringInstrumentos(Instrumentos? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformación");
+            return $"Id: {entidad.Id}, Nombre Instrumento: {entidad.NombreInstrumento}, Cantidad Equipos: {entidad.CantidadEquip}, Piezas: {entidad.Piezas}, Marca: {entidad.Marca}, Descripción General: {entidad.DescripcionGeneral}, Estado: {entidad.Estado}, Proveedor Id: {entidad.Proveedor}";
+        }
     }
 }

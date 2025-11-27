@@ -101,5 +101,11 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+        public String ToStringInstalaciones(Instalaciones? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformación");
+            return $"Id: {entidad.Id}, Dirección: {entidad.Direccion}, Teléfono: {entidad.Telefono}";
+        }
     }
 }

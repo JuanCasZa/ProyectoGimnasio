@@ -113,5 +113,15 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+        public String ToStringClienteClaseGrupal(ClientesClasesGrupales? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformación");
+            var cliente = this.IConexion!.Clientes!.FirstOrDefault(c => c.Id == entidad.IdClientes);
+            var clase = this.IConexion!.ClasesGrupales!.FirstOrDefault(cg => cg.Id == entidad.IdClasesGrupales);
+            if (cliente == null || clase == null)
+                throw new Exception("Entidad relacionada no encontrada");
+            return $"Cliente: {cliente.Nombre}, Clase Grupal: {clase.TipoClase}, Asistencias: {entidad.Asistencias}";
+        }
     }
 }

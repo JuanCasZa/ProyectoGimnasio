@@ -107,5 +107,11 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+        public String toStrigEmpleado(Empleados? empleado)
+        {
+            if (empleado == null)
+                throw new Exception("lbFaltaInformación");
+            return $"Id: {empleado.Id}, Nombre: {empleado.Nombre}, Identificacion: {empleado.Identificacion}, Telefono: {empleado.Telefono}, Años de Experiencia: {empleado.AnhosExperiencia}, Salario: {empleado.Salario}, Estado: {empleado.Estado}, Especialidad: {empleado.Especialidad}, Cargo: {empleado.Cargo}, Horario Disponible: {empleado.HorarioDisponible}, Fecha de Contratacion: {empleado.FechaContratacion}";
+        }
     }
 }

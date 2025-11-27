@@ -15,5 +15,6 @@ namespace lib_repositorios.Interfaces
         Proveedores? Guardar(Proveedores? entidad);
         Proveedores? Modificar(Proveedores? entidad);
         Proveedores? Borrar(Proveedores? entidad);
+        String ToStringProveedores(Proveedores? entidad);
     }
 }

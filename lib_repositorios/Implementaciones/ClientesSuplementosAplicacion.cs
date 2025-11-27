@@ -119,5 +119,11 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+        public string ToStringClientesSuplementos(ClientesSuplementos? entidad)
+        {
+            if (entidad == null)
+                return "lbFaltaInformación";
+            return $"Id: {entidad.Id}, CantidadCompraSuplementos: {entidad.CantidadCompraSuplementos}, ValorTotalCompra: {entidad.ValorTotalCompra}, IdClientes: {entidad.IdClientes}, IdSuplementos: {entidad.IdSuplementos}";
+        }
     }
 }

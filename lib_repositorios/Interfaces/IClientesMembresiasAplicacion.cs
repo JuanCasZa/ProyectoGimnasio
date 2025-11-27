@@ -11,5 +11,6 @@ namespace lib_repositorios.Interfaces
         ClientesMembresias? Guardar(ClientesMembresias? entidad);
         ClientesMembresias? Modificar(ClientesMembresias? entidad);
         ClientesMembresias? Borrar(ClientesMembresias? entidad);
+        String ToStringClienteMembresia(ClientesMembresias? entidad);
     }
 }

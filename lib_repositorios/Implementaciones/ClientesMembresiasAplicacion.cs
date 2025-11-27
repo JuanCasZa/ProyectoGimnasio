@@ -128,5 +128,16 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+        public String ToStringClienteMembresia(ClientesMembresias? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformación");
+            ClientesMembresias? entidadvieja = this.IConexion!.ClientesMembresias!
+                .Include(x => x._IdClientes)
+                .Include(y => y._IdMembresias)
+                .FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+            return $"Cliente: {entidadvieja._IdClientes!.Nombre}, Membresía: {entidadvieja._IdMembresias!.TipoMembresia}, Inicio: {entidadvieja.FechaInicio}, Fin: {entidadvieja.FechaFin}";
+        }
     }
 }

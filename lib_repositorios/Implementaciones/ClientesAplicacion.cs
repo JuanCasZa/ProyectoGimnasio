@@ -121,5 +121,11 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+        public String ToStringCliente(Clientes? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformación");
+            return $"Id: {entidad.Id}, Nombre: {entidad.Nombre}, Identificacion: {entidad.Identificacion}, Edad: {entidad.Edad}, CorreoElectronico: {entidad.CorreoElectronico}, Telefono: {entidad.Telefono}, Estatura: {entidad.Estatura}, Peso: {entidad.Peso}";
+        }
     }
 }

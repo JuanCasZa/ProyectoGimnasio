@@ -15,5 +15,6 @@ namespace lib_repositorios.Interfaces
         Instrumentos? Guardar(Instrumentos? entidad);
         Instrumentos? Modificar(Instrumentos? entidad);
         Instrumentos? Borrar(Instrumentos? entidad);
+        String ToStringInstrumentos(Instrumentos? entidad);
     }
 }

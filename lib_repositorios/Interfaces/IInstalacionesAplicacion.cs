@@ -11,5 +11,6 @@ namespace lib_repositorios.Interfaces
         Instalaciones? Guardar(Instalaciones? entidad);
         Instalaciones? Modificar(Instalaciones? entidad);
         Instalaciones? Borrar(Instalaciones? entidad);
+        String ToStringInstalaciones(Instalaciones? entidad);
     }
 }

@@ -123,5 +123,12 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+        
+        public String toStringSuplementos(Suplementos? entidad)
+        {
+            return "Nombre Suplemento: "+entidad!.NombreSuplemento+", Tipo suplemento: "+entidad!.TipoSuplemento +
+                ", Valor: "+entidad!.Valor+", Cantidad: "+entidad!.Cantidad;
+        }
+
     }
 }

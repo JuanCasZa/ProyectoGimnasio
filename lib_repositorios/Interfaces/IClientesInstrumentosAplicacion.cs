@@ -16,5 +16,6 @@ namespace lib_repositorios.Interfaces
         ClientesInstrumentos? Guardar(ClientesInstrumentos? entidad);
         ClientesInstrumentos? Modificar(ClientesInstrumentos? entidad);
         ClientesInstrumentos? Borrar(ClientesInstrumentos? entidad);
+        String ToStringClientesInstrumentos(ClientesInstrumentos? entidad);
     }
 }

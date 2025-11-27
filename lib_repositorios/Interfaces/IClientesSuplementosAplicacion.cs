@@ -10,5 +10,6 @@ namespace lib_repositorios.Interfaces
         ClientesSuplementos? Guardar(ClientesSuplementos? entidad);
         ClientesSuplementos? Modificar(ClientesSuplementos? entidad);
         ClientesSuplementos? Borrar(ClientesSuplementos? entidad);
+        String ToStringClientesSuplementos(ClientesSuplementos? entidad);
     }
 }

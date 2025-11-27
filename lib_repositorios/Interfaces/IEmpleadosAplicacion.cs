@@ -10,5 +10,6 @@ namespace lib_repositorios.Interfaces
         Empleados? Guardar(Empleados? entidad);
         Empleados? Modificar(Empleados? entidad);
         Empleados? Borrar(Empleados? entidad);
+        String toStrigEmpleado(Empleados? empleado);
     }
 }

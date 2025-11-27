@@ -10,5 +10,6 @@ namespace lib_repositorios.Interfaces
         Membresias? Guardar(Membresias? entidad);
         Membresias? Modificar(Membresias? entidad);
         Membresias? Borrar(Membresias? entidad);
+        String ToStringMembresias(Membresias? entidad);
     }
 }

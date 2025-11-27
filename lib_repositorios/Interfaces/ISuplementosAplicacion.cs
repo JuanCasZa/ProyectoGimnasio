@@ -10,5 +10,6 @@ namespace lib_repositorios.Interfaces
         Suplementos? Guardar(Suplementos? entidad);
         Suplementos? Modificar(Suplementos? entidad);
         Suplementos? Borrar(Suplementos? entidad);
+        String toStringSuplementos(Suplementos? entidad);
     }
 }

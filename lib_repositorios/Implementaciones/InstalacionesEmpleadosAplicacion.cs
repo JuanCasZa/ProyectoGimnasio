@@ -124,5 +124,13 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+        public String ToStringInstalacionesEmpleados(InstalacionesEmpleados? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformación");
+            Instalaciones? instalacion = this.IConexion!.Instalaciones!.FirstOrDefault(x => x.Id! == entidad.IdInstalaciones);
+            Empleados? empleado = this.IConexion!.Empleados!.FirstOrDefault(x => x.Id! == entidad.IdEmpleados);
+            return $"Instalacion: {instalacion?.Direccion}, Empleado: {empleado?.Nombre}";
+        }
     }
 }

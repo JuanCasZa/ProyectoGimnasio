@@ -105,5 +105,12 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+        public string ToStringBeneficiosMembresias(BeneficiosMembresias? beneficiosMembresias)
+        {
+            if (beneficiosMembresias == null)
+                return "Beneficios membresias nulos";
+            return $"ID: {beneficiosMembresias.Id}, Beneficios: {beneficiosMembresias.Beneficios}, IdMembresia: {beneficiosMembresias.IdMembresias}, Tipo Membresia: {beneficiosMembresias._IdMembresias!.TipoMembresia}";
+
+        }
     }
 }

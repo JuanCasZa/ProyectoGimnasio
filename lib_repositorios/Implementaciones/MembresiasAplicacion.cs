@@ -80,5 +80,11 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+        public String ToStringMembresias(Membresias? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformación");
+            return $"Id: {entidad.Id}, Valor: {entidad.Valor}, TipoMembresia: {entidad.TipoMembresia}";
+        }
     }
 }

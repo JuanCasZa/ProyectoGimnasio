@@ -6,10 +6,10 @@ namespace lib_repositorios.Interfaces
     {
         void Configurar(string StringConexion);
         List<Clientes> Listar();
-
         List<Clientes> Filtro(Clientes? entidad);
         Clientes? Guardar(Clientes? entidad);
         Clientes? Modificar(Clientes? entidad);
         Clientes? Borrar(Clientes? entidad);
+        String ToStringCliente(Clientes? entidad);
     }
 }

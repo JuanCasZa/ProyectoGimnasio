@@ -10,5 +10,6 @@ namespace lib_repositorios.Interfaces
         BeneficiosMembresias? Guardar(BeneficiosMembresias? entidad);
         BeneficiosMembresias? Modificar(BeneficiosMembresias? entidad);
         BeneficiosMembresias? Borrar(BeneficiosMembresias? entidad);
+        String ToStringBeneficiosMembresias(BeneficiosMembresias? entidad);
     }
 }

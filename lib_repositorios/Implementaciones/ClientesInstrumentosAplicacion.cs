@@ -144,5 +144,13 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+        public String ToStringClientesInstrumentos(ClientesInstrumentos? entidad)
+        {
+            if (entidad == null)
+                return "lbFaltaInformación";
+            ClientesInstrumentos? entidadvieja = this.IConexion!.ClientesInstrumentos!.Include(x => x._IdClientes).Include(y => y._IdInstrumentos).FirstOrDefault(x => x.Id! == entidad!.Id);
+            if (entidadvieja == null) throw new Exception("La entidad no existe");
+            return $"Id: {entidadvieja.Id}, Cliente: {entidadvieja._IdClientes?.Nombre}, Instrumento: {entidadvieja._IdInstrumentos?.NombreInstrumento}";
+        }
     }
 }

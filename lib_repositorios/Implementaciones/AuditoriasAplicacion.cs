@@ -17,7 +17,7 @@ namespace lib_repositorios.Implementaciones
             this.IConexion!.StringConexion = StringConexion;
         }
 
-        public void AgregarAuditoria(Auditorias? auditoria, Usuarios? usuario, Object entidad,  int Tipo)
+        public void AgregarAuditoria(Auditorias? auditoria, Usuarios? usuario, String entidad,  int Tipo)
         {
             auditoria!.Fecha = DateTime.Now;
             auditoria.IdUsuario = usuario!.Id;
@@ -27,16 +27,16 @@ namespace lib_repositorios.Implementaciones
                 case 1:
                     auditoria!.TipoOperacion = "INSERT";
                     auditoria.ValoresAntiguos = "Sin valores";
-                    auditoria.ValoresNuevos = entidad.ToString();
+                    auditoria.ValoresNuevos = entidad;
                     break;
                 case 2:
                     auditoria!.TipoOperacion = "UPDATE";
-                    auditoria.ValoresAntiguos = entidad.ToString();
+                    auditoria.ValoresAntiguos = entidad;
                     auditoria.ValoresNuevos = "Se realizó una actualización";
                     break;
                 case 3:
                     auditoria!.TipoOperacion = "DELETE";
-                    auditoria.ValoresAntiguos = entidad.ToString();
+                    auditoria.ValoresAntiguos = entidad;
                     auditoria.ValoresNuevos = "Se eliminó el registro";
                     break;
             }

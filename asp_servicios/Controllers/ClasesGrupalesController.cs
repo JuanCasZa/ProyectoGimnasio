@@ -110,7 +110,7 @@ namespace asp_servicios.Controllers
                     JsonConversor.ConvertirAString(datos["Entidad"]));
                 
 
-                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), entidad!, 1);
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), iAplicacion.ToStringClaseGrupal(entidad!), 1);
                 entidad = this.iAplicacion!.Guardar(entidad);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
@@ -144,7 +144,7 @@ namespace asp_servicios.Controllers
                     JsonConversor.ConvertirAString(datos["Entidad"]));
                 
 
-                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), entidad!, 2);
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), iAplicacion.ToStringClaseGrupal(entidad!), 2);
                 entidad = this.iAplicacion!.Modificar(entidad);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";
@@ -178,7 +178,7 @@ namespace asp_servicios.Controllers
                     JsonConversor.ConvertirAString(datos["Entidad"]));
 
 
-                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), entidad!, 3);
+                iAplicacionAuditoria!.AgregarAuditoria(iAplicacionToken!.GetAuditoria(), iAplicacionToken!.GetUsuario(datos["Llave"].ToString()!), iAplicacion.ToStringClaseGrupal(entidad!), 3);
                 entidad = this.iAplicacion!.Borrar(entidad);
                 respuesta["Entidad"] = entidad!;
                 respuesta["Respuesta"] = "OK";

@@ -132,5 +132,12 @@ namespace lib_repositorios.Implementaciones
             this.IConexion.SaveChanges();
             return entidad;
         }
+
+        public String ToStringProveedores(Proveedores? entidad)
+        {
+            if (entidad == null)
+                throw new Exception("lbFaltaInformacion");
+            return $"Id: {entidad.Id}, Nombre: {entidad.NombreEntidad}, Dirección: {entidad.Direccion}, Teléfono: {entidad.Telefono}, Valor Total Venta: {entidad.ValorTotalVenta}";
+        }
     }
 }
